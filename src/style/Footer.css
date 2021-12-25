@@ -1,0 +1,19 @@
+footer {
+    grid-area: footer;
+    width: 80%;
+    margin-left: 10%;
+    height: 5vh;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: 10px 5px 5px grey;
+}
+
+footer a{
+  color: white;
+  text-decoration: none;
+}
