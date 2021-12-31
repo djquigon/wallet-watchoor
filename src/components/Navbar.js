@@ -1,23 +1,49 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import "../style/Navbar.css"
 import logo from "../assets/logo.gif"
-import address_book from "../assets/address_book.png"
-import chat from "../assets/chat.png"
-import feed from "../assets/feed.png"
-import game from "../assets/game.png"
-import search from "../assets/search.png"
+import {MdExitToApp, MdInfo} from "react-icons/md"
+/** Use in app */
+import {FaGithub, FaMedium, FaSearch, FaGasPump, FaAddressBook, FaBeer, FaGamepad} from "react-icons/fa";
+import {ImFeed} from "react-icons/im";
 
 const Navbar = () => {
     return (
         <nav>
-            <img id="logo" src={logo}></img>
-            <h1>Wallet Watchoor<small>&#8482;</small></h1>
             <ul id="menu">
-                <li><a href="#"><img className="menu-icon" src={search}></img></a></li>
-                <li><a href="#"><img className="menu-icon" src={address_book}></img></a></li>
-                <li><a href="#"><img className="menu-icon" src={feed}></img></a></li>
-                <li><a href="#"><img className="menu-icon" src={chat}></img></a></li>
-                <li><a href="#"><img className="menu-icon" src={game}></img></a></li>
+                <li>
+                    <div id="logo-container">
+                        <img id="logo" src={logo}></img>
+                        <div id="logo-overlay">
+                            <a href="https://github.com/djquigon"><FaGithub/></a>
+                            <a href="https://www.linkedin.com/in/logan-scheid-287753137"><FaMedium/></a>
+                        </div>
+                    </div>
+                    <Link to="/" style={{fontSize: "12px"}}>Wallet Watchoor<small>&#8482;</small></Link>
+                </li>
+                <li className="menu-item">
+                    <Link to="app">
+                        <MdExitToApp className='menu-icon'/>
+                        <p>Enter App</p>
+                    </Link>
+                </li>
+                <li className="menu-item">
+                    <Link to="info">
+                        <MdInfo className='menu-icon'/>
+                        <p>Learn More</p>
+                    </Link>
+                </li>
+                <li className="menu-item" id="gwei-tracker">
+                    <a target="_blank" href="https://etherscan.io/gastracker">
+                        <FaGasPump className='menu-icon'/>
+                        <p>92 Gwei</p>
+                    </a>
+                </li>
+                <li className="menu-item">
+                    <button id="theme-btn">
+                        <span role="img">🌞</span>
+                    </button>
+                </li>
             </ul>
         </nav>
     )

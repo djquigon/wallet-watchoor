@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html {
@@ -20,8 +19,8 @@ body {
   grid-template-areas:
   'navbar content'
   'navbar footer';
-  grid-template-columns: 10vw auto;
-  /*grid-template-rows: 95% 5%;*/
+  grid-template-columns: 100px auto;
+  grid-template-rows: auto 5%;
   background-color: white;
   height: 100vh; 
   width: 100%; 

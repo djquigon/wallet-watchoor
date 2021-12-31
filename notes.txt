@@ -1,0 +1,11 @@
+-const [address, setAddress] = useState(null)
+const handleConnectWallet = () => {
+        /*The value of a state variable will not be changed within a function, once the function has returned the value will be updated */
+        setAddress(address + "123")
+        console.log(address) /*Will log only address not the addition of 123*/
+}
+{/*need to have an anonymous arrow function to pass into a function in jsx like in comment below */}
+{/* <button onClick={() => {handleConnectWallet2("Tom")}}>Connect Wallet</button> */}
+const handleConnectWallet2 = (name) => {
+        console.log(name + "You clicked")
+}
