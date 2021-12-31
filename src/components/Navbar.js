@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import "../style/Navbar.css"
 import logo from "../assets/logo.gif"
-import {MdExitToApp, MdInfo} from "react-icons/md"
+import {MdInfo} from "react-icons/md"
 /** Use in app */
 import {FaGithub, FaMedium, FaSearch, FaGasPump, FaAddressBook, FaBeer, FaGamepad} from "react-icons/fa";
-import {ImFeed} from "react-icons/im";
+import {ImEnter} from "react-icons/im";
 
 const Navbar = () => {
     return (
@@ -23,7 +23,7 @@ const Navbar = () => {
                 </li>
                 <li className="menu-item">
                     <Link to="app">
-                        <MdExitToApp className='menu-icon'/>
+                        <ImEnter className='menu-icon'/>
                         <p>Enter App</p>
                     </Link>
                 </li>

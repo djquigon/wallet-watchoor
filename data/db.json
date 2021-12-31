@@ -1,63 +1,57 @@
 {
-  "items": [
+  "addresses": [
     {
-      "name": "Dudley",
+      "alias": "Dudley",
       "address": "1JNuqL9G7KbANXTdseVs3Zcte1qoFqU5AC",
-      "checked": true,
+      "checked": false,
       "id": 2
     },
     {
-      "name": "Faulkner",
+      "alias": "Faulkner",
       "address": "1PKP2jcWutuN7uVANNawVK4Hdf3TnBWpUm",
-      "checked": true,
+      "checked": false,
       "id": 3
     },
     {
-      "name": "Robby",
+      "alias": "Robby",
       "address": "1LGH2TiqKoGMrgdLaSPCBocnbeQAQtAdi2",
       "checked": false,
       "id": 4
     },
     {
-      "name": "Whittaker",
+      "alias": "Whittaker",
       "address": "1G3ca3xxwVt9FncxkqZFEH7xjmrZTgDiE2",
       "checked": false,
       "id": 5
     },
     {
-      "name": "Bertram",
+      "alias": "Bertram",
       "address": "1KC1aKZiBC9tRzv5UzLHMdjKstXDRvPe2M",
-      "checked": true,
+      "checked": false,
       "id": 6
     },
     {
-      "name": "Cherida",
+      "alias": "Cherida",
       "address": "1KJ5sXTSXJdB95iunGCbqWpyQuPV85hNXZ",
       "checked": false,
       "id": 7
     },
     {
-      "name": "Boonie",
+      "alias": "Boonie",
       "address": "1FT4GQ9LznSskHf84FEAnGs1bPWiueJHH9",
-      "checked": true,
+      "checked": false,
       "id": 8
     },
     {
-      "name": "Nanon",
+      "alias": "Nanon",
       "address": "1BXNL8iYrDv9mPKNfkzJ2Mp86YXwkBtJn5",
-      "checked": true,
+      "checked": false,
       "id": 10
     },
     {
       "id": 11,
       "checked": false,
-      "name": "Coo",
-      "address": "0xabd405"
-    },
-    {
-      "id": 12,
-      "checked": false,
-      "name": "pizza",
+      "alias": "Alias",
       "address": "0xabd405"
     }
   ]

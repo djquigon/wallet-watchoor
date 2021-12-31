@@ -1,26 +1,26 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import "../style/WatchList.css"
-import WatchListItem from './WatchListItem'
-import WatchListAddItem from './WatchListAddItem'
+import WatchListAddress from './WatchListAddress'
+import WatchListAddAddress from './WatchListAddAddress'
 import WatchListSearch from './WatchListSearch'
 import apiRequest from '../apiRequest'
 
-const WatchList = ({items, setItems}) => {
-    const API_URL = "http://localhost:3500/items";
-    const [newItem, setNewItem] = useState('');
+const WatchList = ({addresses, setAddresses}) => {
+    const API_URL = "http://localhost:3500/addresses";
+    const [newAddress, setNewAddress] = useState('');
     const [search, setSearch] = useState('');
     const [fetchError, setFetchError] = useState(null);
     const [isLoading, setIsLoading] = useState(true)
     
     /**An empty array makes useEffect run at every reload, not every render */
     useEffect(() => {
-        const fetchItems = async () => {
+        const fetchAddresses = async () => {
             try{
                 const response = await fetch(API_URL)
                 if(!response.ok) throw Error('Did not receive expected data')
-                const listItems = await response.json();
-                setItems(listItems)
+                const listAddresses = await response.json();
+                setAddresses(listAddresses)
                 setFetchError(null)
             } catch (err) {
                 setFetchError(err.message)
@@ -29,25 +29,25 @@ const WatchList = ({items, setItems}) => {
             }
         }
 
-        /**fetchItems returns no value, so you can simply call it, if it did return something you'd need to us an async instantly invoked function expression */
+        /**fetchAddresses returns no value, so you can simply call it, if it did return something you'd need to us an async instantly invoked function expression */
         /**simulate api response time */
         setTimeout(() => {
-            fetchItems()
+            fetchAddresses()
         }, 2000)
     }, [])
 
-    const addWatchListItem = async (name, address) => {
-        const id = items.length ? items[items.length - 1].id + 1 : 1
-        const myNewItem = {id, checked: false, name, address}
-        const listItems = [...items, myNewItem]
-        setItems(listItems)
+    const addWatchListAddress = async (alias, address) => {
+        const id = addresses.length ? addresses[addresses.length - 1].id + 1 : 1
+        const myNewAddress = {id, checked: false, alias, address}
+        const listAddresses = [...addresses, myNewAddress]
+        setAddresses(listAddresses)
 
         const postOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(myNewItem) 
+            body: JSON.stringify(myNewAddress) 
         }
 
         const result = await apiRequest(API_URL, postOptions)
@@ -55,18 +55,18 @@ const WatchList = ({items, setItems}) => {
     }
 
     const handleCheck = async (id) => {
-        const listItems = items.map(item => item.id === id ? 
-        /*Copy item but changed checked status to opposite*/
-        {...item, checked: !item.checked} : item )
-        setItems(listItems)
+        const listAddresses = addresses.map(address => address.id === id ? 
+        /*Copy address but changed checked status to opposite*/
+        {...address, checked: !address.checked} : address )
+        setAddresses(listAddresses)
 
-        const myItem = listItems.filter(item => item.id === id)
+        const myAddress = listAddresses.filter(address => address.id === id)
         const updateOptions = {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({checked: myItem[0].checked})
+            body: JSON.stringify({checked: myAddress[0].checked})
         }
         const reqUrl = `${API_URL}/${id}`;
         const result = await apiRequest(reqUrl, updateOptions)
@@ -74,8 +74,8 @@ const WatchList = ({items, setItems}) => {
     }
 
     const handleDelete = async (id) => {
-        const listItems = items.filter((item) => item.id !== id);
-        setItems(listItems)
+        const listAddresses = addresses.filter((address) => address.id !== id);
+        setAddresses(listAddresses)
 
         const deleteOptions = {
             method: 'DELETE'
@@ -87,38 +87,38 @@ const WatchList = ({items, setItems}) => {
 
     const handleWatchListAdd = (e) => {
         e.preventDefault();
-        if(!newItem){
+        if(!newAddress){
             return
         }
         /**Need to adapt to add actual second field for addresses */
-        addWatchListItem(newItem, "0xabd405")
+        addWatchListAddress(newAddress, "0xabd405")
         /**Sets the input text to empty */
-        setNewItem("")
+        setNewAddress("")
     }
 
-    const filteredItems = items.filter(
-        item => 
-        ((item.name).toLowerCase()).includes(search.toLowerCase()) 
-        || ((item.address).toLowerCase()).includes(search.toLowerCase())
+    const filteredAddresses = addresses.filter(
+        address => 
+        ((address.alias).toLowerCase()).includes(search.toLowerCase()) 
+        || ((address.address).toLowerCase()).includes(search.toLowerCase())
     )
 
     return (
         <div id="watch-list">
-            {isLoading && <p>Loading Items...</p>}
+            {isLoading && <p>Loading Addresses...</p>}
             {fetchError && <p> {`Error: ${fetchError}`}</p>}
             {!fetchError && !isLoading && <>
-                <WatchListAddItem newItem={newItem} setNewItem={setNewItem} handleWatchListAdd={handleWatchListAdd}/>
+                <WatchListAddAddress newAddress={newAddress} setNewAddress={setNewAddress} handleWatchListAdd={handleWatchListAdd}/>
                 <WatchListSearch search={search} setSearch={setSearch}/>
-                {filteredItems.length !== 0 ? (
+                {filteredAddresses.length !== 0 ? (
                     <ul>
-                        {filteredItems.map((item) => (
-                            <WatchListItem key={item.id} item={item} handleCheck={handleCheck} handleDelete={handleDelete}/>
+                        {filteredAddresses.map((address) => (
+                            <WatchListAddress key={address.id} address={address} handleCheck={handleCheck} handleDelete={handleDelete}/>
                         ))}
                     </ul>
                 ) : 
                     (<p style={{marginTop: '2rem'}}>Your list is empty.</p>
                 )}
-                <p>{filteredItems.length} List Item(s)</p>
+                <p>{filteredAddresses.length} Address(s)</p>
             </>}
         </div>
     )

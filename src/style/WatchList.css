@@ -1,24 +1,27 @@
 #watch-list{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border-width: 2px;
-    border-color: black;
-    border-style: groove;
-}
-/*COPIED*/
-ul {
-    width: 100%;
-    list-style: none;
-    padding: 0 0.25rem 0.25rem;
+  padding-top: unset;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-width: 2px;
+  border-color: black;
+  border-style: groove;
 }
 
-ul li::before {
+#watch-list ul{
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: 100%;
+  list-style: none;
+  padding: 0 0.25rem 0.25rem;
+}
+
+#watch-list ul li::before {
     content: "\200B";
 }
 
-/*watchlistitem*/
-.item {
+/*watchlistaddress*/
+.address {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -27,44 +30,40 @@ ul li::before {
     background-color: #eee;
 }
 
-.item:first-child {
+.address:first-child {
     margin: 0;
 }
 
-.item input[type="checkbox"] {
+.address input[type="checkbox"] {
     text-align: center;
-    width: 2.5rem;
-    width: 48px;
-    min-width: 48px;
-    height: 2.5rem;
-    height: 48px;
-    min-height: 48px;
+    width: 24px;
+    min-width: 12px;
     cursor: pointer;
-    margin-right: 0.5rem;
 }
 
-.item > label {
-    font-size: 0.75rem;
+.address > label {
+    font-size: 12px;
     flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.item svg {
-    width: 48px;
-    min-width: 48px;
-    height: 36px;
-    font-size: 1rem;
+.address svg {
+    width: 12px;
+    min-width: 12px;
     color: black;
     cursor: pointer;
     transition: .25s ease;
 }
 
- .item svg:hover {
+ .address svg:hover {
     color: red;
     outline: none;
 }
 
-/*WatchList add item*/
+/*WatchList add address*/
 .addForm {
+    background-color: black;
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -78,7 +77,6 @@ ul li::before {
   
   .addForm input[type='text'] {
     flex-grow: 1; /*assign all remaining space to the text input based on button*/
-    min-height: 48px;
     font-size: 1rem;
     padding: 0.25rem;
     border-radius: 12px;
@@ -86,11 +84,19 @@ ul li::before {
   }
   
   button {
+    height: 40px;
+    min-height: 40px;
+    width: 40px;
+    min-width: 40px;
     border-radius: 12px;
     background-color: black;
     color: white;
     cursor: pointer;
     transition: 0.25s ease;
+  }
+
+  button svg{
+    padding: unset;
   }
   
   button:hover {

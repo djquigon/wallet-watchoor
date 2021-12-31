@@ -1,5 +1,5 @@
 import Layout from './components/Layout';
-import Content from './components/Content'; /**App */
+import Dashboard from './components/Dashboard'; /**App */
 import Home from './components/Home';
 import Info from './components/Info';
 import Missing from './components/Missing';
@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home/>}/>
-          <Route path="app" element={<Content/>}/>
+          <Route path="app" element={<Dashboard/>}/>
           <Route path="info" element={<Info/>}/>
           <Route path="*" element={<Missing/>}/>
         </Route>
