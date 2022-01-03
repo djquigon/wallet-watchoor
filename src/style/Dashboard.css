@@ -9,7 +9,7 @@ main {
 }
 
 main * {
-  padding: 1vh;
+  padding: 0.5vh;
 }
 
 #connect-btn{
@@ -60,4 +60,14 @@ main * {
 
 #dosbox{
   grid-area: dosbox;
+}
+
+#feed-header{
+  background-color: black;
+  width: 100%;
+  height: 2.5%;
+}
+
+#feed-header p{
+  color: white;
 }

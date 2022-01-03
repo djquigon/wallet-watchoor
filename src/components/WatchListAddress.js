@@ -6,8 +6,9 @@ const WatchListAddress = ({address, handleCheck, handleDelete}) => {
         /**Keys are required for react list addresses */
         <li className='address'>
             <input type="checkbox" onChange={() => handleCheck(address.id)} checked={address.checked}></input>
-            <label style={address.checked ? { textDecoration: 'line-through'
-            } : null }>{`Alias: {${address.alias}} Address: {${address.address}}`}</label>
+            <label>
+                <a target="_blank" href={`https://etherscan.io/address/${address.address}`}> {address.alias}//{address.address}</a>
+            </label>
             <FaTrashAlt role="button" tabIndex="0" aria-label = {`Delete ${address.alias}`} onClick={() => handleDelete(address.id)}/>
         </li>
     )

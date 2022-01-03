@@ -4,7 +4,7 @@ import "../style/Navbar.css"
 import logo from "../assets/logo.gif"
 import {MdInfo} from "react-icons/md"
 /** Use in app */
-import {FaGithub, FaMedium, FaSearch, FaGasPump, FaAddressBook, FaBeer, FaGamepad} from "react-icons/fa";
+import {FaGithub, FaMedium, FaGasPump} from "react-icons/fa";
 import {ImEnter} from "react-icons/im";
 
 const Navbar = () => {
@@ -19,7 +19,7 @@ const Navbar = () => {
                             <a href="https://www.linkedin.com/in/logan-scheid-287753137"><FaMedium/></a>
                         </div>
                     </div>
-                    <Link to="/" style={{fontSize: "12px"}}>Wallet Watchoor<small>&#8482;</small></Link>
+                    <Link to="/" style={{fontSize: "14px"}}>Wallet Watchoor<small>&#8482;</small></Link>
                 </li>
                 <li className="menu-item">
                     <Link to="app">

@@ -20,6 +20,10 @@
     content: "\200B";
 }
 
+#watch-list p {
+  font-size: 12px;
+}
+
 /*watchlistaddress*/
 .address {
     display: flex;
@@ -41,11 +45,13 @@
     cursor: pointer;
 }
 
-.address > label {
+.address label, .address a {
     font-size: 12px;
     flex-grow: 1;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-decoration: none;
+    color: black;
 }
 
 .address svg {
@@ -67,7 +73,7 @@
     width: 100%;
     display: flex;
     justify-content: flex-start;
-    border-bottom: 1px solid #eee;;
+    border-bottom: 1px solid #eee;
   }
   
   .addForm label {
@@ -120,7 +126,6 @@
   .searchForm input[type='text'] {
     flex-grow: 1;
     max-width: 100%;
-    min-height: 48px;
     font-size: 1rem;
     padding: 0.25rem;
     border-radius: 12p;

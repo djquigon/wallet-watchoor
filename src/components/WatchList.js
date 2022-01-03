@@ -7,7 +7,7 @@ import WatchListSearch from './WatchListSearch'
 import apiRequest from '../apiRequest'
 
 const WatchList = ({addresses, setAddresses}) => {
-    const API_URL = "http://localhost:3500/addresses";
+    const API_URL = "http://localhost:8000/addresses";
     const [newAddress, setNewAddress] = useState('');
     const [search, setSearch] = useState('');
     const [fetchError, setFetchError] = useState(null);
