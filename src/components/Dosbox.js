@@ -28,7 +28,7 @@ const Dosbox = () => {
             )
             : (
                 <>
-                    <div id={DosboxCSS['game-screen']}>
+                    <div id={DosboxCSS.gameScreen}>
                         <p>pick a game below</p>
                     </div>
                     <div id={DosboxCSS.controls}>

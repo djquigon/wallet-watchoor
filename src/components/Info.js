@@ -1,4 +1,5 @@
 import React from 'react'
+import InfoCSS from '../style/Info.module.css'
 
 const Info = () => {
     return (

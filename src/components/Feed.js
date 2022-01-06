@@ -1,9 +1,10 @@
 import React from 'react'
+import FeedCSS from '../style/Feed.module.css'
 
 const Feed = () => {
     return (
-        <div id="feed" style={{border: 'groove'}}>
-            <div id="feed-header"><p>Feed</p></div>
+        <div id={FeedCSS.feed} style={{border: 'groove'}}>
+            <div id={FeedCSS.feedHeader}><p>Feed</p></div>
             <table>
                 <thead>
                     <tr>

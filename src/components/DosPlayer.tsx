@@ -32,7 +32,7 @@ const DosPlayer = ({game, startGame, exitGame}) => {
     }, [ref]);
 
     return (
-        <div id="game-container">
+        <div id={DosboxCSS.gameContainer}>
             <canvas style={{width: '640px', height: "480px"}} ref={ref} />
             <button onClick={exitGame}>Eject</button>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import "../style/Footer.css"
+import "../style/Footer.module.css"
 
 const Footer = () => {
     const today = new Date()

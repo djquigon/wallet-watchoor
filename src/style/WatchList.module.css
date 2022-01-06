@@ -1,4 +1,4 @@
-#watch-list{
+#watchList{
   padding-top: unset;
   display: flex;
   align-items: center;
@@ -6,9 +6,10 @@
   border-width: 2px;
   border-color: black;
   border-style: groove;
+  grid-area: watchlist;
 }
 
-#watch-list ul{
+#watchList ul{
   overflow-x: hidden;
   overflow-y: scroll;
   width: 100%;
@@ -16,11 +17,11 @@
   padding: 0 0.25rem 0.25rem;
 }
 
-#watch-list ul li::before {
+#watchList ul li::before {
     content: "\200B";
 }
 
-#watch-list p {
+#watchList p {
   font-size: 12px;
 }
 
@@ -89,7 +90,7 @@
     margin-right: 0.25rem;
   }
   
-  #watch-list button {
+  #watchList button {
     height: 40px;
     min-height: 40px;
     width: 40px;

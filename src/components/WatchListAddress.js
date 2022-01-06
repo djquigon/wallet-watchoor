@@ -1,5 +1,6 @@
 import React from 'react'
 import {FaTrashAlt} from "react-icons/fa";
+import WatchListCSS from "../style/WatchList.module.css"
 
 const WatchListAddress = ({address, handleCheck, handleDelete}) => {
     return (

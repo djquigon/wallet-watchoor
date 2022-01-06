@@ -1,6 +1,6 @@
 import React from 'react'
 import {useState} from 'react'
-import "../style/Dashboard.css"
+import DashboardCSS from "../style/Dashboard.module.css"
 import ChainNav from './ChainNav'
 import Feed from './Feed'
 import WatchList from './WatchList'
@@ -13,8 +13,8 @@ const Dashboard = () => {
 
     return (
         <main>
-            <button id="connect-btn">Connect Wallet</button>
-            <div id="dashboard-container">
+            <button id={DashboardCSS.connectBtn}>Connect Wallet</button>
+            <div id={DashboardCSS.dashboardContainer}>
                 <ChainNav/>
                 <Feed/>
                 <WatchList addresses={addresses} setAddresses={setAddresses}/>

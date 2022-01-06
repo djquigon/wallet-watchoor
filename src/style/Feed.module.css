@@ -1,0 +1,13 @@
+#feed{
+    grid-area: feed;
+}
+
+#feedHeader{
+    background-color: black;
+    width: 100%;
+    height: 2.5%;
+}
+  
+#feedHeader p{
+    color: white;
+}

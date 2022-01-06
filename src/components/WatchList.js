@@ -1,6 +1,6 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
-import "../style/WatchList.css"
+import WatchListCSS from "../style/WatchList.module.css"
 import WatchListAddress from './WatchListAddress'
 import WatchListAddAddress from './WatchListAddAddress'
 import WatchListSearch from './WatchListSearch'
@@ -103,7 +103,7 @@ const WatchList = ({addresses, setAddresses}) => {
     )
 
     return (
-        <div id="watch-list">
+        <div id={WatchListCSS.watchList}>
             {isLoading && <p>Loading Addresses...</p>}
             {fetchError && <p> {`Error: ${fetchError}`}</p>}
             {!fetchError && !isLoading && <>
