@@ -1,21 +1,22 @@
 #dosbox{
-    border: groove;
     display: flex;
     flex-direction: column;
     align-items: center;
     grid-area: dosbox;
 }
 
-.dosbox-container {
-    align-items: normal !important;
+.dosbox-container canvas{
+    width: 640px;
+    height: 480px;
 }
 
 #gameScreen{
-    height: 90%;
-    width: 100%;
+    width: 640px;
+    height: 480px;
     background: url('../assets/dosbox.gif') no-repeat;
     background-position: center;
-    background-color: black;
+    background-color: #000000e0;
+    padding: unset;
 }
 
 #gameScreen p{
@@ -23,22 +24,32 @@
 }
 
 #controls{
-    height: fit-content;
+    display: flex;
+    width: 640px;
 }
 
 #controls button{
     background-color: black;
     color: white;
+    width: inherit;
 }
 
 #controls button:hover{
+    cursor: pointer;
     background-color: limegreen;
-    color: white;
 }
 
 #gameContainer{
-    height: 90%;
-    width: 100%;
     display: flex;
     flex-direction: column;
+}
+
+#ejectBtn{
+    color: white;
+    background-color: black;
+}
+
+#ejectBtn:hover{
+    cursor: pointer;
+    background-color: red;
 }

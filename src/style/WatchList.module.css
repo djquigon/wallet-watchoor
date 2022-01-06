@@ -1,11 +1,7 @@
 #watchList{
-  padding-top: unset;
   display: flex;
   align-items: center;
   flex-direction: column;
-  border-width: 2px;
-  border-color: black;
-  border-style: groove;
   grid-area: watchlist;
 }
 
@@ -30,7 +26,6 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 0.5rem 0 0.5rem 0.5rem;
     margin: 0.25rem 0;
     background-color: #eee;
 }
@@ -102,11 +97,11 @@
     transition: 0.25s ease;
   }
 
-  button svg{
+  #watchList button svg{
     padding: unset;
   }
   
-  button:hover {
+  #watchList button:hover {
     color: white;
     background-color: limegreen;
     outline: none;

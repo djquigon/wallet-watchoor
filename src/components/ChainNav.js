@@ -1,10 +1,11 @@
 import React from 'react'
-import ChainNavCss from '../style/ChainNav.module.css'
+import ChainNavCSS from '../style/ChainNav.module.css'
 
 const ChainNav = () => {
     return (
-        <div id={ChainNavCss.chainNav} style={{border: 'groove'}}>
+        <div id={ChainNavCSS.chainNav}>
             <p>ChainNav</p>
+            <button id={ChainNavCSS.disconnectBtn}>0x1c63...9B40</button>
         </div>
     )
 }

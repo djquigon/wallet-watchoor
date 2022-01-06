@@ -1,5 +1,15 @@
 #chainNav{
     grid-area: chainnav;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     border-radius: 0px 0px 12px 12px;
     background-color: black;
-  }
+}
+
+#disconnectBtn{
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    background: black;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}

@@ -28,9 +28,7 @@ const Dosbox = () => {
             )
             : (
                 <>
-                    <div id={DosboxCSS.gameScreen}>
-                        <p>pick a game below</p>
-                    </div>
+                    <div id={DosboxCSS.gameScreen}></div>
                     <div id={DosboxCSS.controls}>
                         <button onClick={() => setGame(DOOM_URL)}>Doom</button>
                         <button onClick={() => setGame(SABA_URL)}>Acid Tetris</button>

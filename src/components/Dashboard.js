@@ -13,7 +13,6 @@ const Dashboard = () => {
 
     return (
         <main>
-            <button id={DashboardCSS.connectBtn}>Connect Wallet</button>
             <div id={DashboardCSS.dashboardContainer}>
                 <ChainNav/>
                 <Feed/>

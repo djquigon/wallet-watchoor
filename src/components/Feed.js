@@ -3,7 +3,7 @@ import FeedCSS from '../style/Feed.module.css'
 
 const Feed = () => {
     return (
-        <div id={FeedCSS.feed} style={{border: 'groove'}}>
+        <div id={FeedCSS.feed}>
             <div id={FeedCSS.feedHeader}><p>Feed</p></div>
             <table>
                 <thead>

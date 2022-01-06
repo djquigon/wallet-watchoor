@@ -5,7 +5,7 @@ import WatchListCSS from "../style/WatchList.module.css"
 const WatchListAddress = ({address, handleCheck, handleDelete}) => {
     return (
         /**Keys are required for react list addresses */
-        <li className='address'>
+        <li className={WatchListCSS.address}>
             <input type="checkbox" onChange={() => handleCheck(address.id)} checked={address.checked}></input>
             <label>
                 <a target="_blank" href={`https://etherscan.io/address/${address.address}`}> {address.alias}//{address.address}</a>
