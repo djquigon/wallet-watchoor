@@ -1,0 +1,43 @@
+#dosbox{
+    border: groove;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dosbox-container {
+    align-items: normal !important;
+}
+
+#game-screen{
+    height: 90%;
+    width: 100%;
+    background: url('../assets/dosbox.gif') no-repeat;
+    background-position: center;
+    background-color: black;
+}
+
+#game-screen p{
+    color: white;
+}
+
+#controls{
+    height: fit-content;
+}
+
+#controls button{
+    background-color: black;
+    color: white;
+}
+
+#controls button:hover{
+    background-color: limegreen;
+    color: white;
+}
+
+#game-container{
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
