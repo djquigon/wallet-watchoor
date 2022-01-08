@@ -1,12 +1,10 @@
 /*Copied from conten.css need to update*/
 main {
     grid-area: content;
-    height: 95%;
-    width: 90%;
-    margin: 0% 5% 0% 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: .5% 0% 1% 0%;
 }
 
 #connectBtn{
@@ -16,11 +14,9 @@ main {
     box-shadow: 10px 5px 5px grey;
     color: rgb(255, 255, 255);
     cursor: pointer;
-    width: 200px;
+    width: 150px;
     height: 50px;
-    position: absolute;
-    top: 1vh;
-    right: 5vw;
+    margin-left: auto;
 }
 
 main iframe{

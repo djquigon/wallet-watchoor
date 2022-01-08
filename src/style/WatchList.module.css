@@ -10,15 +10,6 @@
   overflow-y: scroll;
   width: 100%;
   list-style: none;
-  padding: 0 0.25rem 0.25rem;
-}
-
-#watchList ul li::before {
-    content: "\200B";
-}
-
-#watchList p {
-  font-size: 12px;
 }
 
 /*watchlistaddress*/
@@ -26,12 +17,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 0.25rem 0;
     background-color: #eee;
-}
-
-.address:first-child {
-    margin: 0;
 }
 
 .address input[type="checkbox"] {
@@ -65,11 +51,10 @@
 
 /*WatchList add address*/
 .addForm {
-    background-color: black;
+    background-color: #000000e0;
     width: 100%;
     display: flex;
-    justify-content: flex-start;
-    border-bottom: 1px solid #eee;
+    align-items: center;
   }
   
   .addForm label {
@@ -79,26 +64,21 @@
   
   .addForm input[type='text'] {
     flex-grow: 1; /*assign all remaining space to the text input based on button*/
-    font-size: 1rem;
     padding: 0.25rem;
     border-radius: 12px;
-    margin-right: 0.25rem;
+    margin: 5px;
   }
   
   #watchList button {
-    height: 40px;
-    min-height: 40px;
-    width: 40px;
-    min-width: 40px;
+    height: 30px;
+    min-height: 30px;
+    width: 30px;
+    min-width: 30px;
     border-radius: 12px;
     background-color: black;
     color: white;
     cursor: pointer;
     transition: 0.25s ease;
-  }
-
-  #watchList button svg{
-    padding: unset;
   }
   
   #watchList button:hover {
@@ -111,7 +91,7 @@
   .searchForm {
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    padding: 5px;
   }
   
   .searchForm label {
@@ -121,9 +101,13 @@
   
   .searchForm input[type='text'] {
     flex-grow: 1;
-    max-width: 100%;
-    font-size: 1rem;
     padding: 0.25rem;
-    border-radius: 12p;
-    outline: none;
+    border-radius: 12px;
+  }
+
+  #watchListHeader{
+    background-color: black;
+    width: 100%;
+    height: 25px;
+    color: white;
   }

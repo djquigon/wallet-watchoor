@@ -3,10 +3,18 @@ import ChainNavCSS from '../style/ChainNav.module.css'
 
 const ChainNav = () => {
     return (
-        <div id={ChainNavCSS.chainNav}>
-            <p>ChainNav</p>
+        <nav id={ChainNavCSS.chainNav}>
+            <div>
+                <button>Ethereum</button>
+                <button>BSC</button>
+                <button>Avalanche</button>
+                <button>Polygon</button>
+                <button>Harmony</button>
+                <button>Arbitrum</button>
+                <button>Optimism</button>
+            </div>
             <button id={ChainNavCSS.disconnectBtn}>0x1c63...9B40</button>
-        </div>
+        </nav>
     )
 }
 

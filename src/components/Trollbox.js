@@ -4,7 +4,7 @@ import TrollboxCSS from '../style/Trollbox.module.css'
 const Trollbox = () => {
     return (
         <div id={TrollboxCSS.trollbox}>
-            <p>Trollbox</p>
+            <div id={TrollboxCSS.trollboxHeader}><p>Trollbox</p></div>
         </div>
     )
 }

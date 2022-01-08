@@ -3,20 +3,14 @@
     flex-direction: column;
     align-items: center;
     grid-area: dosbox;
-}
-
-.dosbox-container canvas{
-    width: 640px;
-    height: 480px;
+    background-color: #000000e0;
 }
 
 #gameScreen{
-    width: 640px;
+    width: 100%;
     height: 480px;
     background: url('../assets/dosbox.gif') no-repeat;
     background-position: center;
-    background-color: #000000e0;
-    padding: unset;
 }
 
 #gameScreen p{
@@ -25,7 +19,7 @@
 
 #controls{
     display: flex;
-    width: 640px;
+    width: 100%;
 }
 
 #controls button{
@@ -42,6 +36,7 @@
 #gameContainer{
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 #ejectBtn{
@@ -53,3 +48,10 @@
     cursor: pointer;
     background-color: red;
 }
+
+#dosboxHeader{
+    background-color: black;
+    width: 100%;
+    height: 25px;
+    color: white;
+  }

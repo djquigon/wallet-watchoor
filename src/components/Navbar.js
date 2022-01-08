@@ -9,7 +9,7 @@ import {ImEnter} from "react-icons/im";
 
 const Navbar = () => {
     return (
-        <nav>
+        <nav id={NavbarCSS.navMenu}>
             <ul id={NavbarCSS.menu}>
                 <li>
                     <div id={NavbarCSS.logoContainer}>

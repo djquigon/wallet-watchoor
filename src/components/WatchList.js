@@ -104,6 +104,7 @@ const WatchList = ({addresses, setAddresses}) => {
 
     return (
         <div id={WatchListCSS.watchList}>
+            <div id={WatchListCSS.watchListHeader}><p>Watchoor List</p></div>
             {isLoading && <p>Loading Addresses...</p>}
             {fetchError && <p> {`Error: ${fetchError}`}</p>}
             {!fetchError && !isLoading && <>
@@ -118,7 +119,7 @@ const WatchList = ({addresses, setAddresses}) => {
                 ) : 
                     (<p style={{marginTop: '2rem'}}>Your list is empty.</p>
                 )}
-                <p>{filteredAddresses.length} Address(s)</p>
+                <p>{filteredAddresses.length} Address(es)</p>
             </>}
         </div>
     )

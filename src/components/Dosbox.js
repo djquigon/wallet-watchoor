@@ -23,6 +23,7 @@ const Dosbox = () => {
     /**Add and remove dosplayer based on clicked game buttons, doom adds doom dosplayer.tsx, exit deletes dosplayer element */
     return (
         <div id={DosboxCSS.dosbox}>
+            <div id={DosboxCSS.dosboxHeader}><p>Dosbox</p></div>
             {game ? (
                 <DosPlayer game={game} exitGame={exitGame} startGame={startGame}/>
             )

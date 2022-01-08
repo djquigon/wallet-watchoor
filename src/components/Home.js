@@ -2,9 +2,12 @@ import React from 'react'
 import HomeCSS from "../style/Home.module.css"
 
 const Home = () => {
+    const connectWallet = () => {
+
+    }
     return (
         <main>
-            <button id={HomeCSS.connectBtn}>Connect Wallet</button>
+            <button id={HomeCSS.connectBtn} onClick={connectWallet}>Connect Wallet</button>
             <h1>Welcome Watchooooooors</h1>
             <p>Tired of getting dumped on unknowingly by your favorite influencers? Need a way to get ahead of the curve?</p>
             <iframe src="https://www.youtube.com/embed/61Q6wWu5ziY" title="YouTube video player" frameBorder="0" 
