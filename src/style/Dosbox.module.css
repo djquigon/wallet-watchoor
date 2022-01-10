@@ -1,21 +1,22 @@
 #dosbox{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     grid-area: dosbox;
-    background-color: #000000e0;
 }
 
 #gameScreen{
     width: 100%;
-    height: 480px;
+    height: 100%;
     background: url('../assets/dosbox.gif') no-repeat;
     background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 #controls{
     display: flex;
     width: 100%;
+    height: fit-content;
+
 }
 
 #controls button{
@@ -25,7 +26,7 @@
 }
 
 #controls button:hover{
-    cursor: pointer;
+    
     background-color: limegreen;
 }
 
@@ -33,6 +34,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
 }
 
 #ejectBtn{
@@ -41,12 +43,6 @@
 }
 
 #ejectBtn:hover{
-    cursor: pointer;
+    
     background-color: red;
 }
-
-#dosboxHeader{
-    background-color: black;
-    width: 100%;
-    height: 25px;
-  }

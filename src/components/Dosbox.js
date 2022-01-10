@@ -2,6 +2,7 @@ import React from 'react';
 import {useState} from 'react'
 import DosPlayer from './DosPlayer.tsx';
 import DosboxCSS from "../style/Dosbox.module.css";
+import WindowHeader from './WindowHeader';
 
 const DOOM_URL = "https://loganscheid.dev/assets/games/DOOM.zip"
 const SABA_URL = "https://loganscheid.dev/assets/games/SABA.zip"
@@ -23,18 +24,19 @@ const Dosbox = () => {
     /**Add and remove dosplayer based on clicked game buttons, doom adds doom dosplayer.tsx, exit deletes dosplayer element */
     return (
         <div id={DosboxCSS.dosbox}>
-            <div id={DosboxCSS.dosboxHeader}><p>Dosbox</p></div>
+            <WindowHeader window="Dosbox"/>
             {game ? (
                 <DosPlayer game={game} exitGame={exitGame} startGame={startGame}/>
             )
             : (
                 <>
-                    <div id={DosboxCSS.gameScreen}></div>
-                    <div id={DosboxCSS.controls}>
-                        <button onClick={() => setGame(DOOM_URL)}>Doom</button>
-                        <button onClick={() => setGame(SABA_URL)}>Acid Tetris</button>
-                        <button onClick={() => setGame(MSPAC_URL)}>Ms.Pac-Man</button>
-                        <button onClick={() => setGame(CHESS_URL)}>Chess88</button>
+                    <div id={DosboxCSS.gameScreen}>
+                        <div id={DosboxCSS.controls}>
+                            <button onClick={() => setGame(DOOM_URL)}>Doom</button>
+                            <button onClick={() => setGame(SABA_URL)}>Acid Tetris</button>
+                            <button onClick={() => setGame(MSPAC_URL)}>Ms.Pac-Man</button>
+                            <button onClick={() => setGame(CHESS_URL)}>Chess88</button>
+                        </div>
                     </div>
                 </>
             )

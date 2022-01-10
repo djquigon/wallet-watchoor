@@ -203,6 +203,18 @@
       "checked": false,
       "alias": "watch",
       "address": "0xabd405"
+    },
+    {
+      "id": 66,
+      "checked": false,
+      "alias": "Alias",
+      "address": "0xabd405"
+    },
+    {
+      "id": 67,
+      "checked": false,
+      "alias": "dick",
+      "address": "0xabd405"
     }
   ]
 }

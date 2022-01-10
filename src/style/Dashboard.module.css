@@ -12,9 +12,11 @@
 
 /*Divs that are immediate children*/
 #dashboardContainer > div {
+  display: flex;
+  flex-direction: column;
   border: outset;
   border-color: black;
-  background-color: #050505;
+  background-color: #1a1a1a;
   border-radius: 4px;
   box-shadow: 10px 5px 5px grey;
   margin: 6px;

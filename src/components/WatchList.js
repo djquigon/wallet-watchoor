@@ -1,5 +1,6 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
+import WindowHeader from './WindowHeader'
 import WatchListCSS from "../style/WatchList.module.css"
 import WatchListAddress from './WatchListAddress'
 import WatchListAddAddress from './WatchListAddAddress'
@@ -104,7 +105,7 @@ const WatchList = ({addresses, setAddresses}) => {
 
     return (
         <div id={WatchListCSS.watchList}>
-            <div id={WatchListCSS.watchListHeader}><p>Watchoor List</p></div>
+            <WindowHeader window="Watchoor List"/>
             {isLoading && <p>Loading Addresses...</p>}
             {fetchError && <p> {`Error: ${fetchError}`}</p>}
             {!fetchError && !isLoading && <>

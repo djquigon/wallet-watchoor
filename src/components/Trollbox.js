@@ -1,10 +1,11 @@
 import React from 'react'
 import TrollboxCSS from '../style/Trollbox.module.css'
+import WindowHeader from './WindowHeader'
 
 const Trollbox = () => {
     return (
         <div id={TrollboxCSS.trollbox}>
-            <div id={TrollboxCSS.trollboxHeader}><p>Trollbox</p></div>
+            <WindowHeader window="Trollbox"/>
         </div>
     )
 }

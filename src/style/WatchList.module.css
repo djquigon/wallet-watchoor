@@ -24,7 +24,7 @@
     text-align: center;
     width: 24px;
     min-width: 12px;
-    cursor: pointer;
+    
 }
 
 .address label, .address a {
@@ -70,7 +70,7 @@
     width: 75%;
   }
   
-  #watchList button {
+  .addForm button {
     height: 30px;
     min-height: 30px;
     width: 30px;
@@ -78,11 +78,10 @@
     border-radius: 12px;
     background-color: black;
     color: white;
-    cursor: pointer;
     transition: 0.25s ease;
   }
   
-  #watchList button:hover {
+  .addForm button:hover {
     background-color: limegreen;
     outline: none;
   }

@@ -4,7 +4,7 @@
     flex-direction: row;
     justify-content: space-between;
     border-radius: 0px 0px 12px 12px;
-    background-color: #050505;
+    background-color: #1a1a1a;
 }
 
 #chainNav button {
@@ -13,8 +13,10 @@
     background-color: black;
     color:white;
     font-family: "Comic Sans MS", "Comic Sans", cursive;
-    cursor: pointer;
+    
     border-radius: 0px 0px 12px 12px;
+    outline: outset;
+    outline-width: thin;
 }
 
 #disconnectBtn{

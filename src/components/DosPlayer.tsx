@@ -9,9 +9,9 @@ const Dos = (window as any).Dos as DosFactory;
 
 /**Hacky fix to edit canvas width and height */
 const canvasCSS = `
-    .dosbox-container canvas {
+    .dosbox-container, .dosbox-container canvas {
         width: 100%;
-        height: 480px;
+        height: 100%;
     }
 `
 
