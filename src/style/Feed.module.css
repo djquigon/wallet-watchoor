@@ -1,4 +1,25 @@
 #feed{
     grid-area: feed;
+}
+
+#feed table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.feedRow{
     background-color: #eee;
+    color: black;
+}
+
+.feedRow a{
+    color: black;
+}
+
+#headerRow{
+    text-align: left;  
+}
+
+#tableContainer{
+    overflow-y: scroll;
 }

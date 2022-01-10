@@ -9,6 +9,7 @@ const ChainNav = () => {
                 <button>BSC</button>
                 <button>Avalanche</button>
                 <button>Polygon</button>
+                <button>Fantom</button>
                 <button>Harmony</button>
                 <button>Arbitrum</button>
                 <button>Optimism</button>

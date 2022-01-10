@@ -1,6 +1,7 @@
 import React from 'react'
 import WindowHeaderCSS from "../style/WindowHeader.module.css"
 import {FaWindowClose} from "react-icons/fa";
+import {GoMute, GoUnmute} from "react-icons/go";
 
 const WindowHeader = ({window}) => {
     const closeWindow = () => {
@@ -10,7 +11,10 @@ const WindowHeader = ({window}) => {
     return (
         <div id = {WindowHeaderCSS.windowHeader}>
             <p>{window}</p>
-            { window != 'Feed' && <button onClick={closeWindow}><FaWindowClose/></button> }
+            { window != 'Feed' 
+            ? <button onClick={closeWindow}><FaWindowClose/></button> 
+            : <button><GoUnmute/></button>
+            }
         </div>
     )
 }
