@@ -2,7 +2,6 @@ footer {
     grid-area: footer;
     margin: 0% 2.5% 0% 2.5%;
     background-color: black;
-    color: white;
     display: flex;
     flex-direction: row;
     justify-content: space-around;

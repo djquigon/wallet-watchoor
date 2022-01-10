@@ -3,8 +3,7 @@
     width: 100px;
     font-size: 10px;
     height: 100%;
-    background-color: black;
-    color: white;
+    background-color: #050505;
     display: flex;
     align-items: center;
     text-align: center;
@@ -52,8 +51,8 @@
 }
 
 #menu a, #menu a p{
-  text-decoration: none;
   color: white;
+  text-decoration: none;
   filter: drop-shadow(0px 0px 20px white);
   transition: 0.5s ease;
 }
@@ -67,7 +66,6 @@
 }
 
 .menuIcon{
-  color: white;
   width: 32px;
   height: 32px;
 }

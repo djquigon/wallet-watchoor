@@ -67,6 +67,7 @@
     padding: 0.25rem;
     border-radius: 12px;
     margin: 5px;
+    width: 75%;
   }
   
   #watchList button {
@@ -82,7 +83,6 @@
   }
   
   #watchList button:hover {
-    color: white;
     background-color: limegreen;
     outline: none;
   }
@@ -103,11 +103,12 @@
     flex-grow: 1;
     padding: 0.25rem;
     border-radius: 12px;
+    margin: 5px;
+    width: 75%;
   }
 
   #watchListHeader{
     background-color: black;
     width: 100%;
     height: 25px;
-    color: white;
   }

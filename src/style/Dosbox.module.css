@@ -13,10 +13,6 @@
     background-position: center;
 }
 
-#gameScreen p{
-    color: white;
-}
-
 #controls{
     display: flex;
     width: 100%;
@@ -53,5 +49,4 @@
     background-color: black;
     width: 100%;
     height: 25px;
-    color: white;
   }

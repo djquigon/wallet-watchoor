@@ -14,6 +14,7 @@
 #dashboardContainer > div {
   border: outset;
   border-color: black;
+  background-color: #050505;
   border-radius: 4px;
   box-shadow: 10px 5px 5px grey;
   margin: 6px;
