@@ -8,7 +8,6 @@
 }
 
 .feedRow{
-    background-color: #eee;
     color: black;
 }
 
@@ -22,4 +21,11 @@
 
 #tableContainer{
     overflow-y: scroll;
+}
+
+tbody tr:nth-child(even){
+    background: #e5e5e5
+}
+tbody tr:nth-child(odd){
+    background: #eee
 }
