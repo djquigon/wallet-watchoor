@@ -9,7 +9,7 @@
     text-align: center;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 10px 5px 5px grey;
+    /*box-shadow: 10px 12px 20px 0px grey;*/
     position: fixed;
   }
 
@@ -75,7 +75,6 @@
 }
 
 #themeBtn{
-  cursor: url('/src/assets/watchoor.cur'), pointer;
   border-radius: 24px;
   background-color: black;
 }

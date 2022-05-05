@@ -6,6 +6,8 @@ import Feed from './Feed'
 import WatchList from './WatchList'
 import Trollbox from './Trollbox'
 import Dosbox from './Dosbox'
+import WalletConnector from './WalletConnector';
+
 
 const Dashboard = () => {
     /*Need the watchlist state variable in dashboard for use in feed*/

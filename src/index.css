@@ -25,15 +25,32 @@ button{
   'navbar content'
   'navbar footer';
   grid-template-columns: 100px auto;
-  grid-template-rows: 100% 5%;
+  grid-template-rows: auto 75px;
   background-color: white;
   height: 100vh; 
   width: 100%; 
 }
 
+#light main{
+  background-color: white;;
+}
+
+#dark main{
+  background-color: #232323;
+  background-image: linear-gradient(49deg, #232323 50%, #282828 74%);
+}
+
+#dark main h3, #dark main h1 {
+  color: white;
+}
+
 * {
   scrollbar-width: thin;
   scrollbar-color: black #eee;
+}
+
+body.activeModal {
+  overflow-y: hidden;
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -48,5 +65,4 @@ button{
 *::-webkit-scrollbar-thumb {
   background-color: black;
   border-radius: 20px;
-  border: 3px solid #eee;
 }

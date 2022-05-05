@@ -1,6 +1,6 @@
 #dashboardContainer {
   width: 90vw;
-  height: 100%;
+  height: 95vh;
   display: grid;
   grid-template-columns: 30% 30% 20% 20%;
   grid-template-rows: 5% 47.5% 47.5%;
@@ -8,6 +8,7 @@
     "chainnav chainnav chainnav chainnav"
     "feed feed watchlist trollbox"
     "feed feed dosbox dosbox";
+  margin: 2.5vh 0 2.5vh 0vh;
 }
 
 /*Divs that are immediate children*/
@@ -18,6 +19,6 @@
   border-color: black;
   background-color: #1a1a1a;
   border-radius: 4px;
-  box-shadow: 10px 5px 5px grey;
+  box-shadow: 10px 5px 5px rgb(24 24 24);
   margin: 6px;
 }

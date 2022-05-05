@@ -1,13 +1,13 @@
 footer {
     grid-area: footer;
-    margin: 0% 2.5% 0% 2.5%;
+    /* margin: 0% 2.5% 0% 2.5%; */
     background-color: black;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    border-radius: 12px;
-    box-shadow: 10px 5px 5px grey;
+    /* border-radius: 12px; */
+    box-shadow: 10px 5px 5px rgb(24 24 24);
     font-size: 12px;
 }
 

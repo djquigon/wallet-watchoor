@@ -1,0 +1,54 @@
+#connectBtn{
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    background-color: black;
+    border-radius: 12px;
+    box-shadow: 10px 5px 5px rgb(24 24 24);
+    color: rgb(255, 255, 255);
+    width: 150px;
+    height: 50px;
+    margin-left: auto;
+}
+
+.modal, .overlay {
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    margin-top: 0;
+}
+
+.overlay {
+    background: rgba(13,13,13,0.8);
+}
+.modalContent {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #000000;
+    padding: 2em;
+    border-radius: 12px;
+    max-width: 600px;
+    min-width: 300px;
+    text-align: left;
+}
+
+#closeModalBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#modalAccountInfo{
+    background-color: #0a0a0a;
+    padding: 1em;
+    border-radius: 12px;
+}
+
+#modalAccountInfo a{
+    color: white;
+    text-decoration: none;
+
+}
