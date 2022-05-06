@@ -1,18 +1,12 @@
 #feed{
     grid-area: feed;
+    overflow-y: auto;
+    z-index: -1;
 }
 
 #feed table{
     width: 100%;
     border-collapse: collapse;
-}
-
-.feedRow{
-    color: black;
-}
-
-.feedRow a{
-    color: black;
 }
 
 #headerRow{
@@ -23,9 +17,17 @@
     overflow-y: scroll;
 }
 
-tbody tr:nth-child(even){
-    background: #e5e5e5
+.feedRow{
+    height: 5em;
 }
-tbody tr:nth-child(odd){
-    background: #eee
+
+.feedRow a {
+    color: black;
+    text-decoration: none;
+}
+
+#feed thead {
+    background: #070707;
+    position: sticky;
+    top: 0;
 }

@@ -12,7 +12,7 @@ const WindowHeader = ({window}) => {
         <div id = {WindowHeaderCSS.windowHeader}>
             <p>{window}</p>
             { window != 'Feed' 
-            ? <button onClick={closeWindow}><FaWindowClose/></button> 
+            ? <button onClick={closeWindow}><FaWindowClose color='black'/></button> 
             : <button><GoUnmute/></button>
             }
         </div>

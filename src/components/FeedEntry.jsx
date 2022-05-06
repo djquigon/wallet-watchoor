@@ -10,8 +10,8 @@ const FeedEntry = () => {
             <td>Atomic Match_</td>
             <td>40 Ξ</td>
             <td>2021-12-30 04:45</td>
-            <td>0x82sas7... <a href="#"><FaExternalLinkAlt/></a></td>
-            <FaTrashAlt/>
+            <td><a href="#">0x82sas7... <FaExternalLinkAlt/></a></td>
+            <td><FaTrashAlt/></td>
         </tr>
     )
 }

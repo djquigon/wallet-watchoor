@@ -17,6 +17,7 @@ const Feed = () => {
                             <th>Value</th>
                             <th>Timestamp</th>
                             <th>Txn Hash</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

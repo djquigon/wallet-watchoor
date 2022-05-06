@@ -41,7 +41,7 @@ const Navbar = () => {
                         <img id={NavbarCSS.logo} src={logo}></img>
                         <div id={NavbarCSS.logoOverlay}>
                             <a href="https://github.com/djquigon"><FaGithub/></a>
-                            <a href="https://www.linkedin.com/in/logan-scheid-287753137"><FaMedium/></a>
+                            <a href="https://medium.com/@scheidlogan"><FaMedium/></a>
                         </div>
                     </div>
                     <Link to="/" style={{fontSize: "14px"}}>Wallet Watchoor<small>&#8482;</small></Link>

@@ -112,11 +112,11 @@ const WatchList = ({addresses, setAddresses}) => {
                 <WatchListAddAddress newAddress={newAddress} setNewAddress={setNewAddress} handleWatchListAdd={handleWatchListAdd}/>
                 <WatchListSearch search={search} setSearch={setSearch}/>
                 {filteredAddresses.length !== 0 ? (
-                    <ul>
+                    <ol>
                         {filteredAddresses.map((address) => (
                             <WatchListAddress key={address.id} address={address} handleCheck={handleCheck} handleDelete={handleDelete}/>
                         ))}
-                    </ul>
+                    </ol>
                 ) : 
                     (<p style={{marginTop: '2rem'}}>Your list is empty.</p>
                 )}
