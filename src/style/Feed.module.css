@@ -30,9 +30,9 @@
     outline: none;
 }
 
-.feedRow a svg:hover{
-    color: #3355a5;
-    outline: none;
+.feedRow a svg:hover, .feedRow a:hover{
+    color: inherit;
+    text-decoration: underline;
 }
 
 .feedRow a {

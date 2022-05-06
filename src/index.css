@@ -39,7 +39,7 @@ button{
 
 #dark main{
   background-color: #232323;
-  background-image: linear-gradient(49deg, #232323 50%, #282828 74%);
+  background-image: linear-gradient(49deg, #1c1c1c 50%, #292828 74%);
 }
 
 #light tbody tr:nth-child(even), #light ol li:nth-child(even){

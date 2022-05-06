@@ -2,13 +2,30 @@ import {useState, useEffect} from 'react'
 import WalletConnectorCSS from "../style/WalletConnector.module.css"
 import {FaWindowClose, FaExternalLinkAlt} from "react-icons/fa";
 import chef from "../assets/chef.png"
+import { ethers } from 'ethers';
 
 const WalletConnector = () => {
-    const [account, setAccount] = useState(null)
+    const [account, setAccount] = useState(null);
+    const [accountBalance, setAccountBalance] = useState(null);
+    const [accountTransactionCount, setAccountTransactionCount] = useState(null)
     const [modal, setModal] = useState(false);
 
     const toggleModal = () => {
         setModal(!modal);
+    }
+
+    const getAccountTransactionCount = (address) => {
+        window.ethereum.request({ method: "eth_getTransactionCount", params :[address, 'latest'] })
+        .then(transactionCount => {
+            setAccountTransactionCount(parseInt(transactionCount, 16))
+        })
+    }
+
+    const getAccountBalance = (address) => {
+        window.ethereum.request({ method: 'eth_getBalance', params: [address, 'latest'] })
+        .then(balance => {
+            setAccountBalance(ethers.utils.formatEther(balance).substring(0,5))
+        })
     }
 
     const chainChangedHandler = () => {
@@ -16,10 +33,18 @@ const WalletConnector = () => {
     }
 
     const accountChangedHandler = (newAccount) => {
-        if (newAccount.length === 0) {newAccount = null}
+        if (newAccount.length === 0) {
+            newAccount = null
+            setAccountBalance(null)
+            setAccountTransactionCount(null)
+        }
         //for when multiple addresses are connected
-        else if (Array.isArray(newAccount)) {newAccount = newAccount[0]}
+        else if (Array.isArray(newAccount)) {
+            newAccount = newAccount[0]
+        }
         setAccount(newAccount)
+        getAccountBalance(newAccount.toString())
+        getAccountTransactionCount(newAccount.toString())
     }
     
     const connectWallet = () => {
@@ -28,8 +53,8 @@ const WalletConnector = () => {
                 toggleModal()
             } else {
                 window.ethereum.request({ method: 'eth_requestAccounts' })
-                .then(result => {
-                    accountChangedHandler(result[0])
+                .then(accounts => {
+                    accountChangedHandler(accounts[0])
                 })
             }
         } else {
@@ -43,8 +68,8 @@ const WalletConnector = () => {
                 const accounts = await window.ethereum.request({ method: 'eth_accounts' })
                 if (accounts.length > 0){
                     window.ethereum.request({ method: 'eth_requestAccounts' })
-                    .then(result => {
-                        accountChangedHandler(result[0])
+                    .then(accounts => {
+                        accountChangedHandler(accounts[0])
                     })
                 }
             }
@@ -76,6 +101,8 @@ const WalletConnector = () => {
                     <h2>Account</h2>
                     <div id={WalletConnectorCSS.modalAccountInfo}>
                         <img src={chef}></img>
+                        <p>{accountBalance + ' Ξ'}</p>
+                        <p>{accountTransactionCount + ' txn(s)'}</p>
                         <p>{account}</p>
                         <a target='_blank' href={'https://etherscan.io/address/' + account}>
                             <FaExternalLinkAlt color='white'/>
