@@ -21,6 +21,20 @@
     height: 5em;
 }
 
+.feedRow svg {
+    cursor: pointer;
+}
+
+.feedRow svg:hover {
+    color: red;
+    outline: none;
+}
+
+.feedRow a svg:hover{
+    color: #3355a5;
+    outline: none;
+}
+
 .feedRow a {
     color: black;
     text-decoration: none;

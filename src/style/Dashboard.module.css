@@ -18,8 +18,9 @@
   flex-direction: column;
   border: outset;
   border-color: black;
-  background-color: #1a1a1a;
+  background-color: #070707;
   border-radius: 4px;
   box-shadow: 10px 5px 5px rgb(24 24 24);
   margin: 6px;
+  border-width: 0.5em;
 }

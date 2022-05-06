@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  transition: .15s ease;
 }
 
 html {
@@ -9,14 +10,15 @@ html {
 
 body {
   min-height: 100vh;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: white;
+  font-family: monospace;
 }
 
 button{
   cursor: pointer;
+  font-family: monospace;
 }
 
 .App {
@@ -55,11 +57,11 @@ button{
   background: #0d0d0d;
 }
 
-#light tbody tr{
+#light tbody tr, #light ol li, #light ol li a{
   color: black;
 }
 
-#dark tbody tr , #dark main h3, #dark main h1, #dark td a, #dark ol li a{
+#dark tbody tr , #dark main h3, #dark main h1, #dark td a, #dark ol li, #dark ol li a{
   color: white;
 }
 
