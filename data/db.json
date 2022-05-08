@@ -1,196 +1,54 @@
 {
+  "users": [
+    {
+      "address": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8"
+    },
+    {
+      "address": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40"
+    }
+  ],
   "addresses": [
     {
       "alias": "Dudley",
       "address": "1JNuqL9G7KbANXTdseVs3Zcte1qoFqU5AC",
       "checked": false,
-      "id": 2
+      "id": 211,
+      "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40"
     },
     {
       "alias": "Faulkner",
       "address": "1PKP2jcWutuN7uVANNawVK4Hdf3TnBWpUm",
       "checked": false,
-      "id": 3
+      "id": 311,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8"
     },
     {
-      "id": 4,
+      "id": 212,
       "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
+      "alias": "diiddy",
+      "address": "0xabd405",
+      "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40"
     },
     {
-      "id": 5,
+      "id": 213,
       "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
+      "alias": "diiddy",
+      "address": "0xabd405",
+      "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40"
     },
     {
-      "id": 6,
+      "id": 312,
       "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
+      "alias": "dog",
+      "address": "0xabd405",
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8"
     },
     {
-      "id": 7,
+      "id": 313,
       "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 9,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 10,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 11,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 12,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 13,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 14,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 15,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 16,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 17,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 18,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 19,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 20,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 21,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 22,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 23,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 24,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 25,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 26,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 27,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 28,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 29,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 30,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 31,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 32,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 33,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
-    },
-    {
-      "id": 34,
-      "checked": false,
-      "alias": "a",
-      "address": "0xabd405"
+      "alias": "faulkuner",
+      "address": "0xabd405",
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8"
     }
   ]
 }

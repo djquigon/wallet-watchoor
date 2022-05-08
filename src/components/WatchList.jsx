@@ -7,8 +7,8 @@ import WatchListAddAddress from './WatchListAddAddress'
 import WatchListSearch from './WatchListSearch'
 import apiRequest from '../apiRequest'
 
-const WatchList = ({addresses, setAddresses}) => {
-    const API_URL = "http://localhost:8000/addresses";
+const WatchList = ({account, addresses, setAddresses}) => {
+    const API_URL = "http://localhost:8000/addresses?userAddress=" + account;
     const [newAddress, setNewAddress] = useState('');
     const [search, setSearch] = useState('');
     const [fetchError, setFetchError] = useState(null);
@@ -18,9 +18,12 @@ const WatchList = ({addresses, setAddresses}) => {
     useEffect(() => {
         const fetchAddresses = async () => {
             try{
+                console.log(account)
                 const response = await fetch(API_URL)
+                console.log(API_URL)
                 if(!response.ok) throw Error('Did not receive expected data')
                 const listAddresses = await response.json();
+                console.log(listAddresses)
                 setAddresses(listAddresses)
                 setFetchError(null)
             } catch (err) {
@@ -35,11 +38,11 @@ const WatchList = ({addresses, setAddresses}) => {
         setTimeout(() => {
             fetchAddresses()
         }, 2000)
-    }, [])
+    }, [account]) /**Account as a depedency, ensures account is not null when addresses are fetched */
 
     const addWatchListAddress = async (alias, address) => {
         const id = addresses.length ? addresses[addresses.length - 1].id + 1 : 1
-        const myNewAddress = {id, checked: false, alias, address}
+        const myNewAddress = {id, checked: false, alias, address, userAddress: account}
         const listAddresses = [...addresses, myNewAddress]
         setAddresses(listAddresses)
 

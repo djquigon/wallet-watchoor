@@ -10,7 +10,7 @@ import WalletConnector from './WalletConnector';
 
 
 const Dashboard = ({account, handleAccount}) => {
-    /*Need the watchlist state variable in dashboard for use in feed*/
+    /*Need the watchlist state variable in dashboard for use in feed,**** or maybe not?*/
     const [addresses, setAddresses] = useState([]);
 
     return (
@@ -18,7 +18,7 @@ const Dashboard = ({account, handleAccount}) => {
             <div id={DashboardCSS.dashboardContainer}>
                 <ChainNav account={account} handleAccount={handleAccount}/>
                 <Feed/>
-                <WatchList addresses={addresses} setAddresses={setAddresses}/>
+                <WatchList account={account} addresses={addresses} setAddresses={setAddresses}/>
                 <Trollbox/>
                 <Dosbox/>
             </div>
