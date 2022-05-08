@@ -5,15 +5,36 @@
     justify-content: space-between;
     border-radius: 0px 0px 12px 12px;
     align-items: center;
+    background-color: black;
+    box-shadow: 10px 5px 5px rgb(24 24 24);
 }
 
 .chainChangeBtn{
-    height: 100%;
-    width: 100px;
+    width: 12.5%;
     background-color: black;
     color:white;
     box-shadow: none;
     border-radius: 0px 0px 12px 12px;
     /* outline: outset; */
     outline-width: thin;
+}
+
+#chainNav button{
+    box-shadow: none;
+}
+
+#toggledChain{
+    background-color: #212121;
+}
+
+#blockInfo{
+    display: flex;
+    justify-content: space-around;
+    height: 50%;
+    align-items: center;
+}
+
+#chainContainer{
+    height: 100%;
+    width: 1100px;
 }

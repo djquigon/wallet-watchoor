@@ -105,9 +105,12 @@ const WalletConnector = () => {
                         <p>{accountTransactionCount + ' txn(s)'}</p>
                         <p>{account}</p>
                         <a target='_blank' href={'https://etherscan.io/address/' + account}>
-                            <FaExternalLinkAlt color='white'/>
-                            &nbsp;View on Explorer
+                            View on Explorer <FaExternalLinkAlt color='white'/>
                         </a>
+                    </div>
+                    <div id={WalletConnectorCSS.modalWatchoorInfo}>
+                        <p>Watching since 2021-12-30 04:45</p>
+                        <p>{'0 txn(s) watched'}</p>
                     </div>
                     <button id={WalletConnectorCSS.closeModalBtn} onClick={toggleModal} style={{width: '1em', height: '1em'}}>
                         <FaWindowClose/>

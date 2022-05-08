@@ -40,10 +40,11 @@
     right: 10px;
 }
 
-#modalAccountInfo{
+#modalAccountInfo, #modalWatchoorInfo{
     background-color: #0a0a0a;
     padding: 1em;
     border-radius: 12px;
+    margin-top: 1em;
 }
 
 #modalAccountInfo a{
