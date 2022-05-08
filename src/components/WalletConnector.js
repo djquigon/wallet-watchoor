@@ -4,8 +4,7 @@ import {FaWindowClose, FaExternalLinkAlt} from "react-icons/fa";
 import chef from "../assets/chef.png"
 import { ethers } from 'ethers';
 
-const WalletConnector = () => {
-    const [account, setAccount] = useState(null);
+const WalletConnector = ({account, handleAccount}) => {
     const [accountBalance, setAccountBalance] = useState(null);
     const [accountTransactionCount, setAccountTransactionCount] = useState(null)
     const [modal, setModal] = useState(false);
@@ -42,7 +41,7 @@ const WalletConnector = () => {
         else if (Array.isArray(newAccount)) {
             newAccount = newAccount[0]
         }
-        setAccount(newAccount)
+        handleAccount(newAccount)
         getAccountBalance(newAccount.toString())
         getAccountTransactionCount(newAccount.toString())
     }

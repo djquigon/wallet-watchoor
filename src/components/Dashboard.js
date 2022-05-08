@@ -9,14 +9,14 @@ import Dosbox from './Dosbox'
 import WalletConnector from './WalletConnector';
 
 
-const Dashboard = () => {
+const Dashboard = ({account, handleAccount}) => {
     /*Need the watchlist state variable in dashboard for use in feed*/
     const [addresses, setAddresses] = useState([]);
 
     return (
         <main>
             <div id={DashboardCSS.dashboardContainer}>
-                <ChainNav/>
+                <ChainNav account={account} handleAccount={handleAccount}/>
                 <Feed/>
                 <WatchList addresses={addresses} setAddresses={setAddresses}/>
                 <Trollbox/>

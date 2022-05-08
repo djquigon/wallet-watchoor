@@ -7,14 +7,20 @@ import {Route, Routes, useNavigate} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 
 function App() {
-  const navigate = useNavigate();
+
+  const [account, setAccount] = useState(null)
+
+  const handleAccount = (address) => {
+    setAccount(address)
+  }
+
   return (
       <Routes>
         <Route path="/" element={<Layout/>}>
-          <Route index element={<Home/>}/>
-          <Route path="app" element={<Dashboard/>}/>
-          <Route path="info" element={<Info/>}/>
-          <Route path="*" element={<Missing/>}/>
+          <Route index element={<Home account={account} handleAccount={handleAccount}/>}/>
+          <Route path="app" element={<Dashboard account={account} handleAccount={handleAccount}/>}/>
+          <Route path="info" element={<Info account={account} handleAccount={handleAccount}/>}/>
+          <Route path="*" element={<Missing account={account} handleAccount={handleAccount}/>}/>
         </Route>
       </Routes>
   );

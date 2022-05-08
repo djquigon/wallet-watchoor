@@ -6,12 +6,12 @@ import {GrDos} from "react-icons/gr";
 import {IoMdChatboxes} from "react-icons/io";
 import WalletConnector from './WalletConnector';
 
-const Home = () => {
+const Home = ({account, handleAccount}) => {
     return (
         <main>
             <header id={HomeCSS.header}>
                 <div id={HomeCSS.headerConnectBtn}>
-                    <WalletConnector/>
+                    <WalletConnector account={account} handleAccount={handleAccount}/>
                 </div>
                 <div id={HomeCSS.headerContent}>
                     <h1>Welcome Watchoooors</h1>

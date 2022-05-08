@@ -3,7 +3,7 @@ import ChainNavCSS from '../style/ChainNav.module.css'
 import WalletConnector from './WalletConnector'
 import {FaExternalLinkAlt} from "react-icons/fa";
 
-const ChainNav = () => {
+const ChainNav = ({account, handleAccount}) => {
     return (
         <nav id={ChainNavCSS.chainNav}>
             <div id={ChainNavCSS.chainContainer}>
@@ -22,7 +22,7 @@ const ChainNav = () => {
                     <a>Block created 22 secs ago <FaExternalLinkAlt/></a>
                 </div>
             </div>
-            <WalletConnector/>
+            <WalletConnector account={account} handleAccount={handleAccount}/>
         </nav>
     )
 }
