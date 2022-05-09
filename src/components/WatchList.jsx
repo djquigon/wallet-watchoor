@@ -18,12 +18,9 @@ const WatchList = ({account, addresses, setAddresses}) => {
     useEffect(() => {
         const fetchAddresses = async () => {
             try{
-                console.log(account)
                 const response = await fetch(API_URL)
-                console.log(API_URL)
                 if(!response.ok) throw Error('Did not receive expected data')
                 const listAddresses = await response.json();
-                console.log(listAddresses)
                 setAddresses(listAddresses)
                 setFetchError(null)
             } catch (err) {
@@ -72,7 +69,8 @@ const WatchList = ({account, addresses, setAddresses}) => {
             },
             body: JSON.stringify({checked: myAddress[0].checked})
         }
-        const reqUrl = `${API_URL}/${id}`;
+        const reqUrl = `${API_URL}&id=${id}`;
+        console.log(reqUrl)
         const result = await apiRequest(reqUrl, updateOptions)
         if(result) setFetchError(result)
     }
@@ -84,7 +82,7 @@ const WatchList = ({account, addresses, setAddresses}) => {
         const deleteOptions = {
             method: 'DELETE'
         }
-        const reqUrl = `${API_URL}/${id}`;
+        const reqUrl =  'http://localhost:8000/addresses/' + id;
         const result = await apiRequest(reqUrl, deleteOptions)
         if(result) setFetchError(result)
     }

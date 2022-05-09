@@ -3,7 +3,7 @@ import FeedCSS from '../style/Feed.module.css'
 import WindowHeader from './WindowHeader'
 import FeedEntry from './FeedEntry';
 
-const Feed = () => {
+const Feed = ({account, addresses}) => {
     return (
         <div id={FeedCSS.feed}>
             <WindowHeader window="Feed"/>

@@ -17,7 +17,7 @@ const Dashboard = ({account, handleAccount}) => {
         <main>
             <div id={DashboardCSS.dashboardContainer}>
                 <ChainNav account={account} handleAccount={handleAccount}/>
-                <Feed/>
+                <Feed account={account} addresses={addresses}/>
                 <WatchList account={account} addresses={addresses} setAddresses={setAddresses}/>
                 <Trollbox/>
                 <Dosbox/>
