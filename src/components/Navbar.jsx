@@ -7,7 +7,7 @@ import {MdInfo} from "react-icons/md"
 import {FaGithub, FaMedium, FaGasPump} from "react-icons/fa";
 import {ImEnter} from "react-icons/im";
 import {ethers} from 'ethers';
-import { ThemeContext } from './Layout'
+import { ThemeContext, provider } from './Layout'
 
 
 const Navbar = () => {
@@ -20,17 +20,26 @@ const Navbar = () => {
         //for persistence
         localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light')
     }
+
+    const fetchGasPrice = async () => {
+        if (typeof window.ethereum !== 'undefined') {
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            const feeData = await provider.getFeeData()
+
+            const maxFee = parseInt(ethers.utils.formatUnits(feeData.maxFeePerGas, "gwei"))
+            const gasPrice = parseInt(ethers.utils.formatUnits(feeData.gasPrice, "gwei"))
+            //set gas to avg of two
+            // setGasPrice(Math.round((maxFee+gasPrice)/2))
+            setGasPrice(Math.round(gasPrice))
+        }
+    }
     
 
     useEffect(() => {
-        const fetchGasPrice = async () => {
-            if (typeof window.ethereum !== 'undefined') {
-                const wei = await window.ethereum.request({ method: 'eth_gasPrice' })
-                setGasPrice(Math.round(ethers.utils.formatUnits(wei, "gwei")))
-            }
+        const gasPriceUpdater = setInterval(fetchGasPrice, 5000)
+        return () => { 
+            clearInterval(gasPriceUpdater)
         }
-        
-        fetchGasPrice().catch(console.error)
     }, [])
 
     return (

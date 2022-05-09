@@ -23,20 +23,6 @@
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8"
     },
     {
-      "id": 312,
-      "checked": false,
-      "alias": "dog",
-      "address": "0xabd405",
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8"
-    },
-    {
-      "id": 313,
-      "checked": false,
-      "alias": "faulkuner",
-      "address": "0xabd405",
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8"
-    },
-    {
       "id": 214,
       "checked": false,
       "alias": "dog",
@@ -56,6 +42,13 @@
       "alias": "dog",
       "address": "0xabd405",
       "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40"
+    },
+    {
+      "id": 312,
+      "checked": false,
+      "alias": "rockin cokin",
+      "address": "0xabd405",
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8"
     }
   ]
 }

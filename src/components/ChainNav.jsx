@@ -22,10 +22,11 @@ const ChainNav = ({account, handleAccount}) => {
 
 
     useEffect(() => {
-        const blockInterval = setInterval(getBlock, 5000)
+        //set loading somewhere and have conditionals for elements
+        const blockUpdater = setInterval(getBlock, 5000)
         /**cleanup */
         return () => { 
-            clearInterval(blockInterval)
+            clearInterval(blockUpdater)
         }
     }, [])
 
