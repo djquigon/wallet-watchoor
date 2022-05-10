@@ -22,6 +22,22 @@ const Feed = ({account, addresses}) => {
                     </thead>
                     <tbody>
                         <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
+                        <FeedEntry/>
                     </tbody>
                 </table>
             </div>

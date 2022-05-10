@@ -13,10 +13,6 @@
     text-align: left;  
 }
 
-#tableContainer{
-    overflow-y: scroll;
-}
-
 .feedRow{
     height: 5em;
 }

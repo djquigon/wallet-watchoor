@@ -76,11 +76,11 @@ body.activeModal {
 
 /* Works on Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 
 *::-webkit-scrollbar-track {
-  background: #eee;
+  background: #757575;
 }
 
 *::-webkit-scrollbar-thumb {

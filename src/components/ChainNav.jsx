@@ -9,6 +9,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum)
 
 const ChainNav = ({account, handleAccount}) => {
 
+    // const [chain, setChain] = useState("ethereum")
     const [block, setBlock] = useState(null)
 
     const getBlock = async () => {
