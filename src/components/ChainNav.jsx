@@ -52,9 +52,9 @@ const ChainNav = ({account, handleAccount}) => {
                     <button className={ChainNavCSS.chainChangeBtn}>Arbitrum</button>
                     <button className={ChainNavCSS.chainChangeBtn}>Optimism</button>
                 <div id={ChainNavCSS.blockInfo}>
-                    <p>🟢 
+                    <p>🟢&nbsp;
                         <em style={{color: '#008f00'}}>
-                            {block && block.number}
+                            Block # {block && block.number}
                         </em>
                     </p>
                     <p>

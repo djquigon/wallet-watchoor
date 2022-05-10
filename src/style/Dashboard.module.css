@@ -10,17 +10,14 @@
     "feed feed dosbox dosbox";
   margin: 2.5vh 0 2.5vh 0vh;
   z-index: 1;
+  box-shadow: 10px 5px 5px rgb(24 24 24);
 }
 
 /*Divs that are immediate children*/
 #dashboardContainer > div {
   display: flex;
   flex-direction: column;
-  border: outset;
-  border-color: black;
+  border: outset black;
   background-color: #070707;
-  border-radius: 4px;
-  box-shadow: 10px 5px 5px rgb(24 24 24);
-  margin: 0.5em;
-  border-width: 0.5em;
+  z-index: -1;
 }

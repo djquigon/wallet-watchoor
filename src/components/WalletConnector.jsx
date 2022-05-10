@@ -110,6 +110,7 @@ const WalletConnector = ({account, handleAccount}) => {
                     <div id={WalletConnectorCSS.modalWatchoorInfo}>
                         <p>Watching since 2021-12-30 04:45</p>
                         <p>{'0 txn(s) watched'}</p>
+                        <p>0 wallets watched</p>
                     </div>
                     <button id={WalletConnectorCSS.closeModalBtn} onClick={toggleModal} style={{width: '1em', height: '1em'}}>
                         <FaWindowClose/>

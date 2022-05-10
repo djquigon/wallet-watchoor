@@ -9,15 +9,16 @@
   overflow-x: hidden;
   overflow-y: scroll;
   width: 100%;
+  height: 100%;
   list-style: none;
 }
 
 /*watchlistaddress*/
 .address {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 2.5em;
+    flex-direction: column;
+    height: 5em;
+    padding: 1em 0.5em 1em 0.5em;
 }
 
 .address input[type="checkbox"] {
@@ -27,7 +28,7 @@
     
 }
 
-.address label, .address a {
+.address a {
     font-size: 12px;
     flex-grow: 1;
     overflow: hidden;
@@ -40,9 +41,14 @@
     cursor: pointer;
 }
 
- .address svg:hover {
+.address svg:hover {
     color: red;
     outline: none;
+}
+
+.addressOptions {
+  display: flex;
+  justify-content: space-between;
 }
 
 /*WatchList add address*/
