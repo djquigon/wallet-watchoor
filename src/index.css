@@ -87,3 +87,11 @@ body.activeModal {
   background-color: black;
   border-radius: 20px;
 }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% {  transform: rotate(359deg); }
+}
+.loadingSvg {
+  animation: spin 2s linear infinite;
+}

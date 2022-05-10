@@ -5,6 +5,7 @@ import logo from "../assets/logo.gif"
 import {MdInfo} from "react-icons/md"
 /** Use in app */
 import {FaGithub, FaMedium, FaGasPump} from "react-icons/fa";
+import {AiOutlineLoading} from "react-icons/ai"
 import {ImEnter} from "react-icons/im";
 import {ethers} from 'ethers';
 import { ThemeContext } from './Layout'
@@ -14,7 +15,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum)
 
 const Navbar = () => {
 
-    const [gasPrice, setGasPrice] = useState(0)
+    const [gasPrice, setGasPrice] = useState(null)
     const {theme, setTheme} = useContext(ThemeContext)
 
     const toggleTheme = () => {
@@ -37,7 +38,7 @@ const Navbar = () => {
     
 
     useEffect(() => {
-        const gasPriceUpdater = setInterval(fetchGasPrice, 5000)
+        const gasPriceUpdater = setInterval(fetchGasPrice, 65000)
         return () => { 
             clearInterval(gasPriceUpdater)
         }
@@ -71,7 +72,7 @@ const Navbar = () => {
                 <li className={NavbarCSS.menuItem} id={NavbarCSS.gweiTracker}>
                     <a target="_blank" href="https://etherscan.io/gastracker">
                         <FaGasPump className={NavbarCSS.menuIcon}/>
-                        <p>{gasPrice} Gwei</p>
+                        <p>{gasPrice ? gasPrice + " Gwei" : <AiOutlineLoading className="loadingSvg"/>}</p>
                     </a>
                 </li>
                 <li className={NavbarCSS.menuItem}>

@@ -7,6 +7,7 @@ import WatchListAddAddress from './WatchListAddAddress'
 import WatchListSearch from './WatchListSearch'
 import apiRequest from '../apiRequest'
 import { ethers } from 'ethers'
+import {AiOutlineLoading} from "react-icons/ai"
 
 const WatchList = ({account, addresses, setAddresses}) => {
     const API_URL = "http://localhost:8000/addresses?userAddress=" + account;
@@ -106,7 +107,7 @@ const WatchList = ({account, addresses, setAddresses}) => {
         /**simulate api response time */
         setTimeout(() => {
             fetchAddresses()
-        }, 2000)
+        }, 5000)
     }, [account]) /**Account as a depedency, ensures account is not null when addresses are fetched */
 
     return (
@@ -123,9 +124,9 @@ const WatchList = ({account, addresses, setAddresses}) => {
                             <WatchListAddress key={address.id} address={address} handleCheck={handleCheck} handleDelete={handleDelete}/>
                         ))}
                     </ol>
-                ) : 
-                    (<p style={{marginTop: '2rem'}}>Your list is empty.</p>
-                )}
+                ) : (!account ? <p style={{marginTop: '2rem'}}>Your wallet is not connected.</p> 
+                    : <p style={{marginTop: '2rem'}}>Your list is empty.</p>)
+                }
                 <p>{filteredAddresses.length} Address(es)</p>
             </>}
         </div>

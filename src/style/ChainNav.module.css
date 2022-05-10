@@ -19,10 +19,14 @@
 
 #chainNav button{
     box-shadow: none;
+    /* border: solid #111111; */
+    background-color: #000000;
+    background-image: linear-gradient(0deg, #000000 1%, #212121 99%);
 }
 
 #toggledChain{
-    background-color: #212121;
+    background-color: #000000;
+    background-image: linear-gradient(0deg, #000000 1%, #212121 99%);
 }
 
 #blockInfo{

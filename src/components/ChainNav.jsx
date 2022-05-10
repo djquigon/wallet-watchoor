@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ChainNavCSS from '../style/ChainNav.module.css'
 import WalletConnector from './WalletConnector'
 import {FaExternalLinkAlt} from "react-icons/fa";
+import {AiOutlineLoading} from "react-icons/ai"
 import { ethers } from 'ethers';
 
 const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -33,7 +34,7 @@ const ChainNav = ({account, handleAccount}) => {
 
     useEffect(() => {
         //set loading somewhere and have conditionals for elements
-        const blockUpdater = setInterval(getBlock, 5000)
+        const blockUpdater = setInterval(getBlock, 65000)
         /**cleanup */
         return () => { 
             clearInterval(blockUpdater)
@@ -54,22 +55,22 @@ const ChainNav = ({account, handleAccount}) => {
                 <div id={ChainNavCSS.blockInfo}>
                     <p>🟢&nbsp;
                         <em style={{color: '#008f00'}}>
-                            Block # {block && block.number}
+                            Block # {block ? block.number : <AiOutlineLoading className="loadingSvg"/>}
                         </em>
                     </p>
                     <p>
-                        {block && block.transactions.length} txn(s)
+                        {block ? block.transactions.length : <AiOutlineLoading className="loadingSvg"/>} txn(s)
                     </p>
                     <p>
-                        <em style={{color: '#ff1500'}}>{block && parseInt(block.gasUsed._hex, 16).toLocaleString('en-US')} </em>
+                        <em style={{color: '#ff1500'}}>{block ? parseInt(block.gasUsed._hex, 16).toLocaleString('en-US') : <AiOutlineLoading className="loadingSvg"/>} </em>
                          gas used ⛽
                     </p>
                     <p>
-                        <em style={{color: '#ff1500'}}>{block && getBurntFees().toFixed(3)} Ξ </em>
+                        <em style={{color: '#ff1500'}}>{block ? getBurntFees().toFixed(3) : <AiOutlineLoading className="loadingSvg"/>} Ξ </em>
                          in fees burnt 🔥
                     </p>
                     <a target="_blank" href={block && `https://etherscan.io/block/${block.number}`}>
-                        Block created {block && convertBlockAge(block.timestamp)} EST <FaExternalLinkAlt/>
+                        Block created {block ? convertBlockAge(block.timestamp) : <AiOutlineLoading className="loadingSvg"/>} EST <FaExternalLinkAlt/>
                     </a>
                 </div>
             </div>
