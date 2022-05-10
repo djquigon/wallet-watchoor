@@ -4,20 +4,30 @@ import WalletConnector from './WalletConnector'
 import {FaExternalLinkAlt} from "react-icons/fa";
 import { ethers } from 'ethers';
 
+const provider = new ethers.providers.Web3Provider(window.ethereum)
+
 const ChainNav = ({account, handleAccount}) => {
 
     const [block, setBlock] = useState(null)
 
-    const getBlock = () => {
-        window.ethereum.request({ method: "eth_getBlockByNumber", params: ['latest', false] })
-        .then(blockInfo => {
-            setBlock(blockInfo)
-        })
+    const getBlock = async () => {
+        // window.ethereum.request({ method: "eth_getBlockByNumber", params: ['latest', false] })
+        // .then(blockInfo => {
+        //     setBlock(blockInfo)
+        // })
+        const blockInfo = await provider.getBlock()
+        setBlock(blockInfo)
     }
 
     const convertBlockAge = (timestamp) => {
-        const time = new Date(parseInt(timestamp, 16)*1000).toLocaleTimeString("en-US")
+        const time = new Date(timestamp*1000).toLocaleTimeString("en-US")
         return time
+    }
+
+    const getBurntFees = () =>{
+        const baseFeePerGas = ethers.utils.formatEther(parseInt(block.baseFeePerGas._hex, 16))
+        const gasUsed = parseInt(block.gasUsed._hex, 16)
+        return baseFeePerGas * gasUsed
     }
 
 
@@ -44,17 +54,21 @@ const ChainNav = ({account, handleAccount}) => {
                 <div id={ChainNavCSS.blockInfo}>
                     <p>🟢 
                         <em style={{color: '#008f00'}}>
-                            {block && parseInt(block.number, 16)}
+                            {block && block.number}
                         </em>
                     </p>
                     <p>
-                        {block && parseInt(block.transactions.length, 16)} txn(s)
+                        {block && block.transactions.length} txn(s)
                     </p>
                     <p>
-                        <em style={{color: '#ff1500'}}>{block && parseInt(block.gasUsed, 16).toLocaleString('en-US')} Ξ </em>
-                         in gas used ⛽
+                        <em style={{color: '#ff1500'}}>{block && parseInt(block.gasUsed._hex, 16).toLocaleString('en-US')} </em>
+                         gas used ⛽
                     </p>
-                    <a target="_blank" href={block && `https://etherscan.io/block/${parseInt(block.number, 16)}`}>
+                    <p>
+                        <em style={{color: '#ff1500'}}>{block && getBurntFees().toFixed(3)} Ξ </em>
+                         in fees burnt 🔥
+                    </p>
+                    <a target="_blank" href={block && `https://etherscan.io/block/${block.number}`}>
                         Block created {block && convertBlockAge(block.timestamp)} EST <FaExternalLinkAlt/>
                     </a>
                 </div>

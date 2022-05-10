@@ -7,7 +7,9 @@ import {MdInfo} from "react-icons/md"
 import {FaGithub, FaMedium, FaGasPump} from "react-icons/fa";
 import {ImEnter} from "react-icons/im";
 import {ethers} from 'ethers';
-import { ThemeContext, provider } from './Layout'
+import { ThemeContext } from './Layout'
+
+const provider = new ethers.providers.Web3Provider(window.ethereum)
 
 
 const Navbar = () => {
@@ -23,7 +25,6 @@ const Navbar = () => {
 
     const fetchGasPrice = async () => {
         if (typeof window.ethereum !== 'undefined') {
-            const provider = new ethers.providers.Web3Provider(window.ethereum)
             const feeData = await provider.getFeeData()
 
             const maxFee = parseInt(ethers.utils.formatUnits(feeData.maxFeePerGas, "gwei"))
