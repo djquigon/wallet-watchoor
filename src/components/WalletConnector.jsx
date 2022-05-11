@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import WalletConnectorCSS from "../style/WalletConnector.module.css"
 import {FaWindowClose, FaExternalLinkAlt} from "react-icons/fa";
-import chef from "../assets/chef.png"
+import makeBlockie from 'ethereum-blockies-base64';
 import { ethers } from 'ethers';
 
 const WalletConnector = ({account, handleAccount}) => {
@@ -99,7 +99,7 @@ const WalletConnector = ({account, handleAccount}) => {
                     <div className={WalletConnectorCSS.modalContent}>
                     <h2>Account</h2>
                     <div id={WalletConnectorCSS.modalAccountInfo}>
-                        <img src={chef}></img>
+                        <img src={makeBlockie(account)}></img>
                         <p>{accountBalance + ' Ξ'}</p>
                         <p>{accountTransactionCount + ' txn(s)'}</p>
                         <p>{account}</p>

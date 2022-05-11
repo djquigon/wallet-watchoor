@@ -9,6 +9,8 @@ import apiRequest from '../apiRequest'
 import { ethers } from 'ethers'
 import {AiOutlineLoading} from "react-icons/ai"
 
+const provider = new ethers.providers.Web3Provider(window.ethereum)
+
 const WatchList = ({account, addresses, setAddresses}) => {
     const API_URL = "http://localhost:8000/addresses?userAddress=" + account;
     const [newAddress, setNewAddress] = useState('');
@@ -17,10 +19,8 @@ const WatchList = ({account, addresses, setAddresses}) => {
     const [fetchError, setFetchError] = useState(null);
     const [isLoading, setIsLoading] = useState(true)
 
-    const addWatchListAddress = async (alias, address) => {
-        const id = addresses.length ? addresses[addresses.length - 1].id + 1 : 1
-        const myNewAddress = {id, alerts: true, alias, address, userAddress: account}
-        const listAddresses = [...addresses, myNewAddress]
+    const addWatchListAddress = async (addressInfo) => {
+        const listAddresses = [...addresses, addressInfo]
         setAddresses(listAddresses)
 
         const postOptions = {
@@ -28,7 +28,7 @@ const WatchList = ({account, addresses, setAddresses}) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(myNewAddress) 
+            body: JSON.stringify(addressInfo) 
         }
 
         const result = await apiRequest(API_URL, postOptions)
@@ -67,15 +67,60 @@ const WatchList = ({account, addresses, setAddresses}) => {
         if(result) setFetchError(result)
     }
 
-    const handleWatchListAdd = (e) => {
+    const handleWatchListAdd = async (e) => {
         e.preventDefault();
         if(!newAddress){
             return
         }
-        /**Need to adapt to add actual second field for addresses */
+
+        /**If the address to add is a valid eth address */
         if (ethers.utils.isAddress(newAddress)){
-            addWatchListAddress(newAlias, newAddress.toLowerCase())
-        } else{ window.alert("Not a valid address. Please ensure the address you entered exists. Check the following link: https://etherscan.io/address/" + newAddress)}
+            const ens = await provider.lookupAddress(newAddress)
+            const resolver = await provider.getResolver(ens)
+            const addressInfo ={
+                id: addresses.length ? addresses[addresses.length - 1].id + 1 : 1,
+                userAddress: account, 
+                alerts: true, 
+                //first three are default
+                alias: newAlias,
+                address: newAddress.toLowerCase(),
+                ens: ens,
+                avatar: await resolver.getAvatar(),
+                twitterName: await resolver.getText("com.twitter"),
+                telegramName: await resolver.getText("org.telegram"),
+                email: await resolver.getText("email"),
+                website: await resolver.getText("url"),
+                location: await resolver.getText("location")
+            }
+            //if address avatar is not null get the url
+            if(addressInfo.avatar){ addressInfo.avatar = addressInfo.avatar.url }
+            console.log(addressInfo)
+            addWatchListAddress(addressInfo)
+        // if the address to add is a valid ens
+        } else if(await provider.resolveName(newAddress)) {
+            const resolver = await provider.getResolver(newAddress)
+            const addressInfo ={
+                id: addresses.length ? addresses[addresses.length - 1].id + 1 : 1,
+                userAddress: account, 
+                alerts: true, 
+                //first three are default
+                alias: newAlias,
+                address: (await resolver.getAddress()).toLowerCase(),
+                ens: newAddress,
+                avatar: await resolver.getAvatar(),
+                twitterName: await resolver.getText("com.twitter"),
+                telegramName: await resolver.getText("org.telegram"),
+                email: await resolver.getText("email"),
+                website: await resolver.getText("url"),
+                location: await resolver.getText("location")
+            }
+            if(addressInfo.avatar){ addressInfo.avatar = addressInfo.avatar.url }
+            console.log(addressInfo)
+            addWatchListAddress(addressInfo)
+        }else{ 
+            window.alert("Not a valid address. Please ensure the address you entered exists. Check the following link: https://etherscan.io/address/" + newAddress)
+            return
+        }
         /**Sets the input text to empty */
         setNewAddress("")
         setNewAlias("")

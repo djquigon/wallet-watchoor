@@ -17,7 +17,6 @@
     display: flex;
     flex-direction: column;
     height: 5em;
-    padding: 1em 0.5em 1em 0.5em;
 }
 
 .address input[type="checkbox"] {
@@ -27,9 +26,14 @@
     
 }
 
+.address > img{
+  height: 24px;
+  width: 24px;
+  border-radius: 6px;
+}
+
 .address a {
     font-size: 12px;
-    flex-grow: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: none;
@@ -48,6 +52,14 @@
 .addressOptions {
   display: flex;
   justify-content: space-between;
+}
+
+.addressOptions *{
+  font-size: 14px;
+}
+.addressOptions img{
+  height: 14px;
+  width: 14px;
 }
 
 /*WatchList add address*/

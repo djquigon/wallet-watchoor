@@ -36,8 +36,16 @@
     text-decoration: none;
 }
 
+.feedRow td{
+    padding: 1em;
+}
+
 #feed thead {
     background: #070707;
     position: sticky;
     top: 0;
+}
+
+#tableContainer{
+    overflow-y: scroll;
 }

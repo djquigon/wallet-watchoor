@@ -13,6 +13,7 @@ const ChainNav = ({account, handleAccount}) => {
     const [block, setBlock] = useState(null)
 
     const getBlock = async () => {
+        console.log("getBlock")
         // window.ethereum.request({ method: "eth_getBlockByNumber", params: ['latest', false] })
         // .then(blockInfo => {
         //     setBlock(blockInfo)
@@ -34,8 +35,10 @@ const ChainNav = ({account, handleAccount}) => {
 
 
     useEffect(() => {
+        //call for initial load
+        getBlock()
         //set loading somewhere and have conditionals for elements
-        const blockUpdater = setInterval(getBlock, 65000)
+        const blockUpdater = setInterval(getBlock, 15000)
         /**cleanup */
         return () => { 
             clearInterval(blockUpdater)

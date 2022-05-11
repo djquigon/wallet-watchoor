@@ -25,6 +25,7 @@ const Navbar = () => {
     }
 
     const fetchGasPrice = async () => {
+        console.log("fetchGas")
         if (typeof window.ethereum !== 'undefined') {
             const feeData = await provider.getFeeData()
 
@@ -38,7 +39,9 @@ const Navbar = () => {
     
 
     useEffect(() => {
-        const gasPriceUpdater = setInterval(fetchGasPrice, 65000)
+        //call for initial load
+        fetchGasPrice()
+        const gasPriceUpdater = setInterval(fetchGasPrice, 15000)
         return () => { 
             clearInterval(gasPriceUpdater)
         }

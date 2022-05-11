@@ -1,6 +1,6 @@
 #windowHeader{
     background-color: #000000;
-    background-image: linear-gradient(0deg, #000000 1%, #212121 99%);
+    background-image: linear-gradient(0deg, #000000 1%, #333333 99%);
     width: 100%;
     height: 25px;
     display: flex;
