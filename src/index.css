@@ -4,10 +4,6 @@
   transition: .15s ease;
 }
 
-html {
-  font-size: 14px;
-}
-
 body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;

@@ -16,7 +16,8 @@
 .address {
     display: flex;
     flex-direction: column;
-    height: 5em;
+    justify-content: center;
+    height: 7.5em;
 }
 
 .address input[type="checkbox"] {
@@ -26,7 +27,7 @@
     
 }
 
-.address > img{
+.address .avatar{
   height: 24px;
   width: 24px;
   border-radius: 6px;

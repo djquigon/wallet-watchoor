@@ -10,10 +10,9 @@ const WatchListAddress = ({address, handleCheck, handleDelete}) => {
     return (
         /**Keys are required for react list addresses */
         <li className={WatchListCSS.address}>
-            {/* <input type="checkbox" onChange={() => handleCheck(address.id)} alerts={address.alerts}></input> */}
-                {address.avatar ? <img src={address.avatar}></img> : <img src={makeBlockie(address.address)}></img>}
-                {address.ens ? ` ${address.alias} (${address.ens})` : ` ${address.alias}`}
-            <a target="_blank" href={`https://etherscan.io/address/${address.address}`}> {address.address} </a>
+            <p>{address.avatar ? <img className={WatchListCSS.avatar} src={address.avatar}></img> : <img className={WatchListCSS.avatar} src={makeBlockie(address.address)}></img>}
+            {address.ens ? ` ${address.alias} (${address.ens})` : ` ${address.alias}`}</p>
+            <p>{address.address}</p>
             <div className={WatchListCSS.addressOptions}>
                 {address.alerts ? <FaVolumeUp color='#00ac31' role="button" onClick={() => handleCheck(address.id)}/> 
                 : <FaVolumeMute color='red' role="button" onClick={() => handleCheck(address.id)}/>}
