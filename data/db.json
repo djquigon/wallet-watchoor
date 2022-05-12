@@ -16,78 +16,6 @@
       "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40"
     },
     {
-      "id": 32,
-      "alerts": true,
-      "alias": "rockin",
-      "address": "0xa0d40d99f1f5ca15a9c194e1da77c31969aafc03",
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "ens": "null.eth",
-      "avatar": null
-    },
-    {
-      "id": 33,
-      "alerts": false,
-      "alias": "brantly",
-      "address": "0x983110309620d911731ac0932219af06091b6744",
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "ens": "brantly.eth",
-      "avatar": "https://api.wrappedpunks.com/images/punks/2430.png"
-    },
-    {
-      "id": 35,
-      "alerts": true,
-      "alias": "ape",
-      "address": "0xc88ebc63c3126e9f37a46c1cf55b0e79c9cc20e2",
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "ens": "ape.eth",
-      "avatar": null
-    },
-    {
-      "id": 41,
-      "alerts": true,
-      "alias": "nick",
-      "address": "0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5",
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "ens": "nick.eth"
-    },
-    {
-      "id": 42,
-      "alerts": true,
-      "alias": "nick",
-      "address": "0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5",
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "ens": "nick.eth",
-      "avatar": "https://lh3.googleusercontent.com/hKHZTZSTmcznonu8I6xcVZio1IF76fq0XmcxnvUykC-FGuVJ75UPdLDlKJsfgVXH9wOSmkyHw0C39VAYtsGyxT7WNybjQ6s3fM3macE"
-    },
-    {
-      "id": 45,
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
-      "alias": "logan",
-      "address": "0xd9a657acb3960db92aaaa32942019bd3c473fccb",
-      "ens": "logan.eth",
-      "avatar": null,
-      "twitterName": null,
-      "telegramName": "logan",
-      "email": null,
-      "website": null,
-      "location": null
-    },
-    {
-      "id": 48,
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
-      "alias": "logan",
-      "address": "0xd9a657acb3960db92aaaa32942019bd3c473fccb",
-      "ens": "logan.eth",
-      "avatar": null,
-      "twitterName": null,
-      "telegramName": null,
-      "email": null,
-      "website": null,
-      "location": "Atlanta, Georgia"
-    },
-    {
       "alias": "ricmoo",
       "address": "0x5555763613a12d8f3e73be831dff8598089d3dca",
       "ens": "ricmoo.eth",
@@ -112,7 +40,21 @@
       "id": 212
     },
     {
-      "id": 49,
+      "id": 7,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "steve",
+      "address": "0x11231f7dc863f36a6516eb4ef052f195000e0000",
+      "ens": "steve.eth",
+      "avatar": null,
+      "twitterName": "ste_ve_e",
+      "telegramName": null,
+      "email": null,
+      "website": "https://steveeth.com",
+      "location": null
+    },
+    {
+      "id": 8,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
       "alerts": true,
       "alias": "ricmoo",
@@ -123,6 +65,76 @@
       "telegramName": null,
       "email": "me@ricmoo.com",
       "website": "https://www.ricmoo.com/",
+      "location": null
+    },
+    {
+      "id": 9,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "sds",
+      "address": "0x063be4634c9ae1a699a4275fdbe8550f9d3eaeec",
+      "ens": null,
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
+      "location": null
+    },
+    {
+      "id": 10,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "kill",
+      "address": "0xc88ebc63c3126e9f37a46c1cf55b0e79c9cc20e2",
+      "ens": "kill.eth",
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
+      "location": null
+    },
+    {
+      "id": 11,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "cream",
+      "address": "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae",
+      "ens": "ethereum.eth",
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": "https://ethereum.org",
+      "location": null
+    },
+    {
+      "id": 12,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "ricmoo",
+      "address": "0x5555763613a12d8f3e73be831dff8598089d3dca",
+      "ens": "ricmoo.eth",
+      "avatar": "https://www.ricmoo.com/profile.jpg",
+      "twitterName": "@ricmoo",
+      "telegramName": null,
+      "email": "me@ricmoo.com",
+      "website": "https://www.ricmoo.com/",
+      "location": null
+    },
+    {
+      "id": 13,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "steve",
+      "address": "0x11231f7dc863f36a6516eb4ef052f195000e0000",
+      "ens": "steve.eth",
+      "avatar": null,
+      "twitterName": "ste_ve_e",
+      "telegramName": null,
+      "email": null,
+      "website": "https://steveeth.com",
       "location": null
     }
   ]

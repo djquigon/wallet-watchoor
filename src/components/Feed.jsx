@@ -3,6 +3,9 @@ import FeedCSS from '../style/Feed.module.css'
 import WindowHeader from './WindowHeader'
 import FeedEntry from './FeedEntry';
 
+
+import {FaTrashAlt, FaExternalLinkAlt} from "react-icons/fa";
+
 const Feed = ({account, addresses}) => {
     return (
         <div id={FeedCSS.feed}>
@@ -24,10 +27,28 @@ const Feed = ({account, addresses}) => {
                         <FeedEntry/>
                         <FeedEntry/>
                         <FeedEntry/>
+                        <tr className={FeedCSS.feedRow}>
+                            <td><a href="#">0x82sa...4d2z <FaExternalLinkAlt/></a></td>
+                            <td><a href="#">0x82sa...4d2z <FaExternalLinkAlt/></a></td>
+                            <td>Atomic Match_</td>
+                            <td id={FeedCSS.monkee} style={{color: "#13ff00"}}><b>40 Ξ</b></td>
+                            <td>2021-12-30 04:45</td>
+                            <td><a href="#">0x82sa...4d2z <FaExternalLinkAlt/></a></td>
+                            <td><FaTrashAlt/></td>
+                        </tr>
                         <FeedEntry/>
                         <FeedEntry/>
                         <FeedEntry/>
                         <FeedEntry/>
+                        <tr className={FeedCSS.feedRow}>
+                            <td><a href="#">0x82sa...4d2z <FaExternalLinkAlt/></a></td>
+                            <td><a href="#">0x82sa...4d2z <FaExternalLinkAlt/></a></td>
+                            <td>Atomic Match_</td>
+                            <td id={FeedCSS.dave} style={{color: "#13ff00"}}><b>40 Ξ</b></td>
+                            <td>2021-12-30 04:45</td>
+                            <td><a href="#">0x82sa...4d2z <FaExternalLinkAlt/></a></td>
+                            <td><FaTrashAlt/></td>
+                        </tr>
                         <FeedEntry/>
                         <FeedEntry/>
                         <FeedEntry/>

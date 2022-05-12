@@ -3,6 +3,7 @@ import ChainNavCSS from '../style/ChainNav.module.css'
 import WalletConnector from './WalletConnector'
 import {FaExternalLinkAlt} from "react-icons/fa";
 import {AiOutlineLoading} from "react-icons/ai"
+import etherscanLogo from "../assets/etherscanlogo.png"
 import { ethers } from 'ethers';
 
 const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -11,15 +12,18 @@ const ChainNav = ({account, handleAccount}) => {
 
     // const [chain, setChain] = useState("ethereum")
     const [block, setBlock] = useState(null)
+    const [refreshTime, setRefreshTime]= useState(null)
 
     const getBlock = async () => {
         console.log("getBlock")
-        // window.ethereum.request({ method: "eth_getBlockByNumber", params: ['latest', false] })
-        // .then(blockInfo => {
-        //     setBlock(blockInfo)
-        // })
         const blockInfo = await provider.getBlock()
         setBlock(blockInfo)
+        setRefreshTime(15)
+        console.log("timer reset")
+    }
+
+    const setTime = () =>{
+        setRefreshTime(refreshTime => refreshTime > 0 ? refreshTime - 1 : null)
     }
 
     const convertBlockAge = (timestamp) => {
@@ -33,15 +37,16 @@ const ChainNav = ({account, handleAccount}) => {
         return baseFeePerGas * gasUsed
     }
 
-
     useEffect(() => {
         //call for initial load
         getBlock()
         //set loading somewhere and have conditionals for elements
         const blockUpdater = setInterval(getBlock, 15000)
+        const timeUpdater = setInterval(setTime, 1000)
         /**cleanup */
         return () => { 
             clearInterval(blockUpdater)
+            clearInterval(timeUpdater)
         }
     }, [])
 
@@ -58,7 +63,7 @@ const ChainNav = ({account, handleAccount}) => {
                     <button className={ChainNavCSS.chainChangeBtn}>Optimism</button>
                 <div id={ChainNavCSS.blockInfo}>
                     <p>🟢&nbsp;
-                        <em style={{color: '#008f00'}}>
+                        <em id={ChainNavCSS.blockNumber}  style={{color: '#008f00'}}>
                             Block # {block ? block.number : <AiOutlineLoading className="loadingSvg"/>}
                         </em>
                     </p>
@@ -66,16 +71,18 @@ const ChainNav = ({account, handleAccount}) => {
                         {block ? block.transactions.length : <AiOutlineLoading className="loadingSvg"/>} txn(s)
                     </p>
                     <p>
-                        <em style={{color: '#ff1500'}}>{block ? parseInt(block.gasUsed._hex, 16).toLocaleString('en-US') : <AiOutlineLoading className="loadingSvg"/>} </em>
+                        <em id={ChainNavCSS.gasUsed}  style={{color: '#ff1500'}}>{block ? parseInt(block.gasUsed._hex, 16).toLocaleString('en-US') : <AiOutlineLoading className="loadingSvg"/>} </em>
                          gas used ⛽
                     </p>
                     <p>
-                        <em style={{color: '#ff1500'}}>{block ? getBurntFees().toFixed(3) : <AiOutlineLoading className="loadingSvg"/>} Ξ </em>
+                        <em id={ChainNavCSS.feesBurnt} style={{color: '#ff5500'}}>{block ? getBurntFees().toFixed(3) : <AiOutlineLoading className="loadingSvg"/>} Ξ </em>
                          in fees burnt 🔥
                     </p>
                     <a target="_blank" href={block && `https://etherscan.io/block/${block.number}`}>
-                        Block created {block ? convertBlockAge(block.timestamp) : <AiOutlineLoading className="loadingSvg"/>} EST <FaExternalLinkAlt/>
+                        Block created {block ? convertBlockAge(block.timestamp) : <AiOutlineLoading className="loadingSvg"/>} EST <img height="14px" src={etherscanLogo}></img>
                     </a>
+
+                    <b style={{width: "115px", color: "#7475b9"}}>Refresh in {refreshTime ? refreshTime : <AiOutlineLoading className="loadingSvg"/>}</b>
                 </div>
             </div>
             <WalletConnector account={account} handleAccount={handleAccount}/>

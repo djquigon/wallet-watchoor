@@ -49,3 +49,13 @@
 #tableContainer{
     overflow-y: scroll;
 }
+
+#monkee{
+    background: url(https://media2.giphy.com/media/3oEdvbpl0X32bXD2Vi/giphy.gif);
+    background-size: cover;
+}
+
+#dave{
+    background: url(https://media4.giphy.com/media/h0MTqLyvgG0Ss/giphy.gif?cid=ecf05e476otp58306kqs6kfz8jopwh20dvdbdjfw9ylf87rv&rid=giphy.gif&ct=g);
+    background-size: cover;
+}

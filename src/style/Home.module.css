@@ -39,6 +39,10 @@ main iframe{
   padding-right: 4em;
 }
 
+#headerContent{
+  font-size: larger;
+}
+
 #headerContent *{
   margin-top: 2em;
 }

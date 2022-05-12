@@ -4,7 +4,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: #121212;
+    background-color: #070707;
 }
 
 .chainChangeBtn{
@@ -46,5 +46,20 @@
 
 #chainContainer{
     height: 100%;
-    width: 1400px;
+    width: 1600px;
+}
+
+#blockNumber{
+    text-shadow:
+    0 0 16px #fff, 0 0 0px #fff, 0 0 21px #fff, 0 0 42px #00ff0f, 0 0 82px #21ff00, 0 0 92px #21ff00, 0 0 102px #00ff3e, 0 0 151px #00ca00;
+}
+
+#gasUsed{
+    text-shadow:
+    0 0 16px #fff, 0 0 0px #fff, 0 0 21px #fff, 0 0 42px #ff3c00, 0 0 82px #ff3300, 0 0 92px #ff2600, 0 0 102px #ff3c00, 0 0 151px #ca0000;
+}
+
+#feesBurnt{
+    text-shadow:
+    0 0 16px #fff, 0 0 0px #fff, 0 0 21px #fff, 0 0 42px #ffa600, 0 0 82px #ff8800, 0 0 92px #ffc400, 0 0 102px #ff6600, 0 0 151px #ca7200;
 }

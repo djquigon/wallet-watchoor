@@ -1,3 +1,7 @@
+html{
+  font-size: 14px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -80,7 +84,7 @@ body.activeModal {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: black;
+  background-color: #535353;
   border-radius: 20px;
 }
 

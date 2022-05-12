@@ -35,7 +35,7 @@ const WatchList = ({account, addresses, setAddresses}) => {
         if(result) setFetchError(result)
     }
 
-    const handleCheck = async (id) => {
+    const handleChangeAlert = async (id) => {
         const listAddresses = addresses.map(address => address.id === id ? 
         /*Copy address but changed alerts status to opposite*/
         {...address, alerts: !address.alerts} : address )
@@ -67,55 +67,47 @@ const WatchList = ({account, addresses, setAddresses}) => {
         if(result) setFetchError(result)
     }
 
+    const getAddressInfo = async (address, ens) => {
+        let resolver = null
+        if(ens){ resolver = await provider.getResolver(ens) }
+        const addressInfo ={
+            id: addresses.length ? addresses[addresses.length - 1].id + 1 : 1,
+            userAddress: account, 
+            alerts: true, 
+            //first three are default
+            alias: newAlias,
+            address: address.toLowerCase(),
+            ens: ens,
+            avatar: resolver ? await resolver.getAvatar() : null,
+            twitterName: resolver ? await resolver.getText("com.twitter") : null,
+            telegramName: resolver ? await resolver.getText("org.telegram") : null,
+            email: resolver ? await resolver.getText("email") : null,
+            website: resolver ? await resolver.getText("url") : null,
+            location: resolver ? await resolver.getText("location") : null,
+        }
+        //if address avatar is not null get the url
+        if(addressInfo.avatar){ addressInfo.avatar = addressInfo.avatar.url }
+        console.log(addressInfo.website)
+        if(addressInfo.website && !addressInfo.website.includes("https://")){ addressInfo.website = `https://${addressInfo.website}`}
+        console.log(addressInfo)
+
+        return addressInfo
+    }
+
     const handleWatchListAdd = async (e) => {
         e.preventDefault();
         if(!newAddress){
             return
         }
-
         /**If the address to add is a valid eth address */
         if (ethers.utils.isAddress(newAddress)){
             const ens = await provider.lookupAddress(newAddress)
-            const resolver = await provider.getResolver(ens)
-            const addressInfo ={
-                id: addresses.length ? addresses[addresses.length - 1].id + 1 : 1,
-                userAddress: account, 
-                alerts: true, 
-                //first three are default
-                alias: newAlias,
-                address: newAddress.toLowerCase(),
-                ens: ens,
-                avatar: await resolver.getAvatar(),
-                twitterName: await resolver.getText("com.twitter"),
-                telegramName: await resolver.getText("org.telegram"),
-                email: await resolver.getText("email"),
-                website: await resolver.getText("url"),
-                location: await resolver.getText("location")
-            }
-            //if address avatar is not null get the url
-            if(addressInfo.avatar){ addressInfo.avatar = addressInfo.avatar.url }
-            console.log(addressInfo)
+            const addressInfo = await getAddressInfo(newAddress, ens)
             addWatchListAddress(addressInfo)
         // if the address to add is a valid ens
         } else if(await provider.resolveName(newAddress)) {
-            const resolver = await provider.getResolver(newAddress)
-            const addressInfo ={
-                id: addresses.length ? addresses[addresses.length - 1].id + 1 : 1,
-                userAddress: account, 
-                alerts: true, 
-                //first three are default
-                alias: newAlias,
-                address: (await resolver.getAddress()).toLowerCase(),
-                ens: newAddress,
-                avatar: await resolver.getAvatar(),
-                twitterName: await resolver.getText("com.twitter"),
-                telegramName: await resolver.getText("org.telegram"),
-                email: await resolver.getText("email"),
-                website: await resolver.getText("url"),
-                location: await resolver.getText("location")
-            }
-            if(addressInfo.avatar){ addressInfo.avatar = addressInfo.avatar.url }
-            console.log(addressInfo)
+            const address = await provider.resolveName(newAddress)
+            const addressInfo = await getAddressInfo(address, newAddress)
             addWatchListAddress(addressInfo)
         }else{ 
             window.alert("Not a valid address. Please ensure the address you entered exists. Check the following link: https://etherscan.io/address/" + newAddress)
@@ -166,7 +158,7 @@ const WatchList = ({account, addresses, setAddresses}) => {
                 {filteredAddresses.length !== 0 ? (
                     <ol>
                         {filteredAddresses.map((address) => (
-                            <WatchListAddress key={address.id} address={address} handleCheck={handleCheck} handleDelete={handleDelete}/>
+                            <WatchListAddress key={address.id} address={address} handleChangeAlert={handleChangeAlert} handleDelete={handleDelete}/>
                         ))}
                     </ol>
                 ) : (!account ? <p style={{marginTop: '2rem'}}>Your wallet is not connected.</p> 
