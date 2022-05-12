@@ -31,7 +31,7 @@ const Feed = ({account, addresses}) => {
                             <td><a href="#">0x82sa...4d2z <FaExternalLinkAlt/></a></td>
                             <td><a href="#">0x82sa...4d2z <FaExternalLinkAlt/></a></td>
                             <td>Atomic Match_</td>
-                            <td id={FeedCSS.monkee} style={{color: "#13ff00"}}><b>40 Ξ</b></td>
+                            <td id={FeedCSS.monkee} style={{color: "#13ff00"}}><b>440 Ξ</b></td>
                             <td>2021-12-30 04:45</td>
                             <td><a href="#">0x82sa...4d2z <FaExternalLinkAlt/></a></td>
                             <td><FaTrashAlt/></td>
@@ -44,7 +44,7 @@ const Feed = ({account, addresses}) => {
                             <td><a href="#">0x82sa...4d2z <FaExternalLinkAlt/></a></td>
                             <td><a href="#">0x82sa...4d2z <FaExternalLinkAlt/></a></td>
                             <td>Atomic Match_</td>
-                            <td id={FeedCSS.dave} style={{color: "#13ff00"}}><b>40 Ξ</b></td>
+                            <td id={FeedCSS.dave} style={{color: "#13ff00"}}><b>1023 Ξ</b></td>
                             <td>2021-12-30 04:45</td>
                             <td><a href="#">0x82sa...4d2z <FaExternalLinkAlt/></a></td>
                             <td><FaTrashAlt/></td>

@@ -16,7 +16,8 @@ const ChainNav = ({account, handleAccount}) => {
 
     const getBlock = async () => {
         console.log("getBlock")
-        const blockInfo = await provider.getBlock()
+        const blockInfo = await provider.getBlockWithTransactions()
+        console.log(blockInfo)
         setBlock(blockInfo)
         setRefreshTime(15)
         console.log("timer reset")
@@ -62,9 +63,9 @@ const ChainNav = ({account, handleAccount}) => {
                     <button className={ChainNavCSS.chainChangeBtn}>Arbitrum</button>
                     <button className={ChainNavCSS.chainChangeBtn}>Optimism</button>
                 <div id={ChainNavCSS.blockInfo}>
-                    <p>🟢&nbsp;
-                        <em id={ChainNavCSS.blockNumber}  style={{color: '#008f00'}}>
-                            Block # {block ? block.number : <AiOutlineLoading className="loadingSvg"/>}
+                    <p>🟢 Block&nbsp;
+                        <em id={ChainNavCSS.blockNumber}  style={{color: '#1eff00'}}>
+                            #{block ? block.number : <AiOutlineLoading className="loadingSvg"/>}
                         </em>
                     </p>
                     <p>
