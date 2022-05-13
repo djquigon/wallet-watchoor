@@ -23,7 +23,7 @@ const FeedEntry = ({transaction}) => {
                 <b>{transaction.value} Ξ</b>
             </td>
             <td>{new Date(transaction.timestamp*1000).toLocaleTimeString("en-US")} EST</td>
-            <td>
+            <td className={`${transaction.creates ? "contractCreation" : ""}`}>
                 <a target="_blank" href={`https://etherscan.io/tx/${transaction.hash}`}>
                     {`${transaction.hash.toString().substring(0, 6)}...${transaction.hash.toString().substring(transaction.hash.length - 4)}`} <FaExternalLinkAlt/>
                 </a>
