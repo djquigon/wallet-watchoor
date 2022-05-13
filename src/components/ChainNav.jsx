@@ -8,10 +8,9 @@ import { ethers } from 'ethers';
 
 const provider = new ethers.providers.Web3Provider(window.ethereum)
 
-const ChainNav = ({account, handleAccount}) => {
+const ChainNav = ({block, setBlock, account, handleAccount}) => {
 
     // const [chain, setChain] = useState("ethereum")
-    const [block, setBlock] = useState(null)
     const [refreshTime, setRefreshTime]= useState(null)
 
     const getBlock = async () => {
@@ -83,7 +82,7 @@ const ChainNav = ({account, handleAccount}) => {
                         Block created {block ? convertBlockAge(block.timestamp) : <AiOutlineLoading className="loadingSvg"/>} EST <img height="14px" src={etherscanLogo}></img>
                     </a>
 
-                    <b style={{width: "115px", color: "#7475b9"}}>Refresh in {refreshTime ? refreshTime : <AiOutlineLoading className="loadingSvg"/>}</b>
+                    <b style={{width: "115px", color: "#7a86fb"}}>Refresh in {refreshTime ? refreshTime : <AiOutlineLoading className="loadingSvg"/>}</b>
                 </div>
             </div>
             <WalletConnector account={account} handleAccount={handleAccount}/>

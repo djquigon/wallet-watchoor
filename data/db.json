@@ -11,7 +11,7 @@
     {
       "alias": "Dudley",
       "address": "0x063BE4634c9ae1A699a4275FDbe8550F9D3EaEEC",
-      "alerts": false,
+      "alerts": true,
       "id": 211,
       "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40"
     },
@@ -42,7 +42,7 @@
     {
       "id": 7,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
+      "alerts": false,
       "alias": "steve",
       "address": "0x11231f7dc863f36a6516eb4ef052f195000e0000",
       "ens": "steve.eth",
@@ -65,20 +65,6 @@
       "telegramName": null,
       "email": "me@ricmoo.com",
       "website": "https://www.ricmoo.com/",
-      "location": null
-    },
-    {
-      "id": 9,
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
-      "alias": "sds",
-      "address": "0x063be4634c9ae1a699a4275fdbe8550f9d3eaeec",
-      "ens": null,
-      "avatar": null,
-      "twitterName": null,
-      "telegramName": null,
-      "email": null,
-      "website": null,
       "location": null
     },
     {
@@ -135,6 +121,34 @@
       "telegramName": null,
       "email": null,
       "website": "https://steveeth.com",
+      "location": null
+    },
+    {
+      "id": 14,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "sushi",
+      "address": "0xd9e1ce17f2641f24ae83637ab66a2cca9c378b9f",
+      "ens": null,
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
+      "location": null
+    },
+    {
+      "id": 15,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "uni",
+      "address": "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45",
+      "ens": null,
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
       "location": null
     }
   ]

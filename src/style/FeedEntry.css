@@ -1,0 +1,20 @@
+.smallValue{
+    color: #13ff00;
+    background: url(https://media2.giphy.com/media/3oEdvbpl0X32bXD2Vi/giphy.gif);
+    background-size: cover;
+    border-radius: 24px;
+  }
+  
+.mediumValue{
+    color: #13ff00;
+    background: url(https://media4.giphy.com/media/h0MTqLyvgG0Ss/giphy.gif?cid=ecf05e476otp58306kqs6kfz8jopwh20dvdbdjfw9ylf87rv&rid=giphy.gif&ct=g);
+    background-size: cover;
+    border-radius: 24px;
+}
+
+.largeValue{
+    color: #13ff00;
+    background: url(https://media0.giphy.com/media/SsTcO55LJDBsI/giphy.gif?cid=ecf05e47n1tjvwfn9w8xy3nrc5s3bavfz2e5kzcfjg54aqqv&rid=giphy.gif&ct=g);
+    background-size: cover;
+    border-radius: 24px;
+}

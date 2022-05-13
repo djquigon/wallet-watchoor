@@ -132,6 +132,8 @@ const WatchList = ({account, addresses, setAddresses}) => {
                 if(!response.ok) throw Error('Did not receive expected data')
                 const listAddresses = await response.json();
                 setAddresses(listAddresses)
+                // console.log(listAddresses)
+                // console.log(addresses)
                 setFetchError(null)
             } catch (err) {
                 setFetchError(err.message)
@@ -155,7 +157,7 @@ const WatchList = ({account, addresses, setAddresses}) => {
             {!fetchError && !isLoading && <>
                 <WatchListAddAddress newAddress={newAddress} setNewAddress={setNewAddress} newAlias={newAlias} setNewAlias={setNewAlias} handleWatchListAdd={handleWatchListAdd}/>
                 <WatchListSearch search={search} setSearch={setSearch}/>
-                {filteredAddresses.length !== 0 ? (
+                {filteredAddresses.length > 0 ? (
                     <ol>
                         {filteredAddresses.map((address) => (
                             <WatchListAddress key={address.id} address={address} handleChangeAlert={handleChangeAlert} handleDelete={handleDelete}/>
