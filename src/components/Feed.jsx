@@ -81,7 +81,7 @@ const Feed = ({block, setBlock, account, addresses}) => {
                             <th>Value</th>
                             <th>Timestamp</th>
                             <th>Txn Hash</th>
-                            <th></th>
+                            <th>Total Txns: <b style={{color: "#00ca00"}}>{feedTransactions.length}</b></th>
                         </tr>
                     </thead>
                     <tbody>
