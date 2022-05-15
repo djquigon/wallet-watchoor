@@ -4,7 +4,6 @@ import WindowHeader from './WindowHeader'
 import FeedEntry from './FeedEntry';
 import { ethers } from 'ethers';
 
-
 import {FaTrashAlt, FaExternalLinkAlt} from "react-icons/fa";
 
 const Feed = ({block, setBlock, account, addresses}) => {
@@ -28,10 +27,23 @@ const Feed = ({block, setBlock, account, addresses}) => {
             }
         }
         let newFilteredTransactions = block.transactions.filter(filter)
-        //add timestamp as object to newfilteredTransactions
-        newFilteredTransactions = newFilteredTransactions.map(transaction => ({...transaction, timestamp: block.timestamp}))
+        //add timestamp, update value, add associatedWatchListAddress
+        newFilteredTransactions = newFilteredTransactions.map(transaction => ({...transaction, 
+            timestamp: block.timestamp, 
+            value: parseFloat(ethers.utils.formatEther(transaction.value)).toFixed(3),
+            //could be two addresses if both to and from are watched, filter them and then add field for whethere they are to or from
+            toAddressInfo: addresses.find(address =>
+                transaction.to ? address.address === transaction.to.toLowerCase() : null),
+                // .map(address => ({...address,
+                //     isFrom: transaction.from.toLowerCase() === address.address,
+                //     isTo: transaction.to ? transaction.to.toLowerCase() === address.address : null
+                //     })
+                // )
+            fromAddressInfo:  addresses.find(address => 
+                address.address === transaction.from.toLowerCase())
+        }))
         //change value field to actual number
-        newFilteredTransactions = newFilteredTransactions.map(transaction => ({...transaction, value: parseFloat(ethers.utils.formatEther(transaction.value)).toFixed(3)}))
+        //newFilteredTransactions = newFilteredTransactions.map(transaction => ({...transaction, value: parseFloat(ethers.utils.formatEther(transaction.value)).toFixed(3)}))
         console.log("here")
         console.log(newFilteredTransactions)
 
@@ -77,16 +89,8 @@ const Feed = ({block, setBlock, account, addresses}) => {
                         {!account ? <tr><td><p style={{marginTop: '2rem'}}>Your wallet is not connected.</p></td></tr> :
                         ( 
                         feedTransactions.length > 0 ? (
-                            feedTransactions.map((transaction) => (
-
+                            feedTransactions.slice(0).reverse().map((transaction) => (
                                 <FeedEntry key={transaction.hash} transaction={transaction}/>
-                                // <FeedEntry key={transaction.hash}
-                                //     from={transaction.from} 
-                                //     to={transaction.to} 
-                                //     value={parseFloat(ethers.utils.formatEther(transaction.value)).toFixed(3)} 
-                                //     timestamp={transaction.timestamp}
-                                //     txnHash={transaction.hash}
-                                // />
                             ))
                         ) : <tr style={{marginTop: '2rem'}}>
                                 <td>

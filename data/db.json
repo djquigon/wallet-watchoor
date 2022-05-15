@@ -164,6 +164,34 @@
       "email": null,
       "website": null,
       "location": null
+    },
+    {
+      "id": 18,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "ricmoo",
+      "address": "0x5555763613a12d8f3e73be831dff8598089d3dca",
+      "ens": "ricmoo.eth",
+      "avatar": "https://www.ricmoo.com/profile.jpg",
+      "twitterName": "@ricmoo",
+      "telegramName": null,
+      "email": "me@ricmoo.com",
+      "website": "https://www.ricmoo.com/",
+      "location": null
+    },
+    {
+      "id": 19,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "uni",
+      "address": "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45",
+      "ens": null,
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
+      "location": null
     }
   ]
 }

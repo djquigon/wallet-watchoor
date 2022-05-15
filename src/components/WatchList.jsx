@@ -7,7 +7,6 @@ import WatchListAddAddress from './WatchListAddAddress'
 import WatchListSearch from './WatchListSearch'
 import apiRequest from '../apiRequest'
 import { ethers } from 'ethers'
-import {AiOutlineLoading} from "react-icons/ai"
 
 const provider = new ethers.providers.Web3Provider(window.ethereum)
 
