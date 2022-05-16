@@ -16,33 +16,9 @@
       "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40"
     },
     {
-      "alias": "ricmoo",
-      "address": "0x5555763613a12d8f3e73be831dff8598089d3dca",
-      "ens": "ricmoo.eth",
-      "avatar": {
-        "linkage": [
-          {
-            "type": "name",
-            "content": "ricmoo.eth"
-          },
-          {
-            "type": "url",
-            "content": "https://www.ricmoo.com/profile.jpg"
-          }
-        ],
-        "url": "https://www.ricmoo.com/profile.jpg"
-      },
-      "twitterName": "@ricmoo",
-      "telegramName": null,
-      "email": "me@ricmoo.com",
-      "website": "https://www.ricmoo.com/",
-      "location": null,
-      "id": 212
-    },
-    {
       "id": 7,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
+      "alerts": true,
       "alias": "steve",
       "address": "0x11231f7dc863f36a6516eb4ef052f195000e0000",
       "ens": "steve.eth",
@@ -54,23 +30,9 @@
       "location": null
     },
     {
-      "id": 8,
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
-      "alias": "ricmoo",
-      "address": "0x5555763613a12d8f3e73be831dff8598089d3dca",
-      "ens": "ricmoo.eth",
-      "avatar": "https://www.ricmoo.com/profile.jpg",
-      "twitterName": "@ricmoo",
-      "telegramName": null,
-      "email": "me@ricmoo.com",
-      "website": "https://www.ricmoo.com/",
-      "location": null
-    },
-    {
       "id": 10,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
+      "alerts": true,
       "alias": "kill",
       "address": "0xc88ebc63c3126e9f37a46c1cf55b0e79c9cc20e2",
       "ens": "kill.eth",
@@ -84,7 +46,7 @@
     {
       "id": 11,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
+      "alerts": true,
       "alias": "cream",
       "address": "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae",
       "ens": "ethereum.eth",
@@ -96,23 +58,9 @@
       "location": null
     },
     {
-      "id": 12,
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
-      "alias": "ricmoo",
-      "address": "0x5555763613a12d8f3e73be831dff8598089d3dca",
-      "ens": "ricmoo.eth",
-      "avatar": "https://www.ricmoo.com/profile.jpg",
-      "twitterName": "@ricmoo",
-      "telegramName": null,
-      "email": "me@ricmoo.com",
-      "website": "https://www.ricmoo.com/",
-      "location": null
-    },
-    {
       "id": 13,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
+      "alerts": true,
       "alias": "steve",
       "address": "0x11231f7dc863f36a6516eb4ef052f195000e0000",
       "ens": "steve.eth",
@@ -152,11 +100,11 @@
       "location": null
     },
     {
-      "id": 17,
+      "id": 20,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
       "alerts": true,
-      "alias": "fuck luna",
-      "address": "0x4946f9bbea3bd3387eb49b6e4680a14ee69e420a",
+      "alias": "ftx",
+      "address": "0x2faf487a4414fe77e2327f0bf4ae2a264a776ad2",
       "ens": null,
       "avatar": null,
       "twitterName": null,
@@ -166,7 +114,21 @@
       "location": null
     },
     {
-      "id": 18,
+      "id": 21,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "coinbase 5",
+      "address": "0xb5d85cbf7cb3ee0d56b3bb207d5fc4b82f43f511",
+      "ens": null,
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
+      "location": null
+    },
+    {
+      "id": 22,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
       "alerts": true,
       "alias": "ricmoo",
@@ -177,20 +139,6 @@
       "telegramName": null,
       "email": "me@ricmoo.com",
       "website": "https://www.ricmoo.com/",
-      "location": null
-    },
-    {
-      "id": 19,
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
-      "alias": "uni",
-      "address": "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45",
-      "ens": null,
-      "avatar": null,
-      "twitterName": null,
-      "telegramName": null,
-      "email": null,
-      "website": null,
       "location": null
     }
   ]

@@ -7,6 +7,7 @@ import WatchListAddAddress from './WatchListAddAddress'
 import WatchListSearch from './WatchListSearch'
 import apiRequest from '../apiRequest'
 import { ethers } from 'ethers'
+import {AiOutlineLoading} from "react-icons/ai"
 
 const provider = new ethers.providers.Web3Provider(window.ethereum)
 
@@ -86,9 +87,7 @@ const WatchList = ({account, addresses, setAddresses}) => {
         }
         //if address avatar is not null get the url
         if(addressInfo.avatar){ addressInfo.avatar = addressInfo.avatar.url }
-        console.log(addressInfo.website)
         if(addressInfo.website && !addressInfo.website.includes("https://")){ addressInfo.website = `https://${addressInfo.website}`}
-        console.log(addressInfo)
 
         return addressInfo
     }
@@ -146,12 +145,13 @@ const WatchList = ({account, addresses, setAddresses}) => {
         setTimeout(() => {
             fetchAddresses()
         }, 5000)
+        // fetchAddresses()
     }, [account]) /**Account as a depedency, ensures account is not null when addresses are fetched */
 
     return (
         <div id={WatchListCSS.watchList}>
             <WindowHeader window="Watchoor List"/>
-            {isLoading && <p>Loading Addresses...</p>}
+            {isLoading && <AiOutlineLoading className="loadingSvg"/>}
             {fetchError && <p> {`Error: ${fetchError}`}</p>}
             {!fetchError && !isLoading && <>
                 <WatchListAddAddress newAddress={newAddress} setNewAddress={setNewAddress} newAlias={newAlias} setNewAlias={setNewAlias} handleWatchListAdd={handleWatchListAdd}/>

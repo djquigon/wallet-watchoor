@@ -20,6 +20,10 @@
     height: 7.5em;
 }
 
+.address > *{
+  padding: 0.5em;
+}
+
 .address input[type="checkbox"] {
     text-align: center;
     width: 24px;
@@ -56,11 +60,11 @@
 }
 
 .addressOptions *{
-  font-size: 14px;
+  font-size: 18px;
 }
 .addressOptions img{
-  height: 14px;
-  width: 14px;
+  height: 18px;
+  width: 18px;
 }
 
 /*WatchList add address*/

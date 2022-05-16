@@ -14,12 +14,12 @@ const ChainNav = ({block, setBlock, account, handleAccount}) => {
     const [refreshTime, setRefreshTime]= useState(null)
 
     const getBlock = async () => {
-        console.log("getBlock")
+        console.log("Getting Block...")
         const blockInfo = await provider.getBlockWithTransactions()
         console.log(blockInfo)
         setBlock(blockInfo)
         setRefreshTime(15)
-        console.log("timer reset")
+        console.log("Timer Reset")
     }
 
     const setTime = () =>{
@@ -78,9 +78,9 @@ const ChainNav = ({block, setBlock, account, handleAccount}) => {
                         <em id={ChainNavCSS.feesBurnt} style={{color: '#ff5500'}}>{block ? getBurntFees().toFixed(3) : <AiOutlineLoading className="loadingSvg"/>} Ξ </em>
                          in fees burnt 🔥
                     </p>
-                    <a target="_blank" href={block && `https://etherscan.io/block/${block.number}`}>
-                        Block created {block ? convertBlockAge(block.timestamp) : <AiOutlineLoading className="loadingSvg"/>} EST <img height="14px" src={etherscanLogo}></img>
-                    </a>
+                    <p>
+                        Block created {block ? convertBlockAge(block.timestamp) : <AiOutlineLoading className="loadingSvg"/>} EST <a target="_blank" href={block && `https://etherscan.io/block/${block.number}`}><img height="14px" src={etherscanLogo}></img></a>
+                    </p>
 
                     <b style={{width: "115px", color: "#7a86fb"}}>Refresh in {refreshTime ? refreshTime : <AiOutlineLoading className="loadingSvg"/>}</b>
                 </div>

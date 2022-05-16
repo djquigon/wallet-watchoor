@@ -71,15 +71,12 @@ const WalletConnector = ({account, handleAccount}) => {
                         accountChangedHandler(accounts[0])
                     })
                 }
+                window.ethereum.on('accountsChanged', accountChangedHandler)
+                window.ethereum.on('chainChanged', chainChangedHandler)
             }
         }
         connectWalletOnPageLoad()
     }, [])
-
-    if (typeof window.ethereum !== 'undefined') {
-        window.ethereum.on('accountsChanged', accountChangedHandler)
-        window.ethereum.on('chainChanged', chainChangedHandler)
-    }
 
     /**Removed scrolling if modal is active */
     if(modal) {
