@@ -30,7 +30,7 @@ const ChainNav = ({block, setBlock, account, handleAccount}) => {
         const time = new Date(timestamp*1000).toLocaleTimeString("en-US")
         return time
     }
-
+    
     const getBurntFees = () =>{
         const baseFeePerGas = ethers.utils.formatEther(parseInt(block.baseFeePerGas._hex, 16))
         const gasUsed = parseInt(block.gasUsed._hex, 16)

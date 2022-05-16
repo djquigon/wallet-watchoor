@@ -20,7 +20,7 @@ const FeedEntry = ({transaction, handleDelete}) => {
                 </>
             </td>
             <td>
-                {!transaction.to ? <p>Contract Creation</p> : 
+                {!transaction.to ? <b style={{color: "gold"}}>Contract Creation</b> : 
                     <>
                         {toInfo && toInfo.avatar ? <img className={FeedCSS.avatar} src={toInfo.avatar}></img> : <img className={FeedCSS.avatar} src={makeBlockie(transaction.to)}></img>}
                         {toInfo && toInfo.alias ? ` ⭐${toInfo.alias} ` : " "}

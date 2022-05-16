@@ -18,7 +18,7 @@
     {
       "id": 7,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
+      "alerts": false,
       "alias": "steve",
       "address": "0x11231f7dc863f36a6516eb4ef052f195000e0000",
       "ens": "steve.eth",

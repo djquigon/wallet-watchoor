@@ -2,26 +2,26 @@
     color: #13ff00;
     background: url(https://media2.giphy.com/media/3oEdvbpl0X32bXD2Vi/giphy.gif);
     background-size: cover;
-    border-radius: 24px;
+    border: outset #13ff00;
   }
   
 .mediumValue{
     color: #13ff00;
     background: url(https://media4.giphy.com/media/h0MTqLyvgG0Ss/giphy.gif?cid=ecf05e476otp58306kqs6kfz8jopwh20dvdbdjfw9ylf87rv&rid=giphy.gif&ct=g);
     background-size: cover;
-    border-radius: 24px;
+    border: outset #13ff00;
 }
 
 .largeValue{
     color: #13ff00;
     background: url(https://media0.giphy.com/media/SsTcO55LJDBsI/giphy.gif?cid=ecf05e47n1tjvwfn9w8xy3nrc5s3bavfz2e5kzcfjg54aqqv&rid=giphy.gif&ct=g);
     background-size: cover;
-    border-radius: 24px;
+    border: outset #13ff00;
 }
 
 .contractCreation{
     color: gold;
     background: url(https://media4.giphy.com/media/hW9JUeJawXNTI7ogt9/giphy.gif?cid=ecf05e47o3otepgu0x8ro0iq2pklr2du1y45ukeby62cp8rw&rid=giphy.gif&ct=g);
     background-size: cover;
-    border-radius: 24px;
+    border: outset gold;
 }
