@@ -1,3 +1,10 @@
+.normal, .smallValue, .mediumValue, .largeValue, .contractCreation{
+    height: 5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .smallValue{
     color: #13ff00;
     background: url(https://media2.giphy.com/media/3oEdvbpl0X32bXD2Vi/giphy.gif);

@@ -165,7 +165,7 @@ const WatchList = ({account, addresses, setAddresses}) => {
                 ) : (!account ? <p style={{marginTop: '2rem'}}>Your wallet is not connected.</p> 
                     : <p style={{marginTop: '2rem'}}>Your list is empty.</p>)
                 }
-                <p>{filteredAddresses.length} Address(es)</p>
+                <p id={WatchListCSS.watchlistLength}>{filteredAddresses.length} Address(es)</p>
             </>}
         </div>
     )

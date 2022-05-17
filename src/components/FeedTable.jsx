@@ -1,7 +1,9 @@
 import {useMemo} from 'react'
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 import FeedCSS from '../style/Feed.module.css'
+import '../style/FeedRow.css'
 import {FaTrashAlt} from "react-icons/fa";
+import {MdFirstPage, MdLastPage} from "react-icons/md";
 import makeBlockie from 'ethereum-blockies-base64';
 import etherscanLogo from "../assets/etherscanlogo.png"
 import FeedGlobalFilter from './FeedGlobalFilter';
@@ -72,7 +74,7 @@ const COLUMNS = [
         Header: "Value",
         accessor: "value",
         Cell: ({value}) => (
-            <div className={`${value >= 1 && value <= 10 ? "smallValue" : ""}${value >= 10 && value <= 50 ? "mediumValue" : ""}${value >= 50 && value <= 100 ? "largeValue" : ""}${value >= 100 && value <= 500 ? "largeValue" : ""}${value >= 500 && value <= 1000 ? "largeValue" : ""}`}>
+            <div className={`${value < 1 ? "normal" : ""}${value >= 1 && value <= 10 ? "smallValue" : ""}${value >= 10 && value <= 50 ? "mediumValue" : ""}${value >= 50 && value <= 100 ? "largeValue" : ""}${value >= 100 && value <= 500 ? "largeValue" : ""}${value >= 500 && value <= 1000 ? "largeValue" : ""}`}>
                 <b>{value} Ξ</b>
             </div>
         )
@@ -83,8 +85,7 @@ const COLUMNS = [
         Cell: ({value, row}) => (
             <p> 
                 {new Date(value*1000).toLocaleTimeString("en-US")} EST 
-                <br></br><a href={`https://etherscan.io/block/${row.original.blockNumber}`} target="_blank">Block {row.original.blockNumber}</a> 
-                <img height="14px" src={etherscanLogo}></img>
+                <br></br><a href={`https://etherscan.io/block/${row.original.blockNumber}`} target="_blank">Block {row.original.blockNumber}</a> <img height="14px" src={etherscanLogo}></img>
             </p>
         )
     },
@@ -152,7 +153,7 @@ const COLUMNS = [
                                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                                     {column.render('Header')}
                                     <span>
-                                        {column.isSorted ? (column.isSortedDesc ? ' ⬆️' : ' ⬇️') : ''}
+                                        {column.isSorted ? (column.isSortedDesc ? ' 🔼' : ' 🔽') : ''}
                                     </span>
                                 </th>
                             ))}
@@ -174,18 +175,18 @@ const COLUMNS = [
                     }
                 </tbody>
             </table>
-            <div>
+            <div id={FeedCSS.pageOptions}>
                     <span>
-                        Page {' '}
-                        <strong>{pageIndex+1} of {pageOptions.length}</strong>{' '}
+                        Page <strong>{pageIndex+1} of {pageOptions.length} |</strong>
                     </span>
                     <span>
-                        | Go to page: {' '}
-                        <input type='number' defaultValue={pageIndex + 1} 
+                        &nbsp;Go to page: <input type='number' 
+                        defaultValue={pageIndex + 1} 
                         onChange={e => {
                             const pageNumber = e.target.value ? Number(e.target.value) - 1 : 0
                             gotoPage(pageNumber)
-                        }} style={{width: '50px'}}/>
+                        }} 
+                        style={{width: '50px'}}/>
                     </span>
                     <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
                         {[25, 50, 100].map((pageSize) => (

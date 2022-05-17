@@ -16,8 +16,11 @@ body {
   font-family: monospace;
 }
 
-button{
+button, a, svg{
   cursor: pointer;
+}
+
+button, select, input{
   font-family: monospace;
 }
 

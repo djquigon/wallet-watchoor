@@ -45,10 +45,6 @@
     color: black;
 }
 
-.address svg {
-    cursor: pointer;
-}
-
 .address svg:hover {
     color: red;
     outline: none;
@@ -128,4 +124,11 @@
     background-color: black;
     width: 100%;
     height: 25px;
+  }
+
+  #watchlistLength{
+    width: 100%;
+    text-align: center;
+    background-color: #000000;
+    background-image: linear-gradient(0deg, #000000 1%, #333333 99%);
   }

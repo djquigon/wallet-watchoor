@@ -10,15 +10,11 @@
 }
 
 #headerRow{
-    text-align: left;  
+    text-align: center;  
 }
 
 .feedRow{
     height: 5em;
-}
-
-.feedRow svg {
-    cursor: pointer;
 }
 
 .feedRow svg:hover {
@@ -37,7 +33,7 @@
 }
 
 .feedRow td{
-    padding: 1em;
+    padding: 0 1em 0 1em;
 }
 
 #feed thead {
@@ -54,4 +50,31 @@
     height: 24px;
     width: 24px;
     border-radius: 6px;
+}
+
+#pageOptions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    bottom: 0;
+    background-color: #000000;
+    background-image: linear-gradient(0deg, #000000 1%, #333333 99%);
+}
+
+#pageOptions select, #pageOptions input {
+    background: #070707;
+    border-radius: 6px;
+    color: white;
+    border: solid;
+    border-color: #161515;
+    margin: 0 0.5em 0 0.5em;
+}
+
+#pageOptions button{
+    background-color: #1e1e1e;
+    border-radius: 6px;
+    color: white;
+    margin: 0 0.5em 0 0.5em;
+    border: solid black;
 }

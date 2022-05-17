@@ -90,8 +90,11 @@ const Feed = ({block, account, addresses}) => {
             }
         }
         //newFilteredTransactions = block.transactions.filter(filter)
-        console.log("Filtering done, setting filtered transactions.")
-        if(newFilteredTransactions.length > 0){setFilteredTransactions(newFilteredTransactions)}
+
+        if(newFilteredTransactions.length > 0){
+            console.log("Filtering done, setting filtered transactions.")
+            setFilteredTransactions(newFilteredTransactions)
+        }
         setLastBlockNumFetched(block.number)
     }
 

@@ -20,15 +20,15 @@
 }
 
 #controls button{
-    background-color: black;
+    background-color: #000000;
+    background-image: linear-gradient(0deg, #000000 1%, #333333 99%);
     color: white;
     width: inherit;
 }
 
-#controls button:hover{
-    
+/* #controls button:hover{
     background-color: limegreen;
-}
+} */
 
 #gameContainer{
     display: flex;
