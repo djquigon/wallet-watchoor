@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react'
 import FeedCSS from '../style/Feed.module.css'
 import WindowHeader from './WindowHeader'
-import FeedEntry from './FeedEntry';
 import { ethers } from 'ethers';
+import FeedTable from './FeedTable';
 
 const provider = new ethers.providers.Web3Provider(window.ethereum)
 
@@ -29,8 +29,6 @@ const Feed = ({block, account, addresses}) => {
         }
         console.log("Last block " + lastBlockNumFetched)
         console.log("Filtering Block " + block.number)
-        let blocksMissed = block.number-(lastBlockNumFetched+1)
-        console.log("Blocks missed: " + blocksMissed)
         let newFilteredTransactions = []
         //if there is no last block or missed blocks simply filter the current block
         if(!lastBlockNumFetched || lastBlockNumFetched + 1 === block.number){
@@ -53,7 +51,7 @@ const Feed = ({block, account, addresses}) => {
             }else{console.log("No matching transactions in block " + block.number)} 
         //if there is a last block and there are mised blocks , add them to newFilteredTransactions
         }else{
-            console.log("Blocks were skipped, filtering all skipped blocks...")
+            console.log("Blocks were skipped, filtering all skipped blocks and current block...")
             for(let blockNumToAdd = lastBlockNumFetched+1; blockNumToAdd <= block.number; blockNumToAdd++){
                 let blockToAdd = null
                 let timestamp = null
@@ -93,13 +91,8 @@ const Feed = ({block, account, addresses}) => {
         }
         //newFilteredTransactions = block.transactions.filter(filter)
         console.log("Filtering done, setting filtered transactions.")
-        setFilteredTransactions(newFilteredTransactions)
+        if(newFilteredTransactions.length > 0){setFilteredTransactions(newFilteredTransactions)}
         setLastBlockNumFetched(block.number)
-    }
-
-    const handleDelete = (hash) => {
-        const newFeedTransactions = feedTransactions.filter(transaction => transaction.hash !== hash)
-        setFeedTransactions(newFeedTransactions)
     }
 
     useEffect(() => {
@@ -113,37 +106,23 @@ const Feed = ({block, account, addresses}) => {
     useEffect(() => {
         console.log("Filtered transactions changed. Concatenating filtered transactions...")
         console.log("Setting Feed transactions to...")
-        console.log(feedTransactions.concat(filteredTransactions))
-        setFeedTransactions(feedTransactions.concat(filteredTransactions))
+        let newFeedTransactions = null
+        //for initial load
+        if(feedTransactions.length === 0){
+            newFeedTransactions = filteredTransactions.reverse()
+            console.log(newFeedTransactions)
+        }else{
+            newFeedTransactions = filteredTransactions.reverse().concat(feedTransactions)
+            console.log(newFeedTransactions)
+        }
+        setFeedTransactions(newFeedTransactions)
     }, [filteredTransactions])
 
     return (
         <div id={FeedCSS.feed}>
             <WindowHeader window="Feed"/>
             <div id={FeedCSS.tableContainer}>
-                <table>
-                    <thead>
-                        <tr id={FeedCSS.headerRow}>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Method</th>
-                            <th>Value</th>
-                            <th>Timestamp</th>
-                            <th>Txn Hash</th>
-                            <th>Total Txns: <b style={{color: "#00ca00"}}>{feedTransactions.length}</b></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* if there is not account display wallet not connected else display filtered transactions if length > 0 */}
-                        {!account ? <tr style={{marginTop: '2rem'}}><td>Your wallet is not connected.</td></tr> :
-                        ( 
-                        feedTransactions.length > 0 ? (
-                            feedTransactions.slice(0).reverse().map((transaction) => (
-                                <FeedEntry key={transaction.hash} transaction={transaction} handleDelete={handleDelete}/>
-                            ))
-                        ) : <tr style={{marginTop: '2rem'}}><td>Your Feed is empty.</td></tr>)}
-                    </tbody>
-                </table>
+                <FeedTable feedTransactions={feedTransactions} setFeedTransactions={setFeedTransactions}/>
             </div>
         </div>
     )
