@@ -189,8 +189,8 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
                         Page <strong>{pageIndex+1} of {pageOptions.length > 0 ? pageOptions.length : 1} |</strong>
                     </span>
                     <span>
-                        &nbsp;Go to page: <input type='number' 
-                        defaultValue={pageIndex + 1} 
+                        &nbsp;Go to page: <input type='number'  
+                        min="1"
                         onChange={e => {
                             const pageNumber = e.target.value ? Number(e.target.value) - 1 : 0
                             gotoPage(pageNumber)
