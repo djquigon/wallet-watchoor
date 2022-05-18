@@ -82,6 +82,10 @@
     border: solid black;
 }
 
+#pageOptions button:disabled, #pageOptions button[disabled]{
+    color: #5e5e5e;
+}
+
 #feedSearch{
     width: 25%; 
     border-radius: 12px;
