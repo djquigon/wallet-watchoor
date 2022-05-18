@@ -145,7 +145,9 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
         columns: columns,
         data: data,
         initialState: { pageSize: 25, pageIndex: currPageIndex},
-        autoResetGlobalFilter: false
+        autoResetGlobalFilter: false,
+        autoResetSortBy: false,
+        //autoresetpage did not work for my implementation
     }, useGlobalFilter, useSortBy, usePagination)
 
     const { globalFilter, pageIndex, pageSize } = state
