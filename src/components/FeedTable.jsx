@@ -176,9 +176,9 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
                             page.map(row => {
                                 prepareRow(row)
                                 return (
-                                    <tr {...row.getRowProps()} className={FeedCSS.feedRow}>
+                                    <tr key={row.original.hash}{...row.getRowProps()} className={FeedCSS.feedRow}>
                                         {row.cells.map((cell) => {
-                                                return <td{...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                            return <td{...cell.getCellProps()}>{cell.render('Cell')}</td>
                                         })}
                                     </tr>
                                 )
@@ -191,7 +191,8 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
                         Page <strong>{pageIndex+1} of {pageOptions.length > 0 ? pageOptions.length : 1} |</strong>
                     </span>
                     <span>
-                        &nbsp;Go to page: <input type='number'  
+                        &nbsp;Go to page: <input type='number' 
+                        value={pageIndex+1} 
                         min="1"
                         onChange={e => {
                             const pageNumber = e.target.value ? Number(e.target.value) - 1 : 0
