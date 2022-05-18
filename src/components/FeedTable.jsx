@@ -11,13 +11,6 @@ import FeedGlobalFilter from './FeedGlobalFilter';
 //GO BACK AND COMMENT THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 
 const FeedTable = ({feedTransactions, setFeedTransactions}) => {
-
-    const handleDelete = (hash) => {
-        console.log(hash)
-        const newFeedTransactions = feedTransactions.filter(transaction => transaction.hash !== hash)
-        console.log("here", feedTransactions)
-        setFeedTransactions(newFeedTransactions)
-    }
         
     const COLUMNS = [
         {
@@ -112,15 +105,24 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
             disableSortBy: true,
             disableFilters: true,
             Cell: ({row}) => (
-                <div style={{textAlign: "right"}}><FaTrashAlt role="button" onClick={() => handleDelete(row.original.hash)}/></div>
+                <div style={{textAlign: "right"}}><FaTrashAlt role="button" onClick={() => {
+                    //handleDelete
+                    console.log(feedTransactions)
+                    let newFeedTransactions = feedTransactions
+                    console.log(newFeedTransactions)
+                    newFeedTransactions = newFeedTransactions.filter(transaction => transaction.hash !== row.original.hash)
+                    console.log("deleted one", newFeedTransactions)
+                    setFeedTransactions(newFeedTransactions)
+                }}/></div>
             ),
             disableGlobalFilter: true,
         }
     ]
 
     //usemmemo ensures data isnt recreated on every render
-    const columns = useMemo(() => COLUMNS, [])
     const data = useMemo(() => feedTransactions, [feedTransactions])
+    //placing data inside here fixed handleDelete issue, why?
+    const columns = useMemo(() => COLUMNS, [data])
 
     /**Ensures pageIndex isnt reset every time feed is updated */
     const [currPageIndex, setCurrPageIndex] = useState(0)
@@ -164,7 +166,7 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
                                     <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                                         {column.render('Header')}
                                         <span>
-                                            {column.isSorted ? (column.isSortedDesc ? ' 🔼' : ' 🔽') : ''}
+                                            {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
                                         </span>
                                     </th>
                                 ))}

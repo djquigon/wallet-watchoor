@@ -64,7 +64,7 @@ const ChainNav = ({block, setBlock, account, handleAccount}) => {
                 <div id={ChainNavCSS.blockInfo}>
                     <p>🟢 Block&nbsp;
                         <em id={ChainNavCSS.blockNumber}  style={{color: '#1eff00'}}>
-                            #{block ? block.number : <AiOutlineLoading className="loadingSvg"/>}
+                            {block ? `# ${block.number}` : <AiOutlineLoading className="loadingSvg"/>}
                         </em>
                     </p>
                     <p>
