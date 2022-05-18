@@ -68,6 +68,17 @@ button, select, input{
   color: white;
 }
 
+#light input, #light select{
+  background: white;
+  color: black;
+}
+
+#dark input, #dark select{
+  background: #070707;
+  color: white;
+  border: solid #202020;;
+}
+
 * {
   scrollbar-width: thin;
   scrollbar-color: black #eee;
@@ -83,7 +94,7 @@ body.activeModal {
 }
 
 *::-webkit-scrollbar-track {
-  background: #121212;
+  background: #070707;;
 }
 
 *::-webkit-scrollbar-thumb {

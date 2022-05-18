@@ -1,4 +1,4 @@
-import {useMemo} from 'react'
+import {useMemo, useState} from 'react'
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 import FeedCSS from '../style/Feed.module.css'
 import '../style/FeedRow.css'
@@ -12,111 +12,118 @@ import FeedGlobalFilter from './FeedGlobalFilter';
 
 const FeedTable = ({feedTransactions, setFeedTransactions}) => {
 
-const handleDelete = (hash) => {
-    console.log(hash)
-    const newFeedTransactions = feedTransactions.filter(transaction => transaction.hash !== hash)
-    console.log("here", feedTransactions)
-    setFeedTransactions(newFeedTransactions)
-}
-    
-const COLUMNS = [
-    {
-        Header: "From",
-        accessor: "from",
-        Cell: ({value, row}) => (
-            <>
-                {/* can take this out if i dont allow alias to be null */}
-                {row.original.fromAddressInfo !== undefined 
-                && row.original.fromAddressInfo 
-                && row.original.fromAddressInfo.avatar ? 
-                <img className={FeedCSS.avatar} src={row.original.fromAddressInfo.avatar}></img> 
-                : <img className={FeedCSS.avatar} src={makeBlockie(value)}></img>}
-                
-                {row.original.fromAddressInfo !== undefined 
-                && row.original.fromAddressInfo 
-                && row.original.fromAddressInfo.alias ?  
-                ` ⭐${row.original.fromAddressInfo.alias} ` : " "}
-                <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
-            </>
-        )
-    },
-    {
-        Header: "To",
-        accessor: "to",
-        Cell: ({value, row}) => (
-            <>
-            {!value ? <b style={{color: "gold"}}>Contract Creation</b> :
+    const handleDelete = (hash) => {
+        console.log(hash)
+        const newFeedTransactions = feedTransactions.filter(transaction => transaction.hash !== hash)
+        console.log("here", feedTransactions)
+        setFeedTransactions(newFeedTransactions)
+    }
+        
+    const COLUMNS = [
+        {
+            Header: "From",
+            accessor: "from",
+            Cell: ({value, row}) => (
                 <>
-                    {row.original.toAddressInfo !== undefined 
-                    && row.original.toAddressInfo 
-                    && row.original.toAddressInfo.avatar ? 
-                    <img className={FeedCSS.avatar} src={row.original.toAddressInfo.avatar}></img> 
+                    {/* can take this out if i dont allow alias to be null */}
+                    {row.original.fromAddressInfo !== undefined 
+                    && row.original.fromAddressInfo 
+                    && row.original.fromAddressInfo.avatar ? 
+                    <img className={FeedCSS.avatar} src={row.original.fromAddressInfo.avatar}></img> 
                     : <img className={FeedCSS.avatar} src={makeBlockie(value)}></img>}
                     
-                    {row.original.toAddressInfo !== undefined 
-                    && row.original.toAddressInfo 
-                    && row.original.toAddressInfo.alias ?  
-                    ` ⭐${row.original.toAddressInfo.alias} ` : " "}
+                    {row.original.fromAddressInfo !== undefined 
+                    && row.original.fromAddressInfo 
+                    && row.original.fromAddressInfo.alias ?  
+                    ` ⭐${row.original.fromAddressInfo.alias} ` : " "}
                     <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
                 </>
-            }
-            </>
-        )
-    },
-    {
-        Header: "Method",
-        accessor: "confirmations",
-        Cell: cellInfo => (
-            <p>Atomic Match_</p>
-        )
-    },
-    {
-        Header: "Value",
-        accessor: "value",
-        Cell: ({value}) => (
-            <div className={`${value < 1 ? "normal" : ""}${value >= 1 && value <= 10 ? "smallValue" : ""}${value >= 10 && value <= 50 ? "mediumValue" : ""}${value >= 50 && value <= 100 ? "largeValue" : ""}${value >= 100 && value <= 500 ? "largeValue" : ""}${value >= 500 && value <= 1000 ? "largeValue" : ""}`}>
-                <b>{value} Ξ</b>
-            </div>
-        )
-    },
-    {
-        Header: "Timestamp",
-        accessor: "timestamp",
-        Cell: ({value, row}) => (
-            <p> 
-                {new Date(value*1000).toLocaleTimeString("en-US")} EST 
-                <br></br><a href={`https://etherscan.io/block/${row.original.blockNumber}`} target="_blank">Block {row.original.blockNumber}</a> <img height="14px" src={etherscanLogo}></img>
-            </p>
-        )
-    },
-    {
-        Header: "Txn Hash",
-        accessor: "hash",
-        Cell: ({value, row}) => (
-            <div className={`${row.original.creates ? "contractCreation" : ""}`}>
-                <a target="_blank" href={`https://etherscan.io/tx/${value}`}>
-                    {`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img>
-                </a>
-            </div>
-        )
-    },
-    {
-        id: "delete",
-        Header: ({data}) => (
-            <p>Total Txns: <b style={{color: "#00ca00"}}>{data.length}</b></p>
-        ),
-        accessor: "chainId",
-        disableSortBy: true,
-        disableFilters: true,
-        Cell: ({row}) => (
-            <div style={{textAlign: "right"}}><FaTrashAlt role="button" onClick={() => handleDelete(row.original.hash)}/></div>
-        )
-    }
-]
+            )
+        },
+        {
+            Header: "To",
+            accessor: "to",
+            Cell: ({value, row}) => (
+                <>
+                {!value ? <b style={{color: "gold"}}>Contract Creation</b> :
+                    <>
+                        {row.original.toAddressInfo !== undefined 
+                        && row.original.toAddressInfo 
+                        && row.original.toAddressInfo.avatar ? 
+                        <img className={FeedCSS.avatar} src={row.original.toAddressInfo.avatar}></img> 
+                        : <img className={FeedCSS.avatar} src={makeBlockie(value)}></img>}
+                        
+                        {row.original.toAddressInfo !== undefined 
+                        && row.original.toAddressInfo 
+                        && row.original.toAddressInfo.alias ?  
+                        ` ⭐${row.original.toAddressInfo.alias} ` : " "}
+                        <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
+                    </>
+                }
+                </>
+            )
+        },
+        {
+            Header: "Method",
+            accessor: "confirmations",
+            Cell: cellInfo => (
+                <p>Atomic Match_</p>
+            ),
+            disableGlobalFilter: true,
+        },
+        {
+            Header: "Value",
+            accessor: "value",
+            Cell: ({value}) => (
+                <div className={`${value < 1 ? "normal" : ""}${value >= 1 && value <= 10 ? "smallValue" : ""}${value >= 10 && value <= 50 ? "mediumValue" : ""}${value >= 50 && value <= 100 ? "largeValue" : ""}${value >= 100 && value <= 500 ? "largeValue" : ""}${value >= 500 && value <= 1000 ? "largeValue" : ""}`}>
+                    <b>{value} Ξ</b>
+                </div>
+            ),
+            disableGlobalFilter: true,
+        },
+        {
+            Header: "Timestamp",
+            accessor: "timestamp",
+            Cell: ({value, row}) => (
+                <p> 
+                    {new Date(value*1000).toLocaleTimeString("en-US")} EST 
+                    <br></br><a href={`https://etherscan.io/block/${row.original.blockNumber}`} target="_blank">Block {row.original.blockNumber}</a> <img height="14px" src={etherscanLogo}></img>
+                </p>
+            ),
+            disableGlobalFilter: true,
+        },
+        {
+            Header: "Txn Hash",
+            accessor: "hash",
+            Cell: ({value, row}) => (
+                <div className={`${row.original.creates ? "contractCreation" : ""}`}>
+                    <a target="_blank" href={`https://etherscan.io/tx/${value}`}>
+                        {`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img>
+                    </a>
+                </div>
+            )
+        },
+        {
+            id: "delete",
+            Header: ({data}) => (
+                <p>Total Txns: <b style={{color: "#00ca00"}}>{data.length}</b></p>
+            ),
+            accessor: "chainId",
+            disableSortBy: true,
+            disableFilters: true,
+            Cell: ({row}) => (
+                <div style={{textAlign: "right"}}><FaTrashAlt role="button" onClick={() => handleDelete(row.original.hash)}/></div>
+            ),
+            disableGlobalFilter: true,
+        }
+    ]
 
     //usemmemo ensures data isnt recreated on every render
     const columns = useMemo(() => COLUMNS, [])
     const data = useMemo(() => feedTransactions, [feedTransactions])
+
+    /**Ensures pageIndex isnt reset every time feed is updated */
+    const [currPageIndex, setCurrPageIndex] = useState(0)
 
     const { 
         getTableProps, 
@@ -137,47 +144,49 @@ const COLUMNS = [
     } = useTable({
         columns: columns,
         data: data,
-        initialState: { pageSize: 25 }
+        initialState: { pageSize: 25, pageIndex: currPageIndex},
+        autoResetGlobalFilter: false
     }, useGlobalFilter, useSortBy, usePagination)
 
     const { globalFilter, pageIndex, pageSize } = state
 
     return (
         <>
-            <FeedGlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
-            <table {...getTableProps()}>
-                <thead>
-                    {headerGroups.map((headerGroup) => (
-                        <tr {...headerGroup.getHeaderGroupProps()} id={FeedCSS.headerRow}>
-                            {headerGroup.headers.map((column) => (
-                                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                    {column.render('Header')}
-                                    <span>
-                                        {column.isSorted ? (column.isSortedDesc ? ' 🔼' : ' 🔽') : ''}
-                                    </span>
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {
-                        page.map(row => {
-                            prepareRow(row)
-                            return (
-                                <tr {...row.getRowProps()} className={FeedCSS.feedRow}>
-                                    {row.cells.map((cell) => {
-                                            return <td{...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                    })}
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
-            <div id={FeedCSS.pageOptions}>
+            <FeedGlobalFilter filter={globalFilter} currPageIndex= {currPageIndex} setFilter={setGlobalFilter} setCurrPageIndex={setCurrPageIndex}/>
+            <div id={FeedCSS.tableContainer}>
+                <table {...getTableProps()}>
+                    <thead>
+                        {headerGroups.map((headerGroup) => (
+                            <tr {...headerGroup.getHeaderGroupProps()} id={FeedCSS.headerRow}>
+                                {headerGroup.headers.map((column) => (
+                                    <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                        {column.render('Header')}
+                                        <span>
+                                            {column.isSorted ? (column.isSortedDesc ? ' 🔼' : ' 🔽') : ''}
+                                        </span>
+                                    </th>
+                                ))}
+                            </tr>
+                        ))}
+                    </thead>
+                    <tbody {...getTableBodyProps()}>
+                        {
+                            page.map(row => {
+                                prepareRow(row)
+                                return (
+                                    <tr {...row.getRowProps()} className={FeedCSS.feedRow}>
+                                        {row.cells.map((cell) => {
+                                                return <td{...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                        })}
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
+                <div id={FeedCSS.pageOptions}>
                     <span>
-                        Page <strong>{pageIndex+1} of {pageOptions.length} |</strong>
+                        Page <strong>{pageIndex+1} of {pageOptions.length > 0 ? pageOptions.length : 1} |</strong>
                     </span>
                     <span>
                         &nbsp;Go to page: <input type='number' 
@@ -195,10 +204,23 @@ const COLUMNS = [
                             </option>
                         ))}
                     </select>
-                    <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</button>
-                    <button onClick={() => previousPage()} disabled={!canPreviousPage}>Prev</button>
-                    <button onClick={() => nextPage()} disabled={!canNextPage}>Next</button>
-                    <button onClick={() => gotoPage(pageCount-1)} disabled={!canNextPage}>{'>>'}</button>
+                    <button onClick={() => {
+                        setCurrPageIndex(0)
+                        gotoPage(0)
+                    }} disabled={!canPreviousPage}>{'<<'}</button>
+                    <button onClick={() => {
+                        setCurrPageIndex(pageIndex-1)
+                        previousPage()
+                    }} disabled={!canPreviousPage}>Prev</button>
+                    <button onClick={() => {
+                        setCurrPageIndex(pageIndex+1)
+                        nextPage()
+                    }} disabled={!canNextPage}>Next</button>
+                    <button onClick={() => {
+                        setCurrPageIndex(pageCount-1)
+                        gotoPage(pageCount-1)
+                    }} disabled={!canNextPage}>{'>>'}</button>
+                </div>
             </div>
         </>
     )

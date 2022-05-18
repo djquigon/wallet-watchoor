@@ -44,6 +44,11 @@
 
 #tableContainer{
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    background: #070707;
 }
 
 .avatar{
@@ -63,9 +68,7 @@
 }
 
 #pageOptions select, #pageOptions input {
-    background: #070707;
     border-radius: 6px;
-    color: white;
     border: solid;
     border-color: #161515;
     margin: 0 0.5em 0 0.5em;
@@ -77,4 +80,10 @@
     color: white;
     margin: 0 0.5em 0 0.5em;
     border: solid black;
+}
+
+#feedSearch{
+    width: 25%; 
+    border-radius: 12px;
+    margin: 0.25em;
 }

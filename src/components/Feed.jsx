@@ -44,8 +44,6 @@ const Feed = ({block, account, addresses}) => {
                     fromAddressInfo:  addresses.find(address => 
                         address.address === transaction.from.toLowerCase())
                 }))
-                //change value field to actual number
-                //newFilteredTransactions = newFilteredTransactions.map(transaction => ({...transaction, value: parseFloat(ethers.utils.formatEther(transaction.value)).toFixed(3)}))
                 console.log("Setting Filtered Transactions to ...")
                 console.log(newFilteredTransactions)
             }else{console.log("No matching transactions in block " + block.number)} 
@@ -81,8 +79,6 @@ const Feed = ({block, account, addresses}) => {
                         fromAddressInfo:  addresses.find(address => 
                             address.address === transaction.from.toLowerCase())
                     }))
-                    //change value field to actual number
-                    //newFilteredTransactions = newFilteredTransactions.map(transaction => ({...transaction, value: parseFloat(ethers.utils.formatEther(transaction.value)).toFixed(3)}))
                     console.log("Setting Filtered Transactions to ...")
                     newFilteredTransactions = newFilteredTransactions.concat(blockToAddFilteredTransactions)
                     console.log(newFilteredTransactions)
@@ -124,9 +120,7 @@ const Feed = ({block, account, addresses}) => {
     return (
         <div id={FeedCSS.feed}>
             <WindowHeader window="Feed"/>
-            <div id={FeedCSS.tableContainer}>
-                <FeedTable feedTransactions={feedTransactions} setFeedTransactions={setFeedTransactions}/>
-            </div>
+            <FeedTable feedTransactions={feedTransactions} setFeedTransactions={setFeedTransactions}/>
         </div>
     )
 }

@@ -32,7 +32,7 @@
     {
       "id": 10,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
+      "alerts": false,
       "alias": "kill",
       "address": "0xc88ebc63c3126e9f37a46c1cf55b0e79c9cc20e2",
       "ens": "kill.eth",
@@ -46,7 +46,7 @@
     {
       "id": 11,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
+      "alerts": false,
       "alias": "cream",
       "address": "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae",
       "ens": "ethereum.eth",
@@ -60,7 +60,7 @@
     {
       "id": 13,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
+      "alerts": false,
       "alias": "steve",
       "address": "0x11231f7dc863f36a6516eb4ef052f195000e0000",
       "ens": "steve.eth",
@@ -74,7 +74,7 @@
     {
       "id": 14,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
+      "alerts": false,
       "alias": "sushi",
       "address": "0xd9e1ce17f2641f24ae83637ab66a2cca9c378b9f",
       "ens": null,
@@ -88,7 +88,7 @@
     {
       "id": 16,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
+      "alerts": false,
       "alias": "null",
       "address": "0x0000000000000000000000000000000000000000",
       "ens": null,
@@ -116,7 +116,7 @@
     {
       "id": 21,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
+      "alerts": true,
       "alias": "coinbase 5",
       "address": "0xb5d85cbf7cb3ee0d56b3bb207d5fc4b82f43f511",
       "ens": null,
@@ -139,6 +139,20 @@
       "telegramName": null,
       "email": "me@ricmoo.com",
       "website": "https://www.ricmoo.com/",
+      "location": null
+    },
+    {
+      "id": 23,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "stani",
+      "address": "0x2e21f5d32841cf8c7da805185a041400bf15f21a",
+      "ens": "stani.eth",
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
       "location": null
     }
   ]
