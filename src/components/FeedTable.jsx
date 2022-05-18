@@ -80,7 +80,7 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
             Cell: ({value, row}) => (
                 <p> 
                     {new Date(value*1000).toLocaleTimeString("en-US")} EST 
-                    <br></br><a href={`https://etherscan.io/block/${row.original.blockNumber}`} target="_blank">Block {row.original.blockNumber}</a> <img height="14px" src={etherscanLogo}></img>
+                    <br></br><a href={`https://etherscan.io/block/${row.original.blockNumber}`} target="_blank">Block {row.original.blockNumber} <img height="14px" src={etherscanLogo}></img></a>
                 </p>
             ),
             disableGlobalFilter: true,
