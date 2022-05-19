@@ -13,6 +13,10 @@ const Feed = ({block, account, addresses}) => {
     const [feedTransactions, setFeedTransactions] = useState([])
     const [lastBlockNumFetched, setLastBlockNumFetched] = useState(null)
 
+    const decodeLogs = (logs) => {
+        
+    }
+
     const filterTransactions = async () => {
         const watchedAddresses = addresses.filter(address => address.alerts === true).map(address => address.address)
         console.log("Watched addresses to filter...")
@@ -33,17 +37,20 @@ const Feed = ({block, account, addresses}) => {
         //if there is no last block or missed blocks simply filter the current block
         if(!lastBlockNumFetched || lastBlockNumFetched + 1 === block.number){
             console.log("No blocks skipped, filtering current block...")
+            console.log("Transactions found:")
             newFilteredTransactions = block.transactions.filter(filter)
             if(newFilteredTransactions.length > 0){
-                newFilteredTransactions = newFilteredTransactions.map(transaction => ({...transaction, 
-                    timestamp: block.timestamp, 
-                    value: parseFloat(ethers.utils.formatEther(transaction.value)).toFixed(3),
-                    //could be two addresses if both to and from are watched, filter them and then add field for whethere they are to or from
-                    toAddressInfo: addresses.find(address =>
-                        transaction.to ? address.address === transaction.to.toLowerCase() : null),
-                    fromAddressInfo:  addresses.find(address => 
-                        address.address === transaction.from.toLowerCase())
-                }))
+                //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
+                for(let i = 0; i < newFilteredTransactions.length; i++){ 
+                    const value = newFilteredTransactions[i].value
+                    newFilteredTransactions[i] = await provider.getTransactionReceipt(newFilteredTransactions[i].hash) 
+                    newFilteredTransactions[i].timestamp = block.timestamp
+                    newFilteredTransactions[i].value = parseFloat(ethers.utils.formatEther(value)).toFixed(3)
+                    newFilteredTransactions[i].toAddressInfo = addresses.find(address =>
+                        newFilteredTransactions[i].to ? address.address === newFilteredTransactions[i].to.toLowerCase() : null)
+                        newFilteredTransactions[i].fromAddressInfo = addresses.find(address => 
+                        address.address === newFilteredTransactions[i].from.toLowerCase())
+                }
                 console.log("Setting Filtered Transactions to ...")
                 console.log(newFilteredTransactions)
             }else{console.log("No matching transactions in block " + block.number)} 
@@ -68,17 +75,18 @@ const Feed = ({block, account, addresses}) => {
                 console.log(timestamp)
                 console.log("Transactions found:")
                 console.log(blockToAddFilteredTransactions)
-                //add timestamp, update value, add associatedWatchListAddress
+                //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
                 if(blockToAddFilteredTransactions.length > 0){
-                    blockToAddFilteredTransactions = blockToAddFilteredTransactions.map(transaction => ({...transaction, 
-                        timestamp: timestamp, 
-                        value: parseFloat(ethers.utils.formatEther(transaction.value)).toFixed(3),
-                        //could be two addresses if both to and from are watched, filter them and then add field for whethere they are to or from
-                        toAddressInfo: addresses.find(address =>
-                            transaction.to ? address.address === transaction.to.toLowerCase() : null),
-                        fromAddressInfo:  addresses.find(address => 
-                            address.address === transaction.from.toLowerCase())
-                    }))
+                    for(let i = 0; i < blockToAddFilteredTransactions.length; i++){ 
+                        const value = blockToAddFilteredTransactions[i].value
+                        blockToAddFilteredTransactions[i] = await provider.getTransactionReceipt(blockToAddFilteredTransactions[i].hash) 
+                        blockToAddFilteredTransactions[i].timestamp = timestamp
+                        blockToAddFilteredTransactions[i].value = parseFloat(ethers.utils.formatEther(value)).toFixed(3)
+                        blockToAddFilteredTransactions[i].toAddressInfo = addresses.find(address =>
+                            blockToAddFilteredTransactions[i].to ? address.address === blockToAddFilteredTransactions[i].to.toLowerCase() : null)
+                        blockToAddFilteredTransactions[i].fromAddressInfo = addresses.find(address => 
+                            address.address === blockToAddFilteredTransactions[i].from.toLowerCase())
+                    }
                     console.log("Setting Filtered Transactions to ...")
                     newFilteredTransactions = newFilteredTransactions.concat(blockToAddFilteredTransactions)
                     console.log(newFilteredTransactions)

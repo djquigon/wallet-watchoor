@@ -16,20 +16,6 @@
       "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40"
     },
     {
-      "id": 7,
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
-      "alias": "steve",
-      "address": "0x11231f7dc863f36a6516eb4ef052f195000e0000",
-      "ens": "steve.eth",
-      "avatar": null,
-      "twitterName": "ste_ve_e",
-      "telegramName": null,
-      "email": null,
-      "website": "https://steveeth.com",
-      "location": null
-    },
-    {
       "id": 10,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
       "alerts": false,
@@ -55,20 +41,6 @@
       "telegramName": null,
       "email": null,
       "website": "https://ethereum.org",
-      "location": null
-    },
-    {
-      "id": 13,
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
-      "alias": "steve",
-      "address": "0x11231f7dc863f36a6516eb4ef052f195000e0000",
-      "ens": "steve.eth",
-      "avatar": null,
-      "twitterName": "ste_ve_e",
-      "telegramName": null,
-      "email": null,
-      "website": "https://steveeth.com",
       "location": null
     },
     {
@@ -102,7 +74,7 @@
     {
       "id": 20,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
+      "alerts": false,
       "alias": "ftx",
       "address": "0x2faf487a4414fe77e2327f0bf4ae2a264a776ad2",
       "ens": null,
@@ -116,7 +88,7 @@
     {
       "id": 21,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
+      "alerts": false,
       "alias": "coinbase 5",
       "address": "0xb5d85cbf7cb3ee0d56b3bb207d5fc4b82f43f511",
       "ens": null,
@@ -153,6 +125,20 @@
       "telegramName": null,
       "email": null,
       "website": null,
+      "location": null
+    },
+    {
+      "id": 24,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "nick",
+      "address": "0xb8c2c29ee19d8307cb7255e1cd9cbde883a267d5",
+      "ens": "nick.eth",
+      "avatar": "https://lh3.googleusercontent.com/hKHZTZSTmcznonu8I6xcVZio1IF76fq0XmcxnvUykC-FGuVJ75UPdLDlKJsfgVXH9wOSmkyHw0C39VAYtsGyxT7WNybjQ6s3fM3macE",
+      "twitterName": "nicksdjohnson",
+      "telegramName": null,
+      "email": "arachnid@notdot.net",
+      "website": "https://ens.domains/",
       "location": null
     }
   ]

@@ -1,4 +1,4 @@
-.normal, .smallValue, .mediumValue, .largeValue, .contractCreation{
+.normal, .smallValue, .mediumValue, .largeValue, .massiveValue, .jesusValue, .contractCreation{
     height: 5em;
     display: flex;
     align-items: center;
@@ -6,7 +6,7 @@
     border-radius: 56px;
 }
 
-.smallValue, .mediumValue, .largeValue{
+.smallValue, .mediumValue, .largeValue, .massiveValue, .jesusValue{
     color: #13ff00;
     border: 1px inset #13ff00;
 }
@@ -23,6 +23,16 @@
 
 .largeValue{
     background: url(https://media0.giphy.com/media/SsTcO55LJDBsI/giphy.gif?cid=ecf05e47n1tjvwfn9w8xy3nrc5s3bavfz2e5kzcfjg54aqqv&rid=giphy.gif&ct=g);
+    background-size: cover;
+}
+
+.massiveValue{
+    background: url(https://media1.giphy.com/media/2rqEdFfkMzXmo/giphy.gif?cid=ecf05e47bfxccg88eu7zyrco2fzbfgbkfcs7ly82o5dlkqut&rid=giphy.gif&ct=g);
+    background-size: cover;
+}
+
+.jesusValue{
+    background: url(https://media0.giphy.com/media/Y2ZUWLrTy63j9T6qrK/giphy.gif?cid=ecf05e47yr23xlt1nc4qwfzjxtpr3r12oguy9ue75tyf9a0g&rid=giphy.gif&ct=g);
     background-size: cover;
 }
 

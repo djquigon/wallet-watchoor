@@ -58,9 +58,9 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
         },
         {
             Header: "Method",
-            accessor: "confirmations",
-            Cell: cellInfo => (
-                <p>Atomic Match_</p>
+            accessor: "logs",
+            Cell: ({value}) => (
+                <p>Atomic_Match</p>
             ),
             disableGlobalFilter: true,
         },
@@ -68,7 +68,7 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
             Header: "Value",
             accessor: "value",
             Cell: ({value}) => (
-                <div className={`${value < 1 ? "normal" : ""}${value >= 1 && value <= 10 ? "smallValue" : ""}${value >= 10 && value <= 50 ? "mediumValue" : ""}${value >= 50 && value <= 100 ? "largeValue" : ""}${value >= 100 && value <= 500 ? "largeValue" : ""}${value >= 500 && value <= 1000 ? "largeValue" : ""}`}>
+                <div className={`${value < 1 ? "normal" : ""}${value >= 1 && value < 10 ? "smallValue" : ""}${value >= 10 && value < 50 ? "mediumValue" : ""}${value >= 50 && value < 100 ? "largeValue" : ""}${value >= 100 && value < 500 ? "massiveValue" : ""}${value >= 500 && value <= 1000 ? "jesusValue" : ""}`}>
                     <b>{value} Ξ</b>
                 </div>
             ),
@@ -76,20 +76,19 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
         },
         {
             Header: "Timestamp",
-            accessor: "timestamp",
+            accessor: "blockNumber",
             Cell: ({value, row}) => (
                 <p> 
                     {new Date(value*1000).toLocaleTimeString("en-US")} EST 
                     <br></br><a href={`https://etherscan.io/block/${row.original.blockNumber}`} target="_blank">Block {row.original.blockNumber} <img height="14px" src={etherscanLogo}></img></a>
                 </p>
             ),
-            disableGlobalFilter: true,
         },
         {
             Header: "Txn Hash",
-            accessor: "hash",
+            accessor: "transactionHash",
             Cell: ({value, row}) => (
-                <div className={`${row.original.creates ? "contractCreation" : ""}`}>
+                <div className={`${row.original.contractAddress ? "contractCreation" : ""}`}>
                     <a target="_blank" href={`https://etherscan.io/tx/${value}`}>
                         {`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img>
                     </a>
@@ -101,7 +100,7 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
             Header: ({data}) => (
                 <p>Total Txns: <b style={{color: "#00ca00"}}>{data.length}</b></p>
             ),
-            accessor: "chainId",
+            accessor: "confirmations", //change this
             disableSortBy: true,
             disableFilters: true,
             Cell: ({row}) => (

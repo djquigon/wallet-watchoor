@@ -15,7 +15,7 @@ const FeedGlobalFilter = ({filter, setFilter, currPageIndex, setCurrPageIndex}) 
   return (
     <span>
         <input id={FeedCSS.feedSearch} 
-        placeholder="Search Address or Txn Hash" 
+        placeholder="Search Address, Txn Hash, or Block #" 
         value={value || ''}
         onChange={(e) => {
           if(currPageIndex !== 0 ){setCurrPageIndex(0)}
