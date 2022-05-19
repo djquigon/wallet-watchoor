@@ -13,6 +13,7 @@ const Feed = ({block, account, addresses}) => {
     const [feedTransactions, setFeedTransactions] = useState([])
     const [lastBlockNum, setLastBlockNum] = useState(null)
     const [prevBlockNum, setPrevBlockNum] = useState(null)
+    const [isPaused, setIsPaused] = useState(false)
 
     const decodeLogs = (logs) => {
         
@@ -105,8 +106,16 @@ const Feed = ({block, account, addresses}) => {
     }
 
     useEffect(() => {
-        //if account block or addresses are null or lastBlockNum is still this block
-        if(!account || !block || !addresses || lastBlockNum === block.number){return}
+      setLastBlockNum(null)
+      setPrevBlockNum(null)
+    }, [isPaused])
+
+    useEffect(() => {
+        //if fee is paused, or account block or addresses are null or lastBlockNum is still this block
+        if(isPaused || !account || !block || !addresses || lastBlockNum === block.number){
+            console.log("Not filtering transactions...")
+            return
+        }
         //check if any blocks were skipped
         filterTransactions()
     }, [block]) //addresses maybe account
@@ -130,7 +139,7 @@ const Feed = ({block, account, addresses}) => {
     return (
         <div id={FeedCSS.feed}>
             <WindowHeader window="Feed"/>
-            <FeedTable feedTransactions={feedTransactions} setFeedTransactions={setFeedTransactions} currBlockNum={block ? block.number : null} prevBlockNum={prevBlockNum}/>
+            <FeedTable isPaused={isPaused} setIsPaused={setIsPaused} feedTransactions={feedTransactions} setFeedTransactions={setFeedTransactions} currBlockNum={block ? block.number : null} prevBlockNum={prevBlockNum}/>
         </div>
     )
 }

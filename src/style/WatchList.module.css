@@ -90,12 +90,12 @@
   width: 30px;
   min-width: 30px;
   border-radius: 12px;
-  background-color: black;
+  background-color: #1e1e1e;
   color: white;
 }
 
 .addForm button:hover {
-  background-color: limegreen;
+  background-color: #00ca00;
   outline: none;
 }
 

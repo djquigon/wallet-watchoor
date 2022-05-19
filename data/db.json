@@ -88,7 +88,7 @@
     {
       "id": 21,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
+      "alerts": true,
       "alias": "coinbase 5",
       "address": "0xb5d85cbf7cb3ee0d56b3bb207d5fc4b82f43f511",
       "ens": null,

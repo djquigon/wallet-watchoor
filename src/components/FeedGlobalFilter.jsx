@@ -13,7 +13,7 @@ const FeedGlobalFilter = ({filter, setFilter, currPageIndex, setCurrPageIndex}) 
 
 
   return (
-    <span>
+    <span style={{width: "30%"}}>
         <input id={FeedCSS.feedSearch} 
         placeholder="Search Address, Txn Hash, or Block #" 
         value={value || ''}

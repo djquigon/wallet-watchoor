@@ -9,7 +9,7 @@ import FeedGlobalFilter from './FeedGlobalFilter';
 
 //GO BACK AND COMMENT THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 
-const FeedTable = ({feedTransactions, setFeedTransactions, currBlockNum, prevBlockNum}) => {
+const FeedTable = ({isPaused, setIsPaused, feedTransactions, setFeedTransactions, currBlockNum, prevBlockNum}) => {
         
     const COLUMNS = [
         {
@@ -103,7 +103,7 @@ const FeedTable = ({feedTransactions, setFeedTransactions, currBlockNum, prevBlo
             disableFilters: true,
             Cell: ({row}) => (
                 <span className={FeedCSS.deleteCell}>
-                    {row.original.blockNumber > prevBlockNum && row.original.blockNumber <= currBlockNum ? <p style={{color: "#00ca00"}}><FaExclamation/> new</p> : <p></p>}
+                    {row.original.blockNumber > prevBlockNum && row.original.blockNumber <= currBlockNum ? <p style={{color: "#00ca00"}}><FaExclamation color='#00ca00'/> new</p> : <p></p>}
                     <div style={{textAlign: "right"}}><FaTrashAlt role="button" onClick={() => {
                         //handleDelete
                         let newFeedTransactions = feedTransactions
@@ -154,7 +154,13 @@ const FeedTable = ({feedTransactions, setFeedTransactions, currBlockNum, prevBlo
 
     return (
         <>
-            <FeedGlobalFilter filter={globalFilter} currPageIndex= {currPageIndex} setFilter={setGlobalFilter} setCurrPageIndex={setCurrPageIndex}/>
+            <div id={FeedCSS.tableOptions}>
+                <FeedGlobalFilter filter={globalFilter} currPageIndex= {currPageIndex} setFilter={setGlobalFilter} setCurrPageIndex={setCurrPageIndex}/>
+                <span>
+                    <button onClick={() => {setIsPaused(!isPaused)}}>{isPaused ? <p style={{color: "Red"}}>Paused</p> : <p style={{color: "#00ca00"}}>Unpaused</p>}</button>
+                    <button onClick={() => {setFeedTransactions([])}}>Clear</button>
+                </span>
+            </div>
             <div id={FeedCSS.tableContainer}>
                 <table {...getTableProps()}>
                     <thead>
@@ -191,8 +197,8 @@ const FeedTable = ({feedTransactions, setFeedTransactions, currBlockNum, prevBlo
                         Page <strong>{pageIndex+1} of {pageOptions.length > 0 ? pageOptions.length : 1} |</strong>
                     </span>
                     <span>
-                        &nbsp;Go to page: <input type='number' 
-                        value={pageIndex+1} 
+                        &nbsp;Go to page: <input type='number'
+                        defaultValue={pageIndex+1} 
                         min="1"
                         onChange={e => {
                             const pageNumber = e.target.value ? Number(e.target.value) - 1 : 0
