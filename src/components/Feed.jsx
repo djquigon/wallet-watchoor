@@ -11,7 +11,8 @@ const Feed = ({block, account, addresses}) => {
     const [filteredTransactions, setFilteredTransactions] = useState([])
     //add filterredTransactions to feedTransactions in useEffect?
     const [feedTransactions, setFeedTransactions] = useState([])
-    const [lastBlockNumFetched, setLastBlockNumFetched] = useState(null)
+    const [lastBlockNum, setLastBlockNum] = useState(null)
+    const [prevBlockNum, setPrevBlockNum] = useState(null)
 
     const decodeLogs = (logs) => {
         
@@ -31,11 +32,11 @@ const Feed = ({block, account, addresses}) => {
                 return watchedAddresses.includes(transaction.from.toLowerCase())
             }
         }
-        console.log("Last block " + lastBlockNumFetched)
+        console.log("Last block " + lastBlockNum)
         console.log("Filtering Block " + block.number)
         let newFilteredTransactions = []
         //if there is no last block or missed blocks simply filter the current block
-        if(!lastBlockNumFetched || lastBlockNumFetched + 1 === block.number){
+        if(!lastBlockNum || lastBlockNum + 1 === block.number){
             console.log("No blocks skipped, filtering current block...")
             console.log("Transactions found:")
             newFilteredTransactions = block.transactions.filter(filter)
@@ -57,7 +58,7 @@ const Feed = ({block, account, addresses}) => {
         //if there is a last block and there are mised blocks , add them to newFilteredTransactions
         }else{
             console.log("Blocks were skipped, filtering all skipped blocks and current block...")
-            for(let blockNumToAdd = lastBlockNumFetched+1; blockNumToAdd <= block.number; blockNumToAdd++){
+            for(let blockNumToAdd = lastBlockNum+1; blockNumToAdd <= block.number; blockNumToAdd++){
                 let blockToAdd = null
                 let timestamp = null
                 let blockToAddFilteredTransactions = null
@@ -70,9 +71,7 @@ const Feed = ({block, account, addresses}) => {
                     timestamp = blockToAdd.timestamp
                     blockToAddFilteredTransactions = blockToAdd.transactions.filter(filter)
                 }
-                console.log("Filter Block # " + blockNumToAdd)
-                console.log(blockToAdd)
-                console.log(timestamp)
+                console.log("Filtering Block " + blockNumToAdd)
                 console.log("Transactions found:")
                 console.log(blockToAddFilteredTransactions)
                 //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
@@ -99,12 +98,15 @@ const Feed = ({block, account, addresses}) => {
             console.log("Filtering done, setting filtered transactions.")
             setFilteredTransactions(newFilteredTransactions)
         }
-        setLastBlockNumFetched(block.number)
+        //copy of last block to track last black for use in feedtable detecting if txn is new
+        setPrevBlockNum(lastBlockNum)
+        //set last block for forward for next iteration
+        setLastBlockNum(block.number)
     }
 
     useEffect(() => {
-        //if account block or addresses are null or lastBlockNumFetched is still this block
-        if(!account || !block || !addresses || lastBlockNumFetched === block.number){return}
+        //if account block or addresses are null or lastBlockNum is still this block
+        if(!account || !block || !addresses || lastBlockNum === block.number){return}
         //check if any blocks were skipped
         filterTransactions()
     }, [block]) //addresses maybe account
@@ -128,7 +130,7 @@ const Feed = ({block, account, addresses}) => {
     return (
         <div id={FeedCSS.feed}>
             <WindowHeader window="Feed"/>
-            <FeedTable feedTransactions={feedTransactions} setFeedTransactions={setFeedTransactions}/>
+            <FeedTable feedTransactions={feedTransactions} setFeedTransactions={setFeedTransactions} currBlockNum={block ? block.number : null} prevBlockNum={prevBlockNum}/>
         </div>
     )
 }

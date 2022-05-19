@@ -91,3 +91,8 @@
     border-radius: 12px;
     margin: 0.25em;
 }
+
+.deleteCell{
+    display: flex;
+    justify-content: space-between;
+}

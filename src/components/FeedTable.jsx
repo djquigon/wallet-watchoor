@@ -2,15 +2,14 @@ import {useMemo, useState} from 'react'
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 import FeedCSS from '../style/Feed.module.css'
 import '../style/FeedRow.css'
-import {FaTrashAlt} from "react-icons/fa";
-import {MdFirstPage, MdLastPage} from "react-icons/md";
+import {FaTrashAlt, FaExclamation} from "react-icons/fa";
 import makeBlockie from 'ethereum-blockies-base64';
 import etherscanLogo from "../assets/etherscanlogo.png"
 import FeedGlobalFilter from './FeedGlobalFilter';
 
 //GO BACK AND COMMENT THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 
-const FeedTable = ({feedTransactions, setFeedTransactions}) => {
+const FeedTable = ({feedTransactions, setFeedTransactions, currBlockNum, prevBlockNum}) => {
         
     const COLUMNS = [
         {
@@ -103,15 +102,16 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
             disableSortBy: true,
             disableFilters: true,
             Cell: ({row}) => (
-                <div style={{textAlign: "right"}}><FaTrashAlt role="button" onClick={() => {
-                    //handleDelete
-                    console.log(feedTransactions)
-                    let newFeedTransactions = feedTransactions
-                    console.log(newFeedTransactions)
-                    newFeedTransactions = newFeedTransactions.filter(transaction => transaction.transactionHash !== row.original.transactionHash)
-                    console.log("deleted one", newFeedTransactions)
-                    setFeedTransactions(newFeedTransactions)
-                }}/></div>
+                <span className={FeedCSS.deleteCell}>
+                    {row.original.blockNumber > prevBlockNum && row.original.blockNumber <= currBlockNum ? <p style={{color: "#00ca00"}}><FaExclamation/> new</p> : <p></p>}
+                    <div style={{textAlign: "right"}}><FaTrashAlt role="button" onClick={() => {
+                        //handleDelete
+                        let newFeedTransactions = feedTransactions
+                        newFeedTransactions = newFeedTransactions.filter(transaction => transaction.transactionHash !== row.original.transactionHash)
+                        setFeedTransactions(newFeedTransactions)
+                    }}/>
+                    </div>
+                </span>
             ),
             disableGlobalFilter: true,
         }
