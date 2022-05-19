@@ -151,7 +151,7 @@ const WatchList = ({account, addresses, setAddresses}) => {
     return (
         <div id={WatchListCSS.watchList}>
             <WindowHeader window="Watchoor List"/>
-            {isLoading && <AiOutlineLoading className="loadingSvg"/>}
+            {isLoading && <AiOutlineLoading style={{marginTop: "75%"}} className="loadingSvg"/>}
             {fetchError && <p> {`Error: ${fetchError}`}</p>}
             {!fetchError && !isLoading && <>
                 <WatchListAddAddress newAddress={newAddress} setNewAddress={setNewAddress} newAlias={newAlias} setNewAlias={setNewAlias} handleWatchListAdd={handleWatchListAdd}/>

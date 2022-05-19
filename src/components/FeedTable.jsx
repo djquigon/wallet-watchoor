@@ -100,7 +100,6 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
             Header: ({data}) => (
                 <p>Total Txns: <b style={{color: "#00ca00"}}>{data.length}</b></p>
             ),
-            accessor: "confirmations", //change this
             disableSortBy: true,
             disableFilters: true,
             Cell: ({row}) => (
@@ -109,7 +108,7 @@ const FeedTable = ({feedTransactions, setFeedTransactions}) => {
                     console.log(feedTransactions)
                     let newFeedTransactions = feedTransactions
                     console.log(newFeedTransactions)
-                    newFeedTransactions = newFeedTransactions.filter(transaction => transaction.hash !== row.original.hash)
+                    newFeedTransactions = newFeedTransactions.filter(transaction => transaction.transactionHash !== row.original.transactionHash)
                     console.log("deleted one", newFeedTransactions)
                     setFeedTransactions(newFeedTransactions)
                 }}/></div>

@@ -74,7 +74,7 @@
     {
       "id": 20,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
+      "alerts": true,
       "alias": "ftx",
       "address": "0x2faf487a4414fe77e2327f0bf4ae2a264a776ad2",
       "ens": null,
@@ -88,7 +88,7 @@
     {
       "id": 21,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
+      "alerts": true,
       "alias": "coinbase 5",
       "address": "0xb5d85cbf7cb3ee0d56b3bb207d5fc4b82f43f511",
       "ens": null,
@@ -102,7 +102,7 @@
     {
       "id": 22,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
+      "alerts": false,
       "alias": "ricmoo",
       "address": "0x5555763613a12d8f3e73be831dff8598089d3dca",
       "ens": "ricmoo.eth",
