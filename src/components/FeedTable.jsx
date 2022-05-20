@@ -1,15 +1,15 @@
-import {useMemo, useState} from 'react'
+import {useMemo, useState, useEffect} from 'react'
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 import FeedCSS from '../style/Feed.module.css'
 import '../style/FeedRow.css'
-import {FaTrashAlt, FaExclamation} from "react-icons/fa";
+import {FaTrashAlt, FaExclamation, FaCopy} from "react-icons/fa";
 import makeBlockie from 'ethereum-blockies-base64';
 import etherscanLogo from "../assets/etherscanlogo.png"
 import FeedGlobalFilter from './FeedGlobalFilter';
 
 //GO BACK AND COMMENT THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 
-const FeedTable = ({isPaused, setIsPaused, feedTransactions, setFeedTransactions, currBlockNum, prevBlockNum}) => {
+const FeedTable = ({account, isPaused, setIsPaused, feedTransactions, setFeedTransactions, currBlockNum, prevBlockNum}) => {
         
     const COLUMNS = [
         {
@@ -27,7 +27,7 @@ const FeedTable = ({isPaused, setIsPaused, feedTransactions, setFeedTransactions
                     {row.original.fromAddressInfo !== undefined 
                     && row.original.fromAddressInfo 
                     && row.original.fromAddressInfo.alias ?  
-                    ` ⭐${row.original.fromAddressInfo.alias} ` : " "}
+                    ` ⭐${row.original.fromAddressInfo.alias} ` : <FaCopy role="button"/>}
                     <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
                 </>
             )
@@ -48,7 +48,7 @@ const FeedTable = ({isPaused, setIsPaused, feedTransactions, setFeedTransactions
                         {row.original.toAddressInfo !== undefined 
                         && row.original.toAddressInfo 
                         && row.original.toAddressInfo.alias ?  
-                        ` ⭐${row.original.toAddressInfo.alias} ` : " "}
+                        ` ⭐${row.original.toAddressInfo.alias} ` : <FaCopy role="button"/>}
                         <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
                     </>
                 }
@@ -78,8 +78,8 @@ const FeedTable = ({isPaused, setIsPaused, feedTransactions, setFeedTransactions
             accessor: "blockNumber",
             Cell: ({value, row}) => (
                 <p> 
-                    {new Date(value*1000).toLocaleTimeString("en-US")} EST 
-                    <br></br><a href={`https://etherscan.io/block/${row.original.blockNumber}`} target="_blank">Block {row.original.blockNumber} <img height="14px" src={etherscanLogo}></img></a>
+                    {new Date(row.original.timestamp*1000).toLocaleTimeString("en-US")} EST 
+                    <br></br><a href={`https://etherscan.io/block/${value}`} target="_blank">Block {row.original.blockNumber} <img height="14px" src={etherscanLogo}></img></a>
                 </p>
             ),
         },
@@ -124,6 +124,7 @@ const FeedTable = ({isPaused, setIsPaused, feedTransactions, setFeedTransactions
 
     /**Ensures pageIndex isnt reset every time feed is updated */
     const [currPageIndex, setCurrPageIndex] = useState(0)
+    
 
     const { 
         getTableProps, 
@@ -177,19 +178,20 @@ const FeedTable = ({isPaused, setIsPaused, feedTransactions, setFeedTransactions
                             </tr>
                         ))}
                     </thead>
+
                     <tbody {...getTableBodyProps()}>
-                        {
-                            page.map(row => {
-                                prepareRow(row)
-                                return (
-                                    <tr key={row.original.hash}{...row.getRowProps()} className={FeedCSS.feedRow}>
-                                        {row.cells.map((cell) => {
-                                            return <td{...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                        })}
-                                    </tr>
-                                )
-                            })
-                        }
+                        { !account ? <tr id={FeedCSS.walletWarning} style={{backgroundColor: "#070707"}}><td colSpan="7"><p>Your wallet is not connected.</p></td></tr> :              
+                                page.map(row => {
+                                    prepareRow(row)
+                                    return (
+                                        <tr key={row.original.hash}{...row.getRowProps()} className={FeedCSS.feedRow}>
+                                            {row.cells.map((cell) => {
+                                                return <td{...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                            })}
+                                        </tr>
+                                    )
+                                })
+                        }   
                     </tbody>
                 </table>
                 <div id={FeedCSS.pageOptions}>

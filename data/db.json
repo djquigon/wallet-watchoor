@@ -9,13 +9,6 @@
   ],
   "addresses": [
     {
-      "alias": "Dudley",
-      "address": "0x063BE4634c9ae1A699a4275FDbe8550F9D3EaEEC",
-      "alerts": true,
-      "id": 211,
-      "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40"
-    },
-    {
       "id": 10,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
       "alerts": false,
@@ -139,6 +132,34 @@
       "telegramName": null,
       "email": "arachnid@notdot.net",
       "website": "https://ens.domains/",
+      "location": null
+    },
+    {
+      "id": 221,
+      "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40",
+      "alerts": true,
+      "alias": "nick",
+      "address": "0xb8c2c29ee19d8307cb7255e1cd9cbde883a267d5",
+      "ens": "nick.eth",
+      "avatar": "https://lh3.googleusercontent.com/hKHZTZSTmcznonu8I6xcVZio1IF76fq0XmcxnvUykC-FGuVJ75UPdLDlKJsfgVXH9wOSmkyHw0C39VAYtsGyxT7WNybjQ6s3fM3macE",
+      "twitterName": "nicksdjohnson",
+      "telegramName": null,
+      "email": "arachnid@notdot.net",
+      "website": "https://ens.domains/",
+      "location": null
+    },
+    {
+      "id": 2,
+      "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40",
+      "alerts": true,
+      "alias": "coinbase 5",
+      "address": "0xb5d85cbf7cb3ee0d56b3bb207d5fc4b82f43f511",
+      "ens": null,
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
       "location": null
     }
   ]

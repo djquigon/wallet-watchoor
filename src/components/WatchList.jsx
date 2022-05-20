@@ -162,8 +162,8 @@ const WatchList = ({account, addresses, setAddresses}) => {
                             <WatchListAddress key={address.id} address={address} handleChangeAlert={handleChangeAlert} handleDelete={handleDelete}/>
                         ))}
                     </ol>
-                ) : (!account ? <p style={{marginTop: '2rem'}}>Your wallet is not connected.</p> 
-                    : <p style={{marginTop: '2rem'}}>Your list is empty.</p>)
+                ) : (!account ? <p style={{marginTop: '40%', height: "100%"}}>Your wallet is not connected.</p> 
+                    : <p style={{marginTop: '40%', height: "100%"}}>Your list is empty.</p>)
                 }
                 <p id={WatchListCSS.watchlistLength}>{filteredAddresses.length} Address(es)</p>
             </>}

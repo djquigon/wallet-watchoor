@@ -80,6 +80,7 @@ const Feed = ({block, account, addresses}) => {
                     for(let i = 0; i < blockToAddFilteredTransactions.length; i++){ 
                         const value = blockToAddFilteredTransactions[i].value
                         blockToAddFilteredTransactions[i] = await provider.getTransactionReceipt(blockToAddFilteredTransactions[i].hash) 
+                        console.log("DOOODOOOODOOOO", blockToAddFilteredTransactions[i])
                         blockToAddFilteredTransactions[i].timestamp = timestamp
                         blockToAddFilteredTransactions[i].value = parseFloat(ethers.utils.formatEther(value)).toFixed(3)
                         blockToAddFilteredTransactions[i].toAddressInfo = addresses.find(address =>
@@ -100,20 +101,26 @@ const Feed = ({block, account, addresses}) => {
             setFilteredTransactions(newFilteredTransactions)
         }
         //copy of last block to track last black for use in feedtable detecting if txn is new
-        setPrevBlockNum(lastBlockNum)
+        if(lastBlockNum){setPrevBlockNum(lastBlockNum)}
         //set last block for forward for next iteration
         setLastBlockNum(block.number)
     }
 
     useEffect(() => {
       setLastBlockNum(null)
-      setPrevBlockNum(null)
+      //setPrevBlockNum(null)
     }, [isPaused])
+
+    useEffect(() => {
+        if (!account){setFeedTransactions([])}
+    }, [account])
+    
 
     useEffect(() => {
         //if fee is paused, or account block or addresses are null or lastBlockNum is still this block
         if(isPaused || !account || !block || !addresses || lastBlockNum === block.number){
             console.log("Not filtering transactions...")
+            // setIsPaused(true)
             return
         }
         //check if any blocks were skipped
@@ -139,7 +146,7 @@ const Feed = ({block, account, addresses}) => {
     return (
         <div id={FeedCSS.feed}>
             <WindowHeader window="Feed"/>
-            <FeedTable isPaused={isPaused} setIsPaused={setIsPaused} feedTransactions={feedTransactions} setFeedTransactions={setFeedTransactions} currBlockNum={block ? block.number : null} prevBlockNum={prevBlockNum}/>
+            <FeedTable account={account} isPaused={isPaused} setIsPaused={setIsPaused} feedTransactions={feedTransactions} setFeedTransactions={setFeedTransactions} currBlockNum={block ? block.number : null} prevBlockNum={prevBlockNum}/>
         </div>
     )
 }

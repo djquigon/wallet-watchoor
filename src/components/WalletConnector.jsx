@@ -42,8 +42,10 @@ const WalletConnector = ({account, handleAccount}) => {
             newAccount = newAccount[0]
         }
         handleAccount(newAccount)
-        getAccountBalance(newAccount.toString())
-        getAccountTransactionCount(newAccount.toString())
+        if(newAccount){
+            getAccountBalance(newAccount.toString())
+            getAccountTransactionCount(newAccount.toString())
+        }
     }
     
     const connectWallet = () => {
