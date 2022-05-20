@@ -6,6 +6,7 @@ import {FaTrashAlt, FaExclamation, FaCopy} from "react-icons/fa";
 import makeBlockie from 'ethereum-blockies-base64';
 import etherscanLogo from "../assets/etherscanlogo.png"
 import FeedGlobalFilter from './FeedGlobalFilter';
+import ClipboardJS from 'clipboard';
 
 //GO BACK AND COMMENT THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 
@@ -27,7 +28,7 @@ const FeedTable = ({account, isPaused, setIsPaused, feedTransactions, setFeedTra
                     {row.original.fromAddressInfo !== undefined 
                     && row.original.fromAddressInfo 
                     && row.original.fromAddressInfo.alias ?  
-                    ` ⭐${row.original.fromAddressInfo.alias} ` : <FaCopy role="button"/>}
+                    <> ⭐{row.original.fromAddressInfo.alias} <FaCopy className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/></> : <> <FaCopy className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/></>}
                     <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
                 </>
             )
@@ -48,7 +49,7 @@ const FeedTable = ({account, isPaused, setIsPaused, feedTransactions, setFeedTra
                         {row.original.toAddressInfo !== undefined 
                         && row.original.toAddressInfo 
                         && row.original.toAddressInfo.alias ?  
-                        ` ⭐${row.original.toAddressInfo.alias} ` : <FaCopy role="button"/>}
+                        <> ⭐{row.original.toAddressInfo.alias} <FaCopy className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/></>  : <> <FaCopy className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/></>}
                         <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
                     </>
                 }
@@ -153,8 +154,12 @@ const FeedTable = ({account, isPaused, setIsPaused, feedTransactions, setFeedTra
 
     const { globalFilter, pageIndex, pageSize } = state
 
+    let clipboard = new ClipboardJS('.copyBtn')
+
     return (
         <>
+            {/* script for copy to clipboard */}
+            <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
             <div id={FeedCSS.tableOptions}>
                 <FeedGlobalFilter filter={globalFilter} currPageIndex= {currPageIndex} setFilter={setGlobalFilter} setCurrPageIndex={setCurrPageIndex}/>
                 <span>

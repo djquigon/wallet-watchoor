@@ -51,20 +51,6 @@
       "location": null
     },
     {
-      "id": 16,
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
-      "alias": "null",
-      "address": "0x0000000000000000000000000000000000000000",
-      "ens": null,
-      "avatar": null,
-      "twitterName": null,
-      "telegramName": null,
-      "email": null,
-      "website": null,
-      "location": null
-    },
-    {
       "id": 20,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
       "alerts": true,
