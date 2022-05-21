@@ -12,7 +12,7 @@ const WatchListSearch = ({ search, setSearch }) => {
         id="search"
         type="text"
         role="searchbox"
-        placeholder="Search Watch List"
+        placeholder="Search Watchlist"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />

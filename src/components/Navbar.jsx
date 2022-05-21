@@ -130,12 +130,6 @@ const Navbar = () => {
           ) : (
             <AiOutlineLoading className="loadingSvg" />
           )}
-          {/* <p>Market Cap:</p>
-                    <p>{etherPriceInfo ? `$${etherPriceInfo.mktCap}B` : <AiOutlineLoading className="loadingSvg"/>}</p>
-                    <p>24h Volume:</p>
-                    <p>{etherPriceInfo ? `$${etherPriceInfo.vol}` : <AiOutlineLoading className="loadingSvg"/>}</p>
-                    <p>Days since ATH:</p>
-                    <p>{etherPriceInfo ? `${etherPriceInfo.daysSinceAth}` : <AiOutlineLoading className="loadingSvg"/>}</p> */}
         </li>
         <li className={NavbarCSS.menuItem} id={NavbarCSS.gweiTracker}>
           <a target="_blank" href="https://etherscan.io/gastracker">

@@ -57,7 +57,7 @@ const FeedTable = ({
           ) : (
             " "
           )}
-          <ReactTooltip id={value} class="tooltip" />
+          <ReactTooltip id={value} class="tooltip" globalEventOff="click" />
           <FaCopy
             data-for={value}
             data-effect="solid"
@@ -102,7 +102,7 @@ const FeedTable = ({
               ) : (
                 " "
               )}
-              <ReactTooltip id={value} class="tooltip" />
+              <ReactTooltip id={value} class="tooltip" globalEventOff="click" />
               <FaCopy
                 data-for={value}
                 data-effect="solid"

@@ -19,7 +19,7 @@ const Feed = ({ block, account, addresses }) => {
   const filterTransactions = async () => {
     const watchedAddresses = addresses
       .filter((address) => address.alerts === true)
-      .map((address) => address.address);
+      .map((address) => address.address.toLowerCase());
     console.log("Watched addresses to filter...");
     console.log(watchedAddresses);
     function filter(transaction) {
@@ -54,12 +54,14 @@ const Feed = ({ block, account, addresses }) => {
           ).toFixed(3);
           newFilteredTransactions[i].toAddressInfo = addresses.find((address) =>
             newFilteredTransactions[i].to
-              ? address.address === newFilteredTransactions[i].to.toLowerCase()
+              ? address.address.toLowerCase() ===
+                newFilteredTransactions[i].to.toLowerCase()
               : null
           );
           newFilteredTransactions[i].fromAddressInfo = addresses.find(
             (address) =>
-              address.address === newFilteredTransactions[i].from.toLowerCase()
+              address.address.toLowerCase() ===
+              newFilteredTransactions[i].from.toLowerCase()
           );
         }
         console.log("Setting Filtered Transactions to ...");

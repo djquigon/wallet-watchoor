@@ -126,7 +126,7 @@ const WatchListAddress = ({ address, handleChangeAlert, handleDelete }) => {
         >
           <ReactTooltip class="tooltip" id={address.address} />
           <img
-            data-tip={`View on etherscan`}
+            data-tip={`View address on etherscan`}
             data-for={address.address}
             src={etherscanLogo}
           ></img>

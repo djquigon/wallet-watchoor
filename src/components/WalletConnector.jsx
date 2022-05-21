@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import WalletConnectorCSS from "../style/WalletConnector.module.css";
-import { FaWindowClose, FaExternalLinkAlt } from "react-icons/fa";
+import { AiOutlineClose } from "react-icons/ai";
+import etherscanLogo from "../assets/etherscanlogo.png";
 import makeBlockie from "ethereum-blockies-base64";
 import { ethers } from "ethers";
 
@@ -122,7 +123,11 @@ const WalletConnector = ({ account, handleAccount }) => {
                 target="_blank"
                 href={"https://etherscan.io/address/" + account}
               >
-                View on Explorer <FaExternalLinkAlt color="white" />
+                View on Explorer{" "}
+                <img
+                  style={{ width: "1em", height: "1em" }}
+                  src={etherscanLogo}
+                />
               </a>
             </div>
             <div id={WalletConnectorCSS.modalWatchoorInfo}>
@@ -135,7 +140,7 @@ const WalletConnector = ({ account, handleAccount }) => {
               onClick={toggleModal}
               style={{ width: "1em", height: "1em" }}
             >
-              <FaWindowClose />
+              <AiOutlineClose color="white" />
             </button>
           </div>
         </div>

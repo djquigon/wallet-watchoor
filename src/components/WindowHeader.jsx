@@ -1,6 +1,5 @@
 import React from "react";
 import WindowHeaderCSS from "../style/WindowHeader.module.css";
-import { FaWindowClose } from "react-icons/fa";
 import { AiOutlineArrowsAlt, AiOutlineClose } from "react-icons/ai";
 import { GoMute, GoUnmute } from "react-icons/go";
 

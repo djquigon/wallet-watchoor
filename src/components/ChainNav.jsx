@@ -4,6 +4,7 @@ import WalletConnector from "./WalletConnector";
 import { AiOutlineLoading } from "react-icons/ai";
 import etherscanLogo from "../assets/etherscanlogo.png";
 import { ethers } from "ethers";
+import ReactTooltip from "react-tooltip";
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -118,7 +119,13 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
               target="_blank"
               href={block && `https://etherscan.io/block/${block.number}`}
             >
-              <img height="14px" src={etherscanLogo}></img>
+              <ReactTooltip id="etherscanBlock" class="tooltip" />
+              <img
+                data-for="etherscanBlock"
+                data-tip="View block on etherscan"
+                height="14px"
+                src={etherscanLogo}
+              ></img>
             </a>
           </p>
           <b style={{ width: "115px", color: "#7a86fb" }}>

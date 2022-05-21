@@ -81,7 +81,7 @@ const WatchList = ({ account, addresses, setAddresses }) => {
       alerts: true,
       //first three are default
       alias: newAlias,
-      address: address.toLowerCase(),
+      address: address,
       ens: ens,
       avatar: resolver ? await resolver.getAvatar() : null,
       twitterName: resolver ? await resolver.getText("com.twitter") : null,
@@ -101,23 +101,44 @@ const WatchList = ({ account, addresses, setAddresses }) => {
     return addressInfo;
   };
 
+  //helper func to check if address is already in list
+  const addressExistsinList = (newAddress) => {
+    if (
+      addresses.findIndex(
+        (address) => address.address.toLowerCase() === newAddress.toLowerCase()
+      ) >= 0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const handleWatchListAdd = async (e) => {
     e.preventDefault();
     if (!newAddress) {
       return;
     }
-    /**If the address to add is a valid eth address */
     if (ethers.utils.isAddress(newAddress)) {
-      const ens = await provider.lookupAddress(newAddress);
-      const addressInfo = await getAddressInfo(newAddress, ens);
-      addWatchListAddress(addressInfo);
+      /**If the address to add is a valid eth address */
+      if (addressExistsinList(newAddress)) {
+        alert("This address already exists in your watchlist.");
+      } else {
+        const ens = await provider.lookupAddress(newAddress);
+        const addressInfo = await getAddressInfo(newAddress, ens);
+        addWatchListAddress(addressInfo);
+      }
       // if the address to add is a valid ens
     } else if (await provider.resolveName(newAddress)) {
       const address = await provider.resolveName(newAddress);
-      const addressInfo = await getAddressInfo(address, newAddress);
-      addWatchListAddress(addressInfo);
+      if (addressExistsinList(address)) {
+        alert("This address already exists in your watchlist.");
+      } else {
+        const addressInfo = await getAddressInfo(address, newAddress);
+        addWatchListAddress(addressInfo);
+      }
     } else {
-      window.alert(
+      alert(
         "Not a valid address. Please ensure the address you entered exists. Check the following link: https://etherscan.io/address/" +
           newAddress
       );
