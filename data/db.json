@@ -11,7 +11,7 @@
     {
       "id": 10,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
+      "alerts": true,
       "alias": "kill",
       "address": "0xc88ebc63c3126e9f37a46c1cf55b0e79c9cc20e2",
       "ens": "kill.eth",
@@ -25,7 +25,7 @@
     {
       "id": 11,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
+      "alerts": true,
       "alias": "cream",
       "address": "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae",
       "ens": "ethereum.eth",
@@ -39,7 +39,7 @@
     {
       "id": 14,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
+      "alerts": false,
       "alias": "sushi",
       "address": "0xd9e1ce17f2641f24ae83637ab66a2cca9c378b9f",
       "ens": null,
@@ -81,7 +81,7 @@
     {
       "id": 22,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
+      "alerts": true,
       "alias": "ricmoo",
       "address": "0x5555763613a12d8f3e73be831dff8598089d3dca",
       "ens": "ricmoo.eth",

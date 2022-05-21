@@ -106,3 +106,9 @@
 .copyBtn svg:hover{
     color: inherit;
 }
+
+.copytoClipBoardTooltip{
+    font-size: 10px !important;
+    font-family: monospace !important;
+    border-radius: 24px !important;
+}

@@ -30,7 +30,7 @@ const FeedTable = ({account, isPaused, setIsPaused, feedTransactions, setFeedTra
                     && row.original.fromAddressInfo 
                     && row.original.fromAddressInfo.alias ?  
                     <> ⭐{row.original.fromAddressInfo.alias} </> : " "}
-                    <ReactTooltip id={value}/><FaCopy data-for={value} data-effect="solid" data-tip="Copy address" className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/>
+                    <ReactTooltip id={value} class={FeedCSS.copytoClipBoardTooltip}/><FaCopy data-for={value} data-effect="solid" data-tip="Copy address" className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/>
                     <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
                 </>
             )
@@ -52,7 +52,7 @@ const FeedTable = ({account, isPaused, setIsPaused, feedTransactions, setFeedTra
                         && row.original.toAddressInfo 
                         && row.original.toAddressInfo.alias ?  
                         <> ⭐{row.original.toAddressInfo.alias} </> : " "}
-                        <ReactTooltip id={value}/><FaCopy data-for={value} data-effect="solid" data-tip="Copy address" className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/>
+                        <ReactTooltip id={value} class={FeedCSS.copytoClipBoardTooltip}/><FaCopy data-for={value} data-effect="solid" data-tip="Copy address" className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/>
                         <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
                     </>
                 }
