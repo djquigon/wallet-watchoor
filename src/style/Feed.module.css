@@ -81,8 +81,11 @@
     border: solid black;
 }
 
-#pageOptions button, #tableOptions svg{
+#pageOptions button{
     margin: 0 0.5em 0 0.5em;
+}
+#tableOptions svg{
+    margin: 0 1.5em 0 1.5em;
 }
 
 #pageOptions button:disabled, #pageOptions button[disabled]{
