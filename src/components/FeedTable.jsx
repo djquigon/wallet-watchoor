@@ -68,7 +68,7 @@ const FeedTable = ({account, isPaused, setIsPaused, feedTransactions, setFeedTra
             Header: "Value",
             accessor: "value",
             Cell: ({value}) => (
-                <div className={`${value < 1 ? "normal" : ""}${value >= 1 && value < 10 ? "smallValue" : ""}${value >= 10 && value < 50 ? "mediumValue" : ""}${value >= 50 && value < 100 ? "largeValue" : ""}${value >= 100 && value < 500 ? "massiveValue" : ""}${value >= 500 && value <= 1000 ? "jesusValue" : ""}`}>
+                <div className={`${value < 1 ? "normal" : ""}${value >= 1 && value < 10 ? "smallValue" : ""}${value >= 10 && value < 50 ? "mediumValue" : ""}${value >= 50 && value < 100 ? "largeValue" : ""}${value >= 100 && value < 500 ? "massiveValue" : ""}${value >= 500 && value <= 1000 ? "jesusValue" : ""}${value >= 1000 ? "holyshitValue" : ""}`}>
                     <b>{value} Ξ</b>
                 </div>
             ),

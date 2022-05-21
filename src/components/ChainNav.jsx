@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import ChainNavCSS from '../style/ChainNav.module.css'
 import WalletConnector from './WalletConnector'
-import {FaExternalLinkAlt} from "react-icons/fa";
 import {AiOutlineLoading} from "react-icons/ai"
 import etherscanLogo from "../assets/etherscanlogo.png"
 import { ethers } from 'ethers';
+
 
 const provider = new ethers.providers.Web3Provider(window.ethereum)
 
@@ -64,7 +64,7 @@ const ChainNav = ({block, setBlock, account, handleAccount}) => {
                 <div id={ChainNavCSS.blockInfo}>
                     <p>🟢 Block&nbsp;
                         <em id={ChainNavCSS.blockNumber}  style={{color: '#1eff00'}}>
-                            {block ? `# ${block.number}` : <AiOutlineLoading className="loadingSvg"/>}
+                            {block ? `#${block.number}` : <AiOutlineLoading className="loadingSvg"/>}
                         </em>
                     </p>
                     <p>
@@ -81,7 +81,6 @@ const ChainNav = ({block, setBlock, account, handleAccount}) => {
                     <p>
                         Block created {block ? convertBlockAge(block.timestamp) : <AiOutlineLoading className="loadingSvg"/>} EST <a target="_blank" href={block && `https://etherscan.io/block/${block.number}`}><img height="14px" src={etherscanLogo}></img></a>
                     </p>
-
                     <b style={{width: "115px", color: "#7a86fb"}}>Refresh in {refreshTime ? refreshTime : <AiOutlineLoading className="loadingSvg"/>}</b>
                 </div>
             </div>

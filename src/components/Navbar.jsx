@@ -4,11 +4,12 @@ import NavbarCSS from "../style/Navbar.module.css"
 import logo from "../assets/logo.gif"
 import {MdInfo} from "react-icons/md"
 /** Use in app */
-import {FaGithub, FaMedium, FaGasPump} from "react-icons/fa";
+import {FaGithub, FaMedium, FaGasPump, FaEthereum} from "react-icons/fa";
 import {AiOutlineLoading} from "react-icons/ai"
 import {ImEnter} from "react-icons/im";
 import {ethers} from 'ethers';
 import { ThemeContext } from './Layout'
+import axios from 'axios';
 
 const provider = new ethers.providers.Web3Provider(window.ethereum)
 
@@ -17,6 +18,7 @@ const Navbar = () => {
 
     const [gasPrice, setGasPrice] = useState(null)
     const {theme, setTheme} = useContext(ThemeContext)
+    const [etherPriceInfo, setEtherPriceInfo] = useState(null)
 
     const toggleTheme = () => {
         setTheme((curr) => (curr === 'light' ? 'dark' : 'light'))
@@ -24,8 +26,20 @@ const Navbar = () => {
         localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light')
     }
 
+    const getEtherPriceInfo = async () => {
+        console.log("Getting Price info...")
+        const res = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=ethereum&order=market_cap_desc&per_page=10&page=1&sparkline=false")
+        setEtherPriceInfo(
+                {currPrice: res.data[0].current_price, 
+                mktCap: ((res.data[0].market_cap)/1000000000).toFixed(1), 
+                vol: (res.data[0].total_volume).toLocaleString('en-US'), 
+                priceChange: res.data[0].price_change_percentage_24h.toFixed(2), 
+                daysSinceAth: ((new Date() - new Date(res.data[0].ath_date)) / (1000 * 60 * 60 * 24)).toFixed(2)}
+        )
+    }
+
     const fetchGasPrice = async () => {
-        console.log("fetchGas")
+        console.log("Getting gas info...")
         if (typeof window.ethereum !== 'undefined') {
             const feeData = await provider.getFeeData()
 
@@ -40,9 +54,12 @@ const Navbar = () => {
 
     useEffect(() => {
         //call for initial load
+        getEtherPriceInfo()
         fetchGasPrice()
+        const etherPriceUpdater = setInterval(getEtherPriceInfo, 60000)
         const gasPriceUpdater = setInterval(fetchGasPrice, 15000)
         return () => { 
+            clearInterval(etherPriceUpdater)
             clearInterval(gasPriceUpdater)
         }
     }, [])
@@ -77,6 +94,24 @@ const Navbar = () => {
                         <FaGasPump className={NavbarCSS.menuIcon}/>
                         <p>{gasPrice ? gasPrice + " Gwei" : <AiOutlineLoading className="loadingSvg"/>}</p>
                     </a>
+                </li>
+                <li className={NavbarCSS.menuItem}>
+                    <span>
+                        <FaEthereum/> 
+                        {etherPriceInfo ? 
+                            <p>${etherPriceInfo.currPrice} <br></br> {etherPriceInfo.priceChange < 0 ? 
+                                <b style={{color: "red"}}>
+                                    {etherPriceInfo.priceChange}%
+                                </b> 
+                                : <b style={{color: "#00ca00"}}>+{etherPriceInfo.priceChange}%</b>}</p> 
+                        : <AiOutlineLoading className="loadingSvg"/>}
+                        {/* <p>Market Cap:</p>
+                        <p>{etherPriceInfo ? `$${etherPriceInfo.mktCap}B` : <AiOutlineLoading className="loadingSvg"/>}</p>
+                        <p>24h Volume:</p>
+                        <p>{etherPriceInfo ? `$${etherPriceInfo.vol}` : <AiOutlineLoading className="loadingSvg"/>}</p>
+                        <p>Days since ATH:</p>
+                        <p>{etherPriceInfo ? `${etherPriceInfo.daysSinceAth}` : <AiOutlineLoading className="loadingSvg"/>}</p> */}
+                    </span>
                 </li>
                 <li className={NavbarCSS.menuItem}>
                     <button id={NavbarCSS.themeBtn} onClick={toggleTheme}>

@@ -50,7 +50,7 @@
   padding-top: 10vh;
 }
 
-#menu a, #menu a p{
+#menu a, #menu a p, #menu p{
   color: white;
   text-decoration: none;
   filter: drop-shadow(0px 0px 20px white);
