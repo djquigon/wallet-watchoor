@@ -300,7 +300,9 @@ const FeedTable = ({
           <span data-for="clear" data-tip="Clear feed?" data-place="left">
             <GiNuclearBomb
               onClick={() => {
-                setFeedTransactions([]);
+                if (feedTransactions.length > 0) {
+                  setFeedTransactions([]);
+                }
               }}
             />
           </span>

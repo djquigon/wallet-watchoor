@@ -96,6 +96,7 @@
     width: 100%; 
     border-radius: 12px;
     margin: 0.25em;
+    padding: 0.25rem;
 }
 
 #tableOptions, .deleteCell{
