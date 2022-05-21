@@ -74,12 +74,15 @@
     margin: 0 0.5em 0 0.5em;
 }
 
-#pageOptions button, #tableOptions button{
+#pageOptions button{
     background-color: #1e1e1e;
     border-radius: 6px;
     color: white;
-    margin: 0 0.5em 0 0.5em;
     border: solid black;
+}
+
+#pageOptions button, #tableOptions svg{
+    margin: 0 0.5em 0 0.5em;
 }
 
 #pageOptions button:disabled, #pageOptions button[disabled]{

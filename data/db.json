@@ -133,6 +133,20 @@
       "email": null,
       "website": null,
       "location": null
+    },
+    {
+      "id": 25,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "jlo",
+      "address": "0x542ac9bb878df69b3ed5f10a857a46c71ede8ab4",
+      "ens": "jlofromtheblockchain.eth",
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
+      "location": null
     }
   ]
 }
