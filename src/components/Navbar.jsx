@@ -1,15 +1,16 @@
-import {useState, useEffect, useContext, setContext} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import { Link } from 'react-router-dom'
 import NavbarCSS from "../style/Navbar.module.css"
 import logo from "../assets/logo.gif"
 import {MdInfo} from "react-icons/md"
-/** Use in app */
 import {FaGithub, FaMedium, FaGasPump, FaEthereum} from "react-icons/fa";
 import {AiOutlineLoading} from "react-icons/ai"
 import {ImEnter} from "react-icons/im";
 import {ethers} from 'ethers';
 import { ThemeContext } from './Layout'
 import axios from 'axios';
+import ReactTooltip from 'react-tooltip';
+
 
 const provider = new ethers.providers.Web3Provider(window.ethereum)
 
@@ -32,7 +33,7 @@ const Navbar = () => {
         setEtherPriceInfo(
                 {currPrice: res.data[0].current_price, 
                 mktCap: ((res.data[0].market_cap)/1000000000).toFixed(1), 
-                vol: (res.data[0].total_volume).toLocaleString('en-US'), 
+                vol: ((res.data[0].total_volume)/1000000000).toFixed(1), 
                 priceChange: res.data[0].price_change_percentage_24h.toFixed(2), 
                 daysSinceAth: ((new Date() - new Date(res.data[0].ath_date)) / (1000 * 60 * 60 * 24)).toFixed(2)}
         )
@@ -89,29 +90,37 @@ const Navbar = () => {
                         <p>Learn More</p>
                     </Link>
                 </li>
+                <li className={NavbarCSS.menuItem} id={NavbarCSS.priceTracker}>
+                    {etherPriceInfo ? 
+                    <>
+                        <ReactTooltip id="price" class={NavbarCSS.priceTooltip}/>
+                        <span  data-tip={`Mkt Cap:<br/>$${etherPriceInfo.mktCap}B<br/>24h Vol:<br/>${etherPriceInfo.vol}B<br/>Days since ATH:<br/>${etherPriceInfo.daysSinceAth}`} 
+                        data-multiline="true"
+                        data-for="price"
+                        data-place="bottom" 
+                        data-effect="solid">
+                        <FaEthereum/> 
+                        <p>${etherPriceInfo.currPrice} <br></br> {etherPriceInfo.priceChange < 0 ? 
+                            <b style={{color: "red"}}>
+                                {etherPriceInfo.priceChange}%
+                            </b> 
+                            : <b style={{color: "#00ca00"}}>+{etherPriceInfo.priceChange}%</b>}
+                        </p>
+                        </span>
+                    </> 
+                    : <AiOutlineLoading className="loadingSvg"/>}
+                    {/* <p>Market Cap:</p>
+                    <p>{etherPriceInfo ? `$${etherPriceInfo.mktCap}B` : <AiOutlineLoading className="loadingSvg"/>}</p>
+                    <p>24h Volume:</p>
+                    <p>{etherPriceInfo ? `$${etherPriceInfo.vol}` : <AiOutlineLoading className="loadingSvg"/>}</p>
+                    <p>Days since ATH:</p>
+                    <p>{etherPriceInfo ? `${etherPriceInfo.daysSinceAth}` : <AiOutlineLoading className="loadingSvg"/>}</p> */}
+                </li>
                 <li className={NavbarCSS.menuItem} id={NavbarCSS.gweiTracker}>
                     <a target="_blank" href="https://etherscan.io/gastracker">
                         <FaGasPump className={NavbarCSS.menuIcon}/>
                         <p>{gasPrice ? gasPrice + " Gwei" : <AiOutlineLoading className="loadingSvg"/>}</p>
                     </a>
-                </li>
-                <li className={NavbarCSS.menuItem}>
-                    <span>
-                        <FaEthereum/> 
-                        {etherPriceInfo ? 
-                            <p>${etherPriceInfo.currPrice} <br></br> {etherPriceInfo.priceChange < 0 ? 
-                                <b style={{color: "red"}}>
-                                    {etherPriceInfo.priceChange}%
-                                </b> 
-                                : <b style={{color: "#00ca00"}}>+{etherPriceInfo.priceChange}%</b>}</p> 
-                        : <AiOutlineLoading className="loadingSvg"/>}
-                        {/* <p>Market Cap:</p>
-                        <p>{etherPriceInfo ? `$${etherPriceInfo.mktCap}B` : <AiOutlineLoading className="loadingSvg"/>}</p>
-                        <p>24h Volume:</p>
-                        <p>{etherPriceInfo ? `$${etherPriceInfo.vol}` : <AiOutlineLoading className="loadingSvg"/>}</p>
-                        <p>Days since ATH:</p>
-                        <p>{etherPriceInfo ? `${etherPriceInfo.daysSinceAth}` : <AiOutlineLoading className="loadingSvg"/>}</p> */}
-                    </span>
                 </li>
                 <li className={NavbarCSS.menuItem}>
                     <button id={NavbarCSS.themeBtn} onClick={toggleTheme}>

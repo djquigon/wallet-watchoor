@@ -28,9 +28,9 @@
   flex-direction: column;
 }
 
-#logoOverlay svg, #gweiTracker svg{
-  width: 1.5em;
-  height: 1.5em;
+#logoOverlay svg, #gweiTracker svg, #priceTracker svg{
+  width: 16px;
+  height: 16px;
 }
 
 #logoContainer:hover #logo{
@@ -57,10 +57,6 @@
   transition: .5s ease;
 }
 
-#menu svg{
-  display: inline;
-}
-
 #menu a:hover, #menu a:hover p{
   filter: drop-shadow(0px 0px 5px white) brightness(2.5);
 }
@@ -70,8 +66,12 @@
   height: 32px;
 }
 
-#gweiTracker{
+#priceTracker{
   padding-top: 20vh;
+}
+
+#priceTracker svg:hover{
+  cursor: default;
 }
 
 #themeBtn{
@@ -81,4 +81,10 @@
 
 #themeBtn span{
   font-size: 2em;
+}
+
+.priceTooltip{
+  font-size: 10px !important;
+  font-family: monospace !important;
+  width: 100% !important;
 }

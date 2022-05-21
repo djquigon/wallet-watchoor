@@ -7,6 +7,7 @@ import makeBlockie from 'ethereum-blockies-base64';
 import etherscanLogo from "../assets/etherscanlogo.png"
 import FeedGlobalFilter from './FeedGlobalFilter';
 import ClipboardJS from 'clipboard';
+import ReactTooltip from 'react-tooltip';
 
 //GO BACK AND COMMENT THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 
@@ -28,7 +29,8 @@ const FeedTable = ({account, isPaused, setIsPaused, feedTransactions, setFeedTra
                     {row.original.fromAddressInfo !== undefined 
                     && row.original.fromAddressInfo 
                     && row.original.fromAddressInfo.alias ?  
-                    <> ⭐{row.original.fromAddressInfo.alias} <FaCopy className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/></> : <> <FaCopy className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/></>}
+                    <> ⭐{row.original.fromAddressInfo.alias} </> : " "}
+                    <ReactTooltip id={value}/><FaCopy data-for={value} data-effect="solid" data-tip="Copy address" className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/>
                     <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
                 </>
             )
@@ -49,7 +51,8 @@ const FeedTable = ({account, isPaused, setIsPaused, feedTransactions, setFeedTra
                         {row.original.toAddressInfo !== undefined 
                         && row.original.toAddressInfo 
                         && row.original.toAddressInfo.alias ?  
-                        <> ⭐{row.original.toAddressInfo.alias} <FaCopy className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/></>  : <> <FaCopy className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/></>}
+                        <> ⭐{row.original.toAddressInfo.alias} </> : " "}
+                        <ReactTooltip id={value}/><FaCopy data-for={value} data-effect="solid" data-tip="Copy address" className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/>
                         <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
                     </>
                 }
