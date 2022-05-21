@@ -17,7 +17,7 @@
       "ens": "kill.eth",
       "avatar": null,
       "twitterName": null,
-      "telegramName": null,
+      "telegramName": "dickredir",
       "email": null,
       "website": null,
       "location": null
@@ -34,12 +34,12 @@
       "telegramName": null,
       "email": null,
       "website": "https://ethereum.org",
-      "location": null
+      "location": "Tokyo, Japan"
     },
     {
       "id": 14,
       "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": false,
+      "alerts": true,
       "alias": "sushi",
       "address": "0xd9e1ce17f2641f24ae83637ab66a2cca9c378b9f",
       "ens": null,
@@ -87,24 +87,10 @@
       "ens": "ricmoo.eth",
       "avatar": "https://www.ricmoo.com/profile.jpg",
       "twitterName": "@ricmoo",
-      "telegramName": null,
+      "telegramName": "ricmoo",
       "email": "me@ricmoo.com",
       "website": "https://www.ricmoo.com/",
-      "location": null
-    },
-    {
-      "id": 23,
-      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
-      "alerts": true,
-      "alias": "stani",
-      "address": "0x2e21f5d32841cf8c7da805185a041400bf15f21a",
-      "ens": "stani.eth",
-      "avatar": null,
-      "twitterName": null,
-      "telegramName": null,
-      "email": null,
-      "website": null,
-      "location": null
+      "location": "Berlin"
     },
     {
       "id": 24,

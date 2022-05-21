@@ -109,3 +109,9 @@ body.activeModal {
 .loadingSvg {
   animation: spin 2s linear infinite;
 }
+
+.tooltip{
+  font-size: 10px !important;
+  font-family: monospace !important;
+  border-radius: 24px !important;
+}

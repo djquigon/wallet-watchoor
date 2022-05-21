@@ -30,7 +30,7 @@ const FeedTable = ({account, isPaused, setIsPaused, feedTransactions, setFeedTra
                     && row.original.fromAddressInfo 
                     && row.original.fromAddressInfo.alias ?  
                     <> ⭐{row.original.fromAddressInfo.alias} </> : " "}
-                    <ReactTooltip id={value} class={FeedCSS.copytoClipBoardTooltip}/><FaCopy data-for={value} data-effect="solid" data-tip="Copy address" className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/>
+                    <ReactTooltip id={value} class="tooltip"/><FaCopy data-for={value} data-effect="solid" data-tip="Copy address" className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/>
                     <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
                 </>
             )
@@ -52,7 +52,7 @@ const FeedTable = ({account, isPaused, setIsPaused, feedTransactions, setFeedTra
                         && row.original.toAddressInfo 
                         && row.original.toAddressInfo.alias ?  
                         <> ⭐{row.original.toAddressInfo.alias} </> : " "}
-                        <ReactTooltip id={value} class={FeedCSS.copytoClipBoardTooltip}/><FaCopy data-for={value} data-effect="solid" data-tip="Copy address" className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/>
+                        <ReactTooltip id={value} class="tooltip"/><FaCopy data-for={value} data-effect="solid" data-tip="Copy address" className='copyBtn' data-clipboard-text={value} color='inherit' role="button"/>
                         <br></br><a target="_blank" href={`https://etherscan.io/address/${value}`}>{`${value.substring(0, 6)}...${value.substring(value.length - 4)}`} <img height="14px" src={etherscanLogo}></img></a>
                     </>
                 }
@@ -166,8 +166,10 @@ const FeedTable = ({account, isPaused, setIsPaused, feedTransactions, setFeedTra
             <div id={FeedCSS.tableOptions}>
                 <FeedGlobalFilter filter={globalFilter} currPageIndex= {currPageIndex} setFilter={setGlobalFilter} setCurrPageIndex={setCurrPageIndex}/>
                 <span>
-                    <button onClick={() => {setIsPaused(!isPaused)}}>{isPaused ? <p style={{color: "Red"}}>Paused</p> : <p style={{color: "#00ca00"}}>Unpaused</p>}</button>
-                    <button onClick={() => {setFeedTransactions([])}}>Clear</button>
+                    <ReactTooltip class="tooltip" id="setPaused"/>
+                    <button data-for="setPaused" data-tip={isPaused ? "Unpause feed?" : "Pause feed?"} data-place="left" onClick={() => {setIsPaused(!isPaused)}}>{isPaused ? <p style={{color: "Red"}}>Paused</p> : <p style={{color: "#00ca00"}}>Unpaused</p>}</button>
+                    <ReactTooltip class="tooltip" id="clear"/>
+                    <button data-for="clear" data-tip="Clear feed?" data-place="left" onClick={() => {setFeedTransactions([])}}>Clear</button>
                 </span>
             </div>
             <div id={FeedCSS.tableContainer}>
