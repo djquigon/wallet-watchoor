@@ -107,7 +107,7 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
             </em>
             in fees burnt 🔥
           </p>
-          <p>
+          <span>
             Block created{" "}
             {block ? (
               convertBlockAge(block.timestamp)
@@ -127,7 +127,7 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
                 src={etherscanLogo}
               ></img>
             </a>
-          </p>
+          </span>
           <b style={{ width: "115px", color: "#7a86fb" }}>
             Refresh in{" "}
             {refreshTime ? (

@@ -111,13 +111,13 @@ const Feed = ({ block, account, addresses }) => {
             blockToAddFilteredTransactions[i].toAddressInfo = addresses.find(
               (address) =>
                 blockToAddFilteredTransactions[i].to
-                  ? address.address ===
+                  ? address.address.toLowerCase() ===
                     blockToAddFilteredTransactions[i].to.toLowerCase()
                   : null
             );
             blockToAddFilteredTransactions[i].fromAddressInfo = addresses.find(
               (address) =>
-                address.address ===
+                address.address.toLowerCase() ===
                 blockToAddFilteredTransactions[i].from.toLowerCase()
             );
           }
