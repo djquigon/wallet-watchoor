@@ -123,6 +123,7 @@ const WatchList = ({ account, addresses, setAddresses }) => {
       /**If the address to add is a valid eth address */
       if (addressExistsinList(newAddress)) {
         alert("This address already exists in your watchlist.");
+        return;
       } else {
         const ens = await provider.lookupAddress(newAddress);
         const addressInfo = await getAddressInfo(newAddress, ens);
@@ -133,6 +134,7 @@ const WatchList = ({ account, addresses, setAddresses }) => {
       const address = await provider.resolveName(newAddress);
       if (addressExistsinList(address)) {
         alert("This address already exists in your watchlist.");
+        return;
       } else {
         const addressInfo = await getAddressInfo(address, newAddress);
         addWatchListAddress(addressInfo);
