@@ -2,6 +2,8 @@ import { useEffect, useState, useReducer } from "react";
 import Gun from "gun";
 import TrollboxCSS from "../style/Trollbox.module.css";
 import WindowHeader from "./WindowHeader";
+import makeBlockie from "ethereum-blockies-base64";
+import { MdSend } from "react-icons/md";
 
 const gun = Gun({
   peers: ["http://localhost:3030/gun"],
@@ -37,7 +39,8 @@ const Trollbox = ({ account }) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  function saveMessage() {
+  function saveMessage(e) {
+    e.preventDefault();
     const messages = gun.get("messages");
     messages.set({
       name: account,
@@ -57,45 +60,58 @@ const Trollbox = ({ account }) => {
           Your wallet is not connected.
         </p>
       ) : (
-        <div id={TrollboxCSS.chatContainer}>
-          <div id={TrollboxCSS.messages}>
-            {state.messages.map((message) => (
-              <>
-                <div
-                  className={TrollboxCSS.message}
-                  key={`${message.createdAt}${message.message}${message.name}`}
-                >
-                  <p>
-                    [
-                    {message.createdAt.substring(
-                      message.createdAt.indexOf("T") + 1,
-                      message.createdAt.indexOf(".")
-                    )}
-                    ]
-                  </p>
-                  <p>
-                    {`${message.name.substring(
-                      0,
-                      6
-                    )}...${message.name.substring(message.name.length - 4)}`}
-                    :
-                  </p>
-                  <p>{message.message}</p>
-                </div>
-                <hr></hr>
-              </>
-            ))}
+        <>
+          <div id={TrollboxCSS.chatInfo}>
+            <p>
+              <strong>Bots:</strong> 0
+            </p>
+            <p>
+              <strong>Users:</strong> 0
+            </p>
           </div>
-          <div id={TrollboxCSS.chatForm}>
-            <input
-              onChange={onChange}
-              placeholder="Message"
-              name="message"
-              value={form.message}
-            />{" "}
-            <button onClick={saveMessage}>Send Message</button>
+          <div id={TrollboxCSS.chatContainer}>
+            <div id={TrollboxCSS.messages}>
+              {state.messages.map((message) => (
+                <>
+                  <div
+                    className={TrollboxCSS.message}
+                    key={`${message.createdAt}${message.message}${message.name}`}
+                  >
+                    <p>
+                      {`[${message.createdAt.substring(
+                        message.createdAt.indexOf("T") + 1,
+                        message.createdAt.indexOf(".")
+                      )}]\u00A0`}
+
+                      <img width="14px" src={makeBlockie(message.name)}></img>
+                      {` ${message.name.substring(
+                        0,
+                        6
+                      )}...${message.name.substring(
+                        message.name.length - 4
+                      )}:\u00A0`}
+
+                      {message.message}
+                    </p>
+                  </div>
+                  <hr></hr>
+                </>
+              ))}
+            </div>
+            <form id={TrollboxCSS.chatForm} onSubmit={(e) => saveMessage(e)}>
+              <input
+                onChange={onChange}
+                placeholder="Type to chat. Enter to submit."
+                name="message"
+                required
+                value={form.message}
+              />{" "}
+              <button type="submit">
+                <MdSend />
+              </button>
+            </form>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
