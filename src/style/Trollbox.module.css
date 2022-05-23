@@ -1,9 +1,46 @@
 #trollbox{
   grid-area: trollbox;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#chatContainer hr{
+  border-color: #414141;
 }
 
 #trollboxHeader{
   background-color: black;
   width: 100%;
   height: 25px;
+}
+
+.message{
+  display: flex;
+  padding: 1em 0 1em 0;
+}
+
+#messages{
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+#chatContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;  
+}
+
+#chatForm{
+  width: 100%;
+}
+
+#chatForm input{
+  width: 70%;
+}
+
+#chatForm button{
+  width: 25%;
 }

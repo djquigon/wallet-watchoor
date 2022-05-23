@@ -27,7 +27,7 @@ const Dashboard = ({ account, handleAccount }) => {
           addresses={addresses}
           setAddresses={setAddresses}
         />
-        <Trollbox />
+        <Trollbox account={account} />
         <Dosbox />
       </div>
     </main>
