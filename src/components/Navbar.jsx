@@ -63,7 +63,7 @@ const Navbar = () => {
     getEtherPriceInfo();
     fetchGasPrice();
     const etherPriceUpdater = setInterval(getEtherPriceInfo, 60000);
-    const gasPriceUpdater = setInterval(fetchGasPrice, 15000);
+    const gasPriceUpdater = setInterval(fetchGasPrice, 60000);
     return () => {
       clearInterval(etherPriceUpdater);
       clearInterval(gasPriceUpdater);

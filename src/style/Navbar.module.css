@@ -11,6 +11,7 @@
     justify-content: space-between;
     /*box-shadow: 10px 12px 20px 0px grey;*/
     position: fixed;
+    border-right: groove #111111;
   }
 
 #logo{
@@ -86,5 +87,5 @@
 .priceTooltip{
   font-size: 10px !important;
   font-family: monospace !important;
-  width: 100% !important;
+  width: 56px !important;
 }
