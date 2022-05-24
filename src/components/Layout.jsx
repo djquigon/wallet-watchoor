@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
+
 import { Outlet } from "react-router-dom";
 
 /*Context makes state avaliable to all components it encomapsses? look this up*/
@@ -36,7 +36,6 @@ const Layout = () => {
           <>
             <Navbar />
             <Outlet />
-            <Footer />
           </>
         )}
       </div>

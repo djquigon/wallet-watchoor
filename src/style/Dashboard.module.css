@@ -20,4 +20,5 @@
   border-width: medium;
   background-color: #070707;
   z-index: -1;
+  overflow: hidden;
 }

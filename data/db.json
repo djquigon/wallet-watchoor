@@ -147,6 +147,76 @@
       "email": null,
       "website": null,
       "location": null
+    },
+    {
+      "id": 3,
+      "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40",
+      "alerts": true,
+      "alias": "ricmoo",
+      "address": "0x5555763613a12D8F3e73be831DFf8598089d3dCa",
+      "ens": "ricmoo.eth",
+      "avatar": "https://www.ricmoo.com/profile.jpg",
+      "twitterName": "@ricmoo",
+      "telegramName": null,
+      "email": "me@ricmoo.com",
+      "website": "https://www.ricmoo.com/",
+      "location": null
+    },
+    {
+      "id": 4,
+      "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40",
+      "alerts": true,
+      "alias": "d",
+      "address": "0x31A5ca06e7C44f69B4D45dda948FBA06649f2AB9",
+      "ens": null,
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
+      "location": null
+    },
+    {
+      "id": 5,
+      "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40",
+      "alerts": true,
+      "alias": "steve",
+      "address": "0x11231f7Dc863F36A6516Eb4EF052f195000e0000",
+      "ens": "steve.eth",
+      "avatar": null,
+      "twitterName": "ste_ve_e",
+      "telegramName": null,
+      "email": null,
+      "website": "https://steveeth.com",
+      "location": null
+    },
+    {
+      "id": 6,
+      "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40",
+      "alerts": true,
+      "alias": "stan",
+      "address": "0x063BE4634c9ae1A699a4275FDbe8550F9D3EaEEC",
+      "ens": null,
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
+      "location": null
+    },
+    {
+      "id": 1,
+      "userAddress": "0x403368091bf1ac9abd627d7a895116a5ec42d88e",
+      "alerts": true,
+      "alias": "rico",
+      "address": "0xb5d85CBf7cB3EE0D56b3bB207D5Fc4B82f43F511",
+      "ens": null,
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
+      "location": null
     }
   ]
 }

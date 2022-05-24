@@ -43,6 +43,7 @@ const Trollbox = ({ account }) => {
       return;
     }
     const messages = gun.get("messages");
+    console.log(messages);
     messages.set({
       name: account,
       message: formMessage,
@@ -62,7 +63,7 @@ const Trollbox = ({ account }) => {
         <>
           <div id={TrollboxCSS.chatInfo}>
             <p>
-              <strong>Bots:</strong> 0
+              <strong>Bots:</strong> ∞
             </p>
             <p>
               <strong>Users:</strong> 0
@@ -101,7 +102,7 @@ const Trollbox = ({ account }) => {
                 onChange={setFormMessage}
                 placeholder=""
                 name="message"
-                maxLength={100}
+                maxLength={132}
                 fontSize="14px"
                 fontFamily="monospace"
                 borderRadius="24px"
