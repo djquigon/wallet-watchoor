@@ -23,15 +23,16 @@
 #messages{
   display: flex;
   flex-direction: column-reverse;
+  overflow-y: scroll;
 }
 
 #chatContainer{
   width: 100%;
-  height: 100%;
+  height: 95%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-y: scroll;
+  border: solid #070707;
 }
 
 #chatInfo{
@@ -46,21 +47,31 @@
   bottom: 0;
   background-color: #000000;
   background-image: linear-gradient(0deg, #000000 1%, #333333 99%);
-
+  display: flex;
 }
 
-#chatForm input{
+.message p{
+  word-break: break-word;
+}
+
+#chatForm > div{
   width: 90%;
+}
+
+#chatForm > div > div{
+  background-color: #070707;
   height: 100%;
-  border: none;
+  border: solid #181818;
 }
 
 #chatForm svg{
-  color: white;
+  fill: white;
+  width: 16px;
+  height: 16px;
 }
 
 #chatForm svg:hover{
-  color: green;
+  fill: #00ca00;
 }
 
 #chatForm button{
@@ -70,4 +81,19 @@
   cursor: pointer;
   overflow: hidden;
   outline: none;
+  padding-left: 10px;
+}
+
+#messageInput{
+  width: 90%;
+}
+
+#chatForm > div > div > div {
+  color: white;
+  left: 0;
+  bottom: 0;
+}
+
+#chatForm > div > div > div > div > section{
+  width: 100% !important;
 }

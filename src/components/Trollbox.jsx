@@ -4,6 +4,7 @@ import TrollboxCSS from "../style/Trollbox.module.css";
 import WindowHeader from "./WindowHeader";
 import makeBlockie from "ethereum-blockies-base64";
 import { MdSend } from "react-icons/md";
+import InputEmoji from "react-input-emoji";
 
 const gun = Gun({
   peers: ["http://localhost:3030/gun"],
@@ -20,7 +21,7 @@ function reducer(state, message) {
 }
 
 const Trollbox = ({ account }) => {
-  const [form, setForm] = useState({ message: "" });
+  const [formMessage, setFormMessage] = useState("");
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -35,21 +36,19 @@ const Trollbox = ({ account }) => {
     });
   }, []);
 
-  function onChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
   function saveMessage(e) {
     e.preventDefault();
+    //if empty string or only spaces
+    if (/^ *$/.test(formMessage)) {
+      return;
+    }
     const messages = gun.get("messages");
     messages.set({
       name: account,
-      message: form.message,
+      message: formMessage,
       createdAt: new Date().toISOString(),
     });
-    setForm({
-      message: "",
-    });
+    setFormMessage("");
   }
 
   return (
@@ -70,9 +69,9 @@ const Trollbox = ({ account }) => {
             </p>
           </div>
           <div id={TrollboxCSS.chatContainer}>
-            <div id={TrollboxCSS.messages}>
+            <ol id={TrollboxCSS.messages}>
               {state.messages.map((message) => (
-                <>
+                <li>
                   <div
                     className={TrollboxCSS.message}
                     key={`${message.createdAt}${message.message}${message.name}`}
@@ -94,17 +93,21 @@ const Trollbox = ({ account }) => {
                       {message.message}
                     </p>
                   </div>
-                  <hr></hr>
-                </>
+                </li>
               ))}
-            </div>
+            </ol>
             <form id={TrollboxCSS.chatForm} onSubmit={(e) => saveMessage(e)}>
-              <input
-                onChange={onChange}
-                placeholder="Type to chat. Enter to submit."
+              <InputEmoji
+                onChange={setFormMessage}
+                placeholder=""
                 name="message"
+                maxLength={100}
+                fontSize="14px"
+                fontFamily="monospace"
+                borderRadius="24px"
+                borderColor="transparent"
                 required
-                value={form.message}
+                value={formMessage}
               />{" "}
               <button type="submit">
                 <MdSend />
