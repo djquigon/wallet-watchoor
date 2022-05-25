@@ -17,8 +17,6 @@
   display: flex;
   flex-direction: column;
   border: outset #121212;
-  border-width: medium;
-  background-color: #070707;
   z-index: -1;
   overflow: hidden;
 }

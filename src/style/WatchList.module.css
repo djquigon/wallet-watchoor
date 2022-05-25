@@ -65,7 +65,7 @@
 
 /*WatchList add address*/
 .addForm {
-  background-color: #070707;
+  background-color: rgb(0 0 0 / 90%);
   width: 100%;
   display: flex;
   align-items: center;
@@ -100,13 +100,13 @@
 }
 
 .addForm svg{
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
 }
 
 /**/
 .searchForm {
-  background-color: #070707;
+  background-color: rgb(0 0 0 / 90%);
   width: 100%;
   display: flex;
   padding: 0.5em;
@@ -128,6 +128,5 @@
 #watchlistLength{
   width: 100%;
   text-align: center;
-  background-color: #000000;
-  background-image: linear-gradient(0deg, #000000 1%, #333333 99%);
+  background-color: rgb(0 0 0 / 90%);
 }

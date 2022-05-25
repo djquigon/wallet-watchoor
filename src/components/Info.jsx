@@ -1,10 +1,9 @@
 import { useState } from "react";
 import InfoCSS from "../style/Info.module.css";
 import watchoor from "../assets/logo.gif";
-import feedTxns from "../assets/info/feed_txns.png";
-import welcome from "../assets/info/welcome.png";
 import InfoSublistItem from "./InfoSublistItem";
 import Footer from "./Footer";
+import INFO_CONSTANTS from "../InfoConstants";
 
 const Info = () => {
   const [displayFeed, setDisplayFeed] = useState(false);
@@ -12,8 +11,8 @@ const Info = () => {
   const [displayTrollbox, setDisplayTrollbox] = useState(false);
   const [displayDosbox, setDisplayDosbox] = useState(false);
 
-  const [contentGif, setContentGif] = useState(welcome); //welcome
-  const [contentText, setContentText] = useState("Welcome"); //welcome
+  const [contentGif, setContentGif] = useState(INFO_CONSTANTS.WELCOME_GIF); //welcome
+  const [contentText, setContentText] = useState(INFO_CONSTANTS.WELCOME_TEXT); //welcome
   const [contentLabel, setContentLabel] = useState("Welcome"); //welcome
 
   return (
@@ -29,8 +28,8 @@ const Info = () => {
               <li
                 className={InfoCSS.featureList}
                 onClick={() => {
-                  setContentGif(welcome);
-                  setContentText("Welcome");
+                  setContentGif(INFO_CONSTANTS.WELCOME_GIF);
+                  setContentText(INFO_CONSTANTS.WELCOME_TEXT);
                   setContentLabel("Welcome");
                 }}
               >
@@ -48,32 +47,32 @@ const Info = () => {
                   <ul className={InfoCSS.sublist}>
                     <InfoSublistItem
                       contentLabel="Adding an Address"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.ADDING_ADDRESS_GIF}
+                      contentText={INFO_CONSTANTS.ADDING_ADDRESS_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
                       contentLabel="Deleting an Address"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.DELETING_ADDRESS_GIF}
+                      contentText={INFO_CONSTANTS.DELETING_ADDRESS_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
                       contentLabel="Searching Addresses"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.SEARCHING_ADDRESS_GIF}
+                      contentText={INFO_CONSTANTS.SEARCHING_ADDRESS_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
                       contentLabel="Watchlist Address Data"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.WATCHLIST_ADDRESS_DATA_GIF}
+                      contentText={INFO_CONSTANTS.WATCHLIST_ADDRESS_DATA_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
@@ -93,56 +92,56 @@ const Info = () => {
                   <ul className={InfoCSS.sublist}>
                     <InfoSublistItem
                       contentLabel="Viewing Transactions"
-                      contentGif={feedTxns}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.VIEWING_TRANSACTIONS_GIF}
+                      contentText={INFO_CONSTANTS.VIEWING_TRANSACTIONS_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
                       contentLabel="Deleting Transactions"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.DELETING_TRANSACTIONS_GIF}
+                      contentText={INFO_CONSTANTS.DELETING_TRANSACTIONS_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
                       contentLabel="Clearing Feed"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.CLEARING_FEED_GIF}
+                      contentText={INFO_CONSTANTS.CLEARING_FEED_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
                       contentLabel="Pausing/Starting Feed"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.PAUSING_STARTING_FEED_GIF}
+                      contentText={INFO_CONSTANTS.PAUSING_STARTING_FEED_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
                       contentLabel="Feed Pagination"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.FEED_PAGINATION_GIF}
+                      contentText={INFO_CONSTANTS.FEED_PAGINATION_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
                       contentLabel="Sorting and Searching"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.SORTING_SEARCHING_GIF}
+                      contentText={INFO_CONSTANTS.SORTING_SEARCHING_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
                       contentLabel="Feed Data"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.FEED_DATA_GIF}
+                      contentText={INFO_CONSTANTS.FEED_DATA_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
@@ -162,16 +161,16 @@ const Info = () => {
                   <ul className={InfoCSS.sublist}>
                     <InfoSublistItem
                       contentLabel="Chat with other Watchoors"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.CHAT_GIF}
+                      contentText={INFO_CONSTANTS.CHAT_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
                       contentLabel="Share Transactions and Addresses"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.SHARE_GIF}
+                      contentText={INFO_CONSTANTS.SHARE_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
@@ -191,16 +190,16 @@ const Info = () => {
                   <ul className={InfoCSS.sublist}>
                     <InfoSublistItem
                       contentLabel="Take a Break"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.BREAK_GIF}
+                      contentText={INFO_CONSTANTS.BREAK_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
                       contentLabel="Have some fun"
-                      contentGif={null}
-                      contentText={"Test"}
+                      contentGif={INFO_CONSTANTS.FUN_GIF}
+                      contentText={INFO_CONSTANTS.FUN_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
@@ -212,7 +211,9 @@ const Info = () => {
           </div>
           <div className={InfoCSS.handbookContent}>
             <img width="70%" height="70%" src={contentGif}></img>
+            <hr style={{ width: "100%" }} />
             <p>{contentText}</p>
+            <hr style={{ width: "50%" }} />
             <b>{contentLabel}</b>
           </div>
         </div>

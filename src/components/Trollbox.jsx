@@ -35,6 +35,10 @@ const Trollbox = ({ account }) => {
         message: message.message,
         createdAt: message.createdAt,
       });
+      return () => {
+        alert("htrrt");
+        this.setState({});
+      };
     });
   }, []);
 
@@ -75,11 +79,10 @@ const Trollbox = ({ account }) => {
           <div id={TrollboxCSS.chatContainer}>
             <ol id={TrollboxCSS.messages}>
               {state.messages.map((message) => (
-                <li>
-                  <div
-                    className={TrollboxCSS.message}
-                    key={`${message.createdAt}${message.message}${message.name}`}
-                  >
+                <li
+                  key={`${message.createdAt}${message.message}${message.name}`}
+                >
+                  <div className={TrollboxCSS.message}>
                     <p>
                       {`[${message.createdAt.substring(
                         message.createdAt.indexOf("T") + 1,
@@ -93,6 +96,7 @@ const Trollbox = ({ account }) => {
                       )}...${message.name.substring(
                         message.name.length - 4
                       )}:\u00A0`}
+                      <br />
 
                       {message.message}
                     </p>

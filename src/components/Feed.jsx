@@ -103,7 +103,7 @@ const Feed = ({ block, account, addresses }) => {
               await provider.getTransactionReceipt(
                 blockToAddFilteredTransactions[i].hash
               );
-            console.log("DOOODOOOODOOOO", blockToAddFilteredTransactions[i]);
+            // console.log("DOOODOOOODOOOO", blockToAddFilteredTransactions[i]);
             blockToAddFilteredTransactions[i].timestamp = timestamp;
             blockToAddFilteredTransactions[i].value = parseFloat(
               ethers.utils.formatEther(value)
