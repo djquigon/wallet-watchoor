@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useState, useReducer, useRef } from "react";
 import Gun from "gun";
 import TrollboxCSS from "../style/Trollbox.module.css";
 import WindowHeader from "./WindowHeader";
@@ -23,6 +23,8 @@ function reducer(state, message) {
 const Trollbox = ({ account }) => {
   const [formMessage, setFormMessage] = useState("");
 
+  const submitButton = useRef(null);
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -38,8 +40,9 @@ const Trollbox = ({ account }) => {
 
   function saveMessage(e) {
     e.preventDefault();
-    //if empty string or only spaces
-    if (/^ *$/.test(formMessage)) {
+    //if empty string or only spaces, or too long
+    if (/^ *$/.test(formMessage) || formMessage.length > 132) {
+      alert(formMessage.length);
       return;
     }
     const messages = gun.get("messages");
@@ -107,10 +110,11 @@ const Trollbox = ({ account }) => {
                 fontFamily="monospace"
                 borderRadius="24px"
                 borderColor="transparent"
+                onEnter={() => submitButton.current.click()}
                 required
                 value={formMessage}
               />{" "}
-              <button type="submit">
+              <button ref={submitButton} type="submit">
                 <MdSend />
               </button>
             </form>

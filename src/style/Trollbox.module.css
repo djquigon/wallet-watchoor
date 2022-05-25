@@ -5,10 +5,6 @@
   align-items: center;
 }
 
-#chatContainer hr{
-  border-color: #414141;
-}
-
 #trollboxHeader{
   background-color: black;
   width: 100%;
@@ -65,7 +61,6 @@
 
 #chatForm > div > div{
   background-color: #070707;
-  border: solid #181818;
 }
 
 #chatForm svg{
@@ -96,8 +91,17 @@
   color: white;
   left: 0;
   bottom: 0;
+  border: solid #202020;
+  background-color: #070707;
+  border-radius: 24px;
+}
+
+#chatForm > div > div> div > div{
+  padding: 0.5em;
 }
 
 #chatForm > div > div > div > div > section{
   width: 100% !important;
+  background-color: #070707;
+  border: none;
 }
