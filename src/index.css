@@ -16,6 +16,13 @@ body {
   font-family: monospace;
 }
 
+main {
+  grid-area: content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 button, a, svg{
   cursor: pointer;
 }
@@ -54,11 +61,11 @@ button, select, input{
 }
 
 #dark tbody tr:nth-child(even), #dark ol li:nth-child(even){
-  background-color: rgb(0 0 0 / 60%);
+  background-color: rgb(0 0 0 / 70%);
 }
 
 #dark tbody tr:nth-child(odd), #dark ol li:nth-child(odd){
-  background-color: rgb(0 0 0 / 30%);
+  background-color: rgb(0 0 0 / 50%);
 }
 
 #light tbody tr, #light ol li, #light ol li a{

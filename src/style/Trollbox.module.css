@@ -98,10 +98,11 @@
 
 #chatForm > div > div> div > div{
   padding: 0.5em;
+  background-color: #070707;
 }
 
 #chatForm > div > div > div > div > section{
   width: 100% !important;
-  background-color: #070707;
+  background-color: rgb(0 0 0 / 90%);
   border: none;
 }

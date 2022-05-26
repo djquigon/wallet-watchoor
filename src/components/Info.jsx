@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import InfoCSS from "../style/Info.module.css";
 import watchoor from "../assets/logo.gif";
 import InfoSublistItem from "./InfoSublistItem";
 import Footer from "./Footer";
 import INFO_CONSTANTS from "../InfoConstants";
+import { ThemeContext } from "./Layout";
+import light_info from "../assets/light_info.gif";
+import dark_info from "../assets/dark_info.gif";
 
 const Info = () => {
   const [displayFeed, setDisplayFeed] = useState(false);
@@ -15,10 +18,18 @@ const Info = () => {
   const [contentText, setContentText] = useState(INFO_CONSTANTS.WELCOME_TEXT); //welcome
   const [contentLabel, setContentLabel] = useState("Welcome"); //welcome
 
+  const theme = useContext(ThemeContext);
   return (
     <>
       <main>
-        <div id={InfoCSS.container}>
+        <div
+          style={{
+            background: `url(${
+              theme.theme === "light" ? light_info : dark_info
+            })`,
+          }}
+          id={InfoCSS.container}
+        >
           <div id={InfoCSS.handbookNavbar}>
             <div>
               <img width="16px" src={watchoor}></img> Wallet Watchoor Handbook
@@ -54,7 +65,7 @@ const Info = () => {
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
-                      contentLabel="Deleting an Address"
+                      contentLabel="Deleting or Muting Addresses"
                       contentGif={INFO_CONSTANTS.DELETING_ADDRESS_GIF}
                       contentText={INFO_CONSTANTS.DELETING_ADDRESS_TEXT}
                       setContentGif={setContentGif}
@@ -99,17 +110,9 @@ const Info = () => {
                       setContentLabel={setContentLabel}
                     />
                     <InfoSublistItem
-                      contentLabel="Deleting Transactions"
+                      contentLabel="Deleting Transactions and Clearing Feed"
                       contentGif={INFO_CONSTANTS.DELETING_TRANSACTIONS_GIF}
                       contentText={INFO_CONSTANTS.DELETING_TRANSACTIONS_TEXT}
-                      setContentGif={setContentGif}
-                      setContentText={setContentText}
-                      setContentLabel={setContentLabel}
-                    />
-                    <InfoSublistItem
-                      contentLabel="Clearing Feed"
-                      contentGif={INFO_CONSTANTS.CLEARING_FEED_GIF}
-                      contentText={INFO_CONSTANTS.CLEARING_FEED_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}
