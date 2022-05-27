@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import HomeCSS from "../style/Home.module.css";
 import { ImFeed, ImList2 } from "react-icons/im";
@@ -6,42 +6,68 @@ import { GrDos } from "react-icons/gr";
 import { IoMdChatboxes } from "react-icons/io";
 import WalletConnector from "./WalletConnector";
 import Footer from "./Footer";
+import { ThemeContext } from "./Layout";
+import lightHeader from "../assets/light_header.png";
+import darkHeader from "../assets/dark_header.png";
 
 const Home = ({ account, handleAccount }) => {
+  const theme = useContext(ThemeContext);
+  const headerBackground = `url(${
+    theme.theme === "light" ? lightHeader : darkHeader
+  })  0% 0% / cover`;
+  const featureColor = theme.theme === "light" ? "#f4ad49" : "#829fc3";
+  const headerColor = theme.theme === "light" ? "black" : "white";
+
   return (
     <>
+      <header
+        id={HomeCSS.header}
+        style={{
+          background: headerBackground,
+          color: headerColor,
+        }}
+      >
+        <div id={HomeCSS.headerConnectBtn}>
+          <WalletConnector account={account} handleAccount={handleAccount} />
+        </div>
+        <div id={HomeCSS.headerContent}>
+          <h1>Welcome Watchoooors</h1>
+          <h3>
+            Tired of getting dumped on unknowingly by your favorite influencers?
+            Need a way to get ahead of the curve? Well you've come to the right
+            place.
+          </h3>
+          <div id={HomeCSS.landingBtns}>
+            <Link to="app">
+              <button>Enter App</button>
+            </Link>
+            <a target="_blank" href="https://discord.gg/Phh6A2nW">
+              <button>Join the Community</button>
+            </a>
+          </div>
+        </div>
+      </header>
       <main>
-        <header id={HomeCSS.header}>
-          <div id={HomeCSS.headerConnectBtn}>
-            <WalletConnector account={account} handleAccount={handleAccount} />
-          </div>
-          <div id={HomeCSS.headerContent}>
-            <h1>Welcome Watchoooors</h1>
-            <h3>
-              Tired of getting dumped on unknowingly by your favorite
-              influencers? Need a way to get ahead of the curve? Well you've
-              come to the right place.
-            </h3>
-            <div id={HomeCSS.landingBtns}>
-              <Link to="app">
-                <button>Enter App</button>
-              </Link>
-              <a target="_blank" href="https://discord.gg/Phh6A2nW">
-                <button>Join the Community</button>
-              </a>
-            </div>
-          </div>
-        </header>
         <h1 className={HomeCSS.landingText}>
           🕵️‍♂️ Never get caught lacking again. 🕵️‍♀️
         </h1>
         <div id={HomeCSS.featuresRow}>
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
-              <ImList2 />
+              <ImList2
+                style={{
+                  color: featureColor,
+                }}
+              />
             </div>
             <Link to="app">
-              <h1>WatchList</h1>
+              <h1
+                style={{
+                  color: featureColor,
+                }}
+              >
+                WatchList
+              </h1>
             </Link>
             <h3>Currate what you want to see.</h3>
             <p>
@@ -51,10 +77,20 @@ const Home = ({ account, handleAccount }) => {
           </div>
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
-              <ImFeed />
+              <ImFeed
+                style={{
+                  color: featureColor,
+                }}
+              />
             </div>
             <Link to="app">
-              <h1>Feed</h1>
+              <h1
+                style={{
+                  color: featureColor,
+                }}
+              >
+                Feed
+              </h1>
             </Link>
             <h3>Keep an eye out.</h3>
             <p>
@@ -64,10 +100,20 @@ const Home = ({ account, handleAccount }) => {
           </div>
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
-              <IoMdChatboxes />
+              <IoMdChatboxes
+                style={{
+                  color: featureColor,
+                }}
+              />
             </div>
             <Link to="app">
-              <h1>Trollbox</h1>
+              <h1
+                style={{
+                  color: featureColor,
+                }}
+              >
+                Trollbox
+              </h1>
             </Link>
             <h3>Spread the word.</h3>
             <p>
@@ -77,10 +123,20 @@ const Home = ({ account, handleAccount }) => {
           </div>
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
-              <GrDos />
+              <GrDos
+                style={{
+                  color: featureColor,
+                }}
+              />
             </div>
             <Link to="app">
-              <h1>Dosbox</h1>
+              <h1
+                style={{
+                  color: featureColor,
+                }}
+              >
+                Dosbox
+              </h1>
             </Link>
             <h3>Tired of watchooring?</h3>
             <p>Take a break and play some classic Dos games in the meantime.</p>
