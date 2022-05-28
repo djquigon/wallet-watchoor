@@ -25,7 +25,7 @@ const INFO_CONSTANTS = {
     SEARCHING_ADDRESS_GIF: SEARCHING_ADDRESS,
     WATCHLIST_ADDRESS_DATA_TEXT: 'Associated with each address in your watchlist are various links and information retreived from EIP-634 ens text records associated with an ens address. For this information to appear an address must have an associated ens name as well as set these text records. These records include an avatar, an email, a location, a website url, a twitter username, and a telegram username.',
     WATCHLIST_ADDRESS_DATA_GIF: WATCHLIST_ADDRESS_DATA,
-    VIEWING_TRANSACTIONS_TEXT: 'Once you have at least one address added to your watchlist, transactions to or from these addresses will begin populating in your feed as they occur. New transactions and their associated information appear at the top of your feed are marked with "! New".',
+    VIEWING_TRANSACTIONS_TEXT: 'Once you have at least one address added to your watchlist, transactions to or from these addresses will begin populating in your feed as they occur. New transactions and their associated information appear at the top of your feed are marked with "! New". These are retrieved after every refresh, which occur every 15 second interval.',
     VIEWING_TRANSACTIONS_GIF: VIEWING_TRANSACTIONS,
     DELETING_TRANSACTIONS_TEXT: 'Deleting a transaction from your feed can be done by clicking the trash can icon associated with the transaction you wish to delete. This action is irreversable.  Clearing your feed removes every transaction in one command and is also irreversable. It can be done by clicking the bomb icon at the top right of the feed window.',
     DELETING_TRANSACTIONS_GIF: DELETING_TRANSACTIONS,

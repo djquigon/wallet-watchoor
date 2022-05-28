@@ -54,21 +54,15 @@ const Home = ({ account, handleAccount }) => {
         <div id={HomeCSS.featuresRow}>
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
-              <ImList2
-                style={{
-                  color: featureColor,
-                }}
-              />
+              <Link to="app">
+                <ImList2
+                  style={{
+                    color: featureColor,
+                  }}
+                />
+              </Link>
             </div>
-            <Link to="app">
-              <h1
-                style={{
-                  color: featureColor,
-                }}
-              >
-                WatchList
-              </h1>
-            </Link>
+            <h1>WatchList</h1>
             <h3>Currate what you want to see.</h3>
             <p>
               Add addresses you want to watch to see their activity on your
@@ -77,21 +71,15 @@ const Home = ({ account, handleAccount }) => {
           </div>
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
-              <ImFeed
-                style={{
-                  color: featureColor,
-                }}
-              />
+              <Link to="app">
+                <ImFeed
+                  style={{
+                    color: featureColor,
+                  }}
+                />
+              </Link>
             </div>
-            <Link to="app">
-              <h1
-                style={{
-                  color: featureColor,
-                }}
-              >
-                Feed
-              </h1>
-            </Link>
+            <h1>Feed</h1>
             <h3>Keep an eye out.</h3>
             <p>
               Track transactions from addresses on your wacthlist and get
@@ -100,21 +88,15 @@ const Home = ({ account, handleAccount }) => {
           </div>
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
-              <IoMdChatboxes
-                style={{
-                  color: featureColor,
-                }}
-              />
+              <Link to="app">
+                <IoMdChatboxes
+                  style={{
+                    color: featureColor,
+                  }}
+                />
+              </Link>
             </div>
-            <Link to="app">
-              <h1
-                style={{
-                  color: featureColor,
-                }}
-              >
-                Trollbox
-              </h1>
-            </Link>
+            <h1>Trollbox</h1>
             <h3>Spread the word.</h3>
             <p>
               Talk to other watchoors and keep each other posted with memes and
@@ -123,21 +105,15 @@ const Home = ({ account, handleAccount }) => {
           </div>
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
-              <GrDos
-                style={{
-                  color: featureColor,
-                }}
-              />
+              <Link to="app">
+                <GrDos
+                  style={{
+                    color: featureColor,
+                  }}
+                />
+              </Link>
             </div>
-            <Link to="app">
-              <h1
-                style={{
-                  color: featureColor,
-                }}
-              >
-                Dosbox
-              </h1>
-            </Link>
+            <h1>Dosbox</h1>
             <h3>Tired of watchooring?</h3>
             <p>Take a break and play some classic Dos games in the meantime.</p>
           </div>
