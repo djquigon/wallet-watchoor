@@ -23,7 +23,7 @@ const Home = ({ account, handleAccount }) => {
       <header
         id={HomeCSS.header}
         style={{
-          background: headerBackground,
+          // background: headerBackground,
           color: headerColor,
         }}
       >

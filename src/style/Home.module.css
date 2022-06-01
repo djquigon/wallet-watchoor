@@ -17,7 +17,6 @@ main iframe{
   flex-direction: column;
   align-items: center;
   padding-top: 2em;
-  box-shadow: 10px 5px 20px rgb(0 0 0);
 }
 
 #headerConnectBtn{
@@ -43,7 +42,7 @@ main iframe{
 }
 
 #landingBtns button{
-  background-color: rgb(0 0 0 / 90%);
+  background-color: rgb(0 0 0 / 80%);
   border-radius: 12px;
   box-shadow: 10px 5px 20px rgb(0 0 0);
   color: rgb(255, 255, 255);
@@ -68,6 +67,7 @@ main iframe{
   border-radius: 12px;
   box-shadow: 10px 5px 20px rgb(0 0 0);
   padding: 1em;
+  border: solid black;
 }
 
 .feature:hover{

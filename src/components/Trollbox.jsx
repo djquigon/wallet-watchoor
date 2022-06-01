@@ -5,6 +5,7 @@ import WindowHeader from "./WindowHeader";
 import makeBlockie from "ethereum-blockies-base64";
 import { MdSend } from "react-icons/md";
 import InputEmoji from "react-input-emoji";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const gun = Gun({
   peers: ["http://localhost:3030/gun"],
@@ -27,6 +28,8 @@ const Trollbox = ({ account }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const [gunLength, setGunLength] = useState(null);
+
   useEffect(() => {
     const messages = gun.get("messages");
     messages.map().once((message) => {
@@ -35,9 +38,12 @@ const Trollbox = ({ account }) => {
         message: message.message,
         createdAt: message.createdAt,
       });
+      //this works for now, allows me to set loading so that messages dont display when loading, use gun.on if this stops working
+      setGunLength(Object.keys(messages._.back.graph).length - 1);
       return () => {
         alert("htrrt");
         this.setState({});
+        setGunLength(null);
       };
     });
   }, []);
@@ -50,7 +56,6 @@ const Trollbox = ({ account }) => {
       return;
     }
     const messages = gun.get("messages");
-    console.log(messages);
     messages.set({
       name: account,
       message: formMessage,
@@ -77,33 +82,40 @@ const Trollbox = ({ account }) => {
             </p>
           </div>
           <div id={TrollboxCSS.chatContainer}>
-            <ol id={TrollboxCSS.messages}>
-              {state.messages.map((message) => (
-                <li
-                  key={`${message.createdAt}${message.message}${message.name}`}
-                >
-                  <div className={TrollboxCSS.message}>
-                    <p>
-                      {`[${message.createdAt.substring(
-                        message.createdAt.indexOf("T") + 1,
-                        message.createdAt.indexOf(".")
-                      )}]\u00A0`}
+            {state.messages.length < gunLength ? (
+              <AiOutlineLoading
+                style={{ marginTop: "40%" }}
+                className="loadingSvg"
+              />
+            ) : (
+              <ol id={TrollboxCSS.messages}>
+                {state.messages.map((message) => (
+                  <li
+                    key={`${message.createdAt}${message.message}${message.name}`}
+                  >
+                    <div className={TrollboxCSS.message}>
+                      <p>
+                        {`[${message.createdAt.substring(
+                          message.createdAt.indexOf("T") + 1,
+                          message.createdAt.indexOf(".")
+                        )}]\u00A0`}
 
-                      <img width="14px" src={makeBlockie(message.name)}></img>
-                      {` ${message.name.substring(
-                        0,
-                        6
-                      )}...${message.name.substring(
-                        message.name.length - 4
-                      )}:\u00A0`}
-                      <br />
+                        <img width="14px" src={makeBlockie(message.name)}></img>
+                        {` ${message.name.substring(
+                          0,
+                          6
+                        )}...${message.name.substring(
+                          message.name.length - 4
+                        )}:\u00A0`}
+                        <br />
 
-                      {message.message}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+                        {message.message}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            )}
             <form id={TrollboxCSS.chatForm} onSubmit={(e) => saveMessage(e)}>
               <InputEmoji
                 onChange={setFormMessage}

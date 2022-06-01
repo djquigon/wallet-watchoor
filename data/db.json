@@ -231,6 +231,20 @@
       "email": null,
       "website": null,
       "location": null
+    },
+    {
+      "id": 8,
+      "userAddress": "0x1c63e4c7d164ef9712080fc57be2fe96b9149b40",
+      "alerts": true,
+      "alias": "stan",
+      "address": "0x20251a0505Ead51fb2C6ce5c1f399924ea068322",
+      "ens": "ban.eth",
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
+      "location": null
     }
   ]
 }
