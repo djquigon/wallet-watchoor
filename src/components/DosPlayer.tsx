@@ -11,7 +11,7 @@ const Dos = (window as any).Dos as DosFactory;
 const canvasCSS = `
     .dosbox-container, .dosbox-container canvas {
         width: 100%;
-        height: 100%;
+        height: 95%;
     }
 `
 
@@ -42,8 +42,8 @@ const DosPlayer = ({game, startGame, exitGame}) => {
     return (
         <div id={DosboxCSS.gameContainer}>
             <style>{canvasCSS}</style>
-            <canvas ref={ref} />
             <button id={DosboxCSS.ejectBtn} onClick={exitGame}><FaEject/> Eject</button>
+            <canvas ref={ref} />
         </div>
     )
 }

@@ -28,14 +28,13 @@ const Dosbox = () => {
         <DosPlayer game={game} exitGame={exitGame} startGame={startGame} />
       ) : (
         <>
-          <div id={DosboxCSS.gameScreen}>
-            <div id={DosboxCSS.controls}>
-              <button onClick={() => setGame(DOOM_URL)}>Doom</button>
-              <button onClick={() => setGame(SABA_URL)}>Acid Tetris</button>
-              <button onClick={() => setGame(MSPAC_URL)}>Ms.Pac-Man</button>
-              <button onClick={() => setGame(CHESS_URL)}>Chess88</button>
-            </div>
+          <div id={DosboxCSS.controls}>
+            <button onClick={() => setGame(DOOM_URL)}>Doom</button>
+            <button onClick={() => setGame(SABA_URL)}>Acid Tetris</button>
+            <button onClick={() => setGame(MSPAC_URL)}>Ms.Pac-Man</button>
+            <button onClick={() => setGame(CHESS_URL)}>Chess88</button>
           </div>
+          <div id={DosboxCSS.gameScreen}></div>
         </>
       )}
     </div>
