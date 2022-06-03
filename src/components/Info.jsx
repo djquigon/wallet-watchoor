@@ -9,6 +9,7 @@ import light_info from "../assets/light_info.gif";
 import dark_info from "../assets/dark_info.gif";
 
 const Info = () => {
+  const [displayIntroduction, setDisplayIntroduction] = useState(true);
   const [displayFeed, setDisplayFeed] = useState(false);
   const [displayWatchlist, setDisplayWatchlist] = useState(false);
   const [displayTrollbox, setDisplayTrollbox] = useState(false);
@@ -36,15 +37,34 @@ const Info = () => {
             </div>
             <hr></hr>
             <ul className={InfoCSS.featureNav}>
-              <li
-                className={InfoCSS.featureList}
-                onClick={() => {
-                  setContentGif(INFO_CONSTANTS.WELCOME_GIF);
-                  setContentText(INFO_CONSTANTS.WELCOME_TEXT);
-                  setContentLabel("Welcome");
-                }}
-              >
-                Welcome
+              <li className={InfoCSS.featureList}>
+                <div
+                  onClick={() => {
+                    setDisplayIntroduction(!displayIntroduction);
+                  }}
+                >
+                  Introduction
+                </div>
+                {displayIntroduction ? (
+                  <ul className={InfoCSS.sublist}>
+                    <InfoSublistItem
+                      contentLabel="Welcome"
+                      contentGif={INFO_CONSTANTS.WELCOME_GIF}
+                      contentText={INFO_CONSTANTS.WELCOME_TEXT}
+                      setContentGif={setContentGif}
+                      setContentText={setContentText}
+                      setContentLabel={setContentLabel}
+                    />
+                    <InfoSublistItem
+                      contentLabel="Dashboard Basics"
+                      contentGif={INFO_CONSTANTS.DELETING_ADDRESS_GIF}
+                      contentText={INFO_CONSTANTS.DELETING_ADDRESS_TEXT}
+                      setContentGif={setContentGif}
+                      setContentText={setContentText}
+                      setContentLabel={setContentLabel}
+                    />
+                  </ul>
+                ) : null}
               </li>
               <li className={InfoCSS.featureList}>
                 <div

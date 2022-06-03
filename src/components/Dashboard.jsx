@@ -16,10 +16,20 @@ const Dashboard = ({ account, handleAccount }) => {
   const [addresses, setAddresses] = useState([]);
   const [block, setBlock] = useState(null);
   const layout = [
-    { i: "Feed", x: 0, y: 0, w: 12, h: 68, minW: 2 },
-    { i: "Watchlist", x: 12, y: 0, w: 4, h: 34 },
-    { i: "Trollbox", x: 16, y: 0, w: 4, h: 34, maxW: 4 },
-    { i: "Dosbox", x: 12, y: 68, w: 8, h: 34 },
+    { i: "Feed", x: 0, y: 0, w: 12, h: 68, minW: 8, minH: 7 },
+    { i: "Watchlist", x: 12, y: 0, w: 4, h: 34, minW: 3, minH: 7, maxH: 68 },
+    {
+      i: "Trollbox",
+      x: 16,
+      y: 0,
+      w: 4,
+      h: 34,
+      maxW: 4,
+      minW: 3,
+      minH: 7,
+      maxH: 68,
+    },
+    { i: "Dosbox", x: 12, y: 68, w: 8, h: 34, minW: 5, minH: 20 },
   ];
 
   return (

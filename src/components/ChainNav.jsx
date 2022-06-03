@@ -60,13 +60,62 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
         >
           Ethereum
         </button>
-        <button className={ChainNavCSS.chainChangeBtn}>BSC</button>
-        <button className={ChainNavCSS.chainChangeBtn}>Avalanche</button>
-        <button className={ChainNavCSS.chainChangeBtn}>Polygon</button>
-        <button className={ChainNavCSS.chainChangeBtn}>Fantom</button>
-        <button className={ChainNavCSS.chainChangeBtn}>Harmony</button>
-        <button className={ChainNavCSS.chainChangeBtn}>Arbitrum</button>
-        <button className={ChainNavCSS.chainChangeBtn}>Optimism</button>
+        <button
+          onClick={() => {
+            alert("Coming soon...");
+          }}
+          className={ChainNavCSS.chainChangeBtn}
+        >
+          BSC
+        </button>
+        <button
+          onClick={() => {
+            alert("Coming soon...");
+          }}
+          className={ChainNavCSS.chainChangeBtn}
+        >
+          Avalanche
+        </button>
+        <button
+          onClick={() => {
+            alert("Coming soon...");
+          }}
+          className={ChainNavCSS.chainChangeBtn}
+        >
+          Polygon
+        </button>
+        <button
+          onClick={() => {
+            alert("Coming soon...");
+          }}
+          className={ChainNavCSS.chainChangeBtn}
+        >
+          Fantom
+        </button>
+        <button
+          onClick={() => {
+            alert("Coming soon...");
+          }}
+          className={ChainNavCSS.chainChangeBtn}
+        >
+          Harmony
+        </button>
+        <button
+          onClick={() => {
+            alert("Coming soon...");
+          }}
+          className={ChainNavCSS.chainChangeBtn}
+        >
+          Arbitrum
+        </button>
+        <button
+          onClick={() => {
+            alert("Coming soon...");
+          }}
+          className={ChainNavCSS.chainChangeBtn}
+        >
+          Optimism
+        </button>
         <div id={ChainNavCSS.blockInfo}>
           <p>
             🟢 Block&nbsp;
