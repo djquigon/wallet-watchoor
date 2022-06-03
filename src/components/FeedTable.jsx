@@ -333,7 +333,7 @@ const FeedTable = ({
             {!account ? (
               <tr
                 id={FeedCSS.walletWarning}
-                style={{ backgroundColor: "#070707" }}
+                style={{ backgroundColor: "transparent" }}
               >
                 <td colSpan="7">
                   <p>Your wallet is not connected.</p>

@@ -57,8 +57,8 @@ const Info = () => {
                     />
                     <InfoSublistItem
                       contentLabel="Dashboard Basics"
-                      contentGif={INFO_CONSTANTS.DELETING_ADDRESS_GIF}
-                      contentText={INFO_CONSTANTS.DELETING_ADDRESS_TEXT}
+                      contentGif={INFO_CONSTANTS.DASHBOARD_BASICS_GIF}
+                      contentText={INFO_CONSTANTS.DASHBOARD_BASICS_TEXT}
                       setContentGif={setContentGif}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}

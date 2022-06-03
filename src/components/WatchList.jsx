@@ -214,11 +214,11 @@ const WatchList = ({ account, addresses, setAddresses }) => {
               ))}
             </ol>
           ) : !account ? (
-            <p style={{ marginTop: "40%", height: "100%" }}>
+            <p style={{ marginTop: "30%", height: "100%" }}>
               Your wallet is not connected.
             </p>
           ) : (
-            <p style={{ marginTop: "40%", height: "100%" }}>
+            <p style={{ marginTop: "30%", height: "100%" }}>
               Your list is empty.
             </p>
           )}
