@@ -2,7 +2,9 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  grid-area: watchlist;
+  overflow: hidden;
+  height: 100%;
+    border: solid #070707;;
 }
 
 #watchList ol{
@@ -10,6 +12,7 @@
   width: 100%;
   height: 100%;
   list-style: none;
+  background-color: rgb(0 0 0 / 50%);
 }
 
 /*watchlistaddress*/

@@ -1,7 +1,9 @@
 #feed{
     grid-area: feed;
-    overflow-y: auto;
-    z-index: -1;
+    overflow: hidden;
+    height: 100%;
+    /* z-index: -1; */
+      border: solid #070707;;
 }
 
 #feed table{
@@ -37,7 +39,7 @@
 }
 
 #feed thead {
-    background-color: rgb(0 0 0 / 80%);
+    background-color: rgb(0 0 0 / 90%);
     position: sticky;
     top: 0;
 }
@@ -48,6 +50,7 @@
     flex-direction: column;
     height: 100%;
     justify-content: space-between;
+    background-color: rgb(0 0 0 / 50%);
 }
 
 .avatar{

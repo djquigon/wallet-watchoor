@@ -359,76 +359,76 @@ const FeedTable = ({
             )}
           </tbody>
         </table>
-        <div id={FeedCSS.pageOptions}>
-          <span>
-            Page{" "}
-            <strong>
-              {pageIndex + 1} of{" "}
-              {pageOptions.length > 0 ? pageOptions.length : 1} |
-            </strong>
-          </span>
-          <span>
-            &nbsp;Go to page:{" "}
-            <input
-              type="number"
-              defaultValue={pageIndex + 1}
-              min="1"
-              onChange={(e) => {
-                const pageNumber = e.target.value
-                  ? Number(e.target.value) - 1
-                  : 0;
-                gotoPage(pageNumber);
-              }}
-              style={{ width: "50px" }}
-            />
-          </span>
-          <select
-            value={pageSize}
-            onChange={(e) => setPageSize(Number(e.target.value))}
-          >
-            {[25, 50, 100].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                Show {pageSize}
-              </option>
-            ))}
-          </select>
-          <button
-            onClick={() => {
-              setCurrPageIndex(0);
-              gotoPage(0);
+      </div>
+      <div id={FeedCSS.pageOptions}>
+        <span>
+          Page{" "}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length > 0 ? pageOptions.length : 1}{" "}
+            |
+          </strong>
+        </span>
+        <span>
+          &nbsp;Go to page:{" "}
+          <input
+            type="number"
+            defaultValue={pageIndex + 1}
+            min="1"
+            onChange={(e) => {
+              const pageNumber = e.target.value
+                ? Number(e.target.value) - 1
+                : 0;
+              gotoPage(pageNumber);
             }}
-            disabled={!canPreviousPage}
-          >
-            {"<<"}
-          </button>
-          <button
-            onClick={() => {
-              setCurrPageIndex(pageIndex - 1);
-              previousPage();
-            }}
-            disabled={!canPreviousPage}
-          >
-            Prev
-          </button>
-          <button
-            onClick={() => {
-              setCurrPageIndex(pageIndex + 1);
-              nextPage();
-            }}
-            disabled={!canNextPage}
-          >
-            Next
-          </button>
-          <button
-            onClick={() => {
-              setCurrPageIndex(pageCount - 1);
-              gotoPage(pageCount - 1);
-            }}
-            disabled={!canNextPage}
-          >
-            {">>"}
-          </button>
-        </div>
+            style={{ width: "50px" }}
+          />
+        </span>
+        <select
+          value={pageSize}
+          onChange={(e) => setPageSize(Number(e.target.value))}
+        >
+          {[25, 50, 100].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+        <button
+          onClick={() => {
+            setCurrPageIndex(0);
+            gotoPage(0);
+          }}
+          disabled={!canPreviousPage}
+        >
+          {"<<"}
+        </button>
+        <button
+          onClick={() => {
+            setCurrPageIndex(pageIndex - 1);
+            previousPage();
+          }}
+          disabled={!canPreviousPage}
+        >
+          Prev
+        </button>
+        <button
+          onClick={() => {
+            setCurrPageIndex(pageIndex + 1);
+            nextPage();
+          }}
+          disabled={!canNextPage}
+        >
+          Next
+        </button>
+        <button
+          onClick={() => {
+            setCurrPageIndex(pageCount - 1);
+            gotoPage(pageCount - 1);
+          }}
+          disabled={!canNextPage}
+        >
+          {">>"}
+        </button>
       </div>
     </>
   );

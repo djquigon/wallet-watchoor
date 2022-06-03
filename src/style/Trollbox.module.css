@@ -1,8 +1,10 @@
 #trollbox{
-  grid-area: trollbox;
+  overflow: hidden;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+    border: solid #070707;;
 }
 
 #trollboxHeader{
@@ -20,6 +22,7 @@
   display: flex;
   flex-direction: column-reverse;
   overflow-y: scroll;
+  width: 100%;
 }
 
 #chatContainer{
@@ -30,6 +33,7 @@
   justify-content: space-between;
   align-items: center;
   border: solid #070707;
+  background-color: rgb(0 0 0 / 50%);
 }
 
 #chatInfo{
