@@ -11,7 +11,13 @@ import { AiOutlineLoading } from "react-icons/ai";
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-const WatchList = ({ account, addresses, setAddresses }) => {
+const WatchList = ({
+  account,
+  addresses,
+  setAddresses,
+  removeItem,
+  addItem,
+}) => {
   const API_URL = "http://localhost:8000/addresses?userAddress=" + account;
   const [newAddress, setNewAddress] = useState("");
   const [newAlias, setNewAlias] = useState("");
@@ -187,7 +193,11 @@ const WatchList = ({ account, addresses, setAddresses }) => {
 
   return (
     <div id={WatchListCSS.watchList}>
-      <WindowHeader window="Watchoor List" />
+      <WindowHeader
+        window="Watchlist"
+        removeItem={removeItem}
+        addItem={addItem}
+      />
       {isLoading && (
         <AiOutlineLoading style={{ marginTop: "40%" }} className="loadingSvg" />
       )}

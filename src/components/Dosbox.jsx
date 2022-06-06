@@ -9,7 +9,7 @@ const SABA_URL = "https://loganscheid.dev/assets/games/SABA.zip";
 const MSPAC_URL = "https://loganscheid.dev/assets/games/MSPAC.zip";
 const CHESS_URL = "https://loganscheid.dev/assets/games/CHESS.zip";
 
-const Dosbox = () => {
+const Dosbox = ({ removeItem, addItem }) => {
   const [game, setGame] = useState(null);
 
   const exitGame = () => {
@@ -23,7 +23,7 @@ const Dosbox = () => {
   /**Add and remove dosplayer based on clicked game buttons, doom adds doom dosplayer.tsx, exit deletes dosplayer element */
   return (
     <div id={DosboxCSS.dosbox}>
-      <WindowHeader window="Dosbox" />
+      <WindowHeader window="Dosbox" removeItem={removeItem} addItem={addItem} />
       {game ? (
         <DosPlayer game={game} exitGame={exitGame} startGame={startGame} />
       ) : (

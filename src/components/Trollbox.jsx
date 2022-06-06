@@ -21,7 +21,7 @@ function reducer(state, message) {
   };
 }
 
-const Trollbox = ({ account }) => {
+const Trollbox = ({ account, removeItem, addItem }) => {
   const [formMessage, setFormMessage] = useState("");
 
   const submitButton = useRef(null);
@@ -66,7 +66,11 @@ const Trollbox = ({ account }) => {
 
   return (
     <div id={TrollboxCSS.trollbox}>
-      <WindowHeader window="Trollbox" />
+      <WindowHeader
+        window="Trollbox"
+        removeItem={removeItem}
+        addItem={addItem}
+      />
       {!account ? (
         <p style={{ marginTop: "40%", height: "100%" }}>
           Your wallet is not connected.

@@ -6,7 +6,7 @@ import FeedTable from "./FeedTable";
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-const Feed = ({ block, account, addresses }) => {
+const Feed = ({ block, account, addresses, removeItem, addItem }) => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   //add filterredTransactions to feedTransactions in useEffect?
   const [feedTransactions, setFeedTransactions] = useState([]);
@@ -195,7 +195,7 @@ const Feed = ({ block, account, addresses }) => {
 
   return (
     <div id={FeedCSS.feed}>
-      <WindowHeader window="Feed" />
+      <WindowHeader window="Feed" removeItem={removeItem} addItem={addItem} />
       <FeedTable
         account={account}
         isPaused={isPaused}
