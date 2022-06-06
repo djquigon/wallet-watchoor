@@ -10,9 +10,6 @@ const WindowHeader = ({ window }) => {
     <div id={WindowHeaderCSS.windowHeader}>
       <p>{window}</p>
       <div className={WindowHeaderCSS.windowOptions}>
-        <button>
-          <AiOutlineArrowsAlt color="white" />
-        </button>
         {window != "Feed" ? (
           <button onClick={closeWindow}>
             <AiOutlineClose color="white" />

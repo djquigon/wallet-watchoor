@@ -51,7 +51,7 @@ const Dashboard = ({ account, handleAccount }) => {
   };
 
   return (
-    <main style={{ alignItems: "unset" }}>
+    <main style={{ alignItems: "unset", overflowX: "hidden" }}>
       <ChainNav
         block={block}
         setBlock={setBlock}
@@ -61,7 +61,7 @@ const Dashboard = ({ account, handleAccount }) => {
       <ReactGridLayout
         className="layout"
         layout={layout}
-        cols={20}
+        cols={40}
         rowHeight={10}
         allowOverlap={false}
         margin={[5, 5]}
@@ -69,13 +69,13 @@ const Dashboard = ({ account, handleAccount }) => {
       >
         <div
           key="Feed"
-          data-grid={{ x: 0, y: 0, w: 12, h: 68, minW: 8, minH: 7 }}
+          data-grid={{ x: 0, y: 0, w: 24, h: 68, minW: 16, minH: 14 }}
         >
           <Feed block={block} account={account} addresses={addresses} />
         </div>
         <div
           key="Watchlist"
-          data-grid={{ x: 12, y: 0, w: 4, h: 34, minW: 3, minH: 7, maxH: 68 }}
+          data-grid={{ x: 24, y: 0, w: 8, h: 34, minW: 6, minH: 7, maxH: 68 }}
         >
           <WatchList
             account={account}
@@ -86,12 +86,12 @@ const Dashboard = ({ account, handleAccount }) => {
         <div
           key="Trollbox"
           data-grid={{
-            x: 16,
+            x: 32,
             y: 0,
-            w: 4,
+            w: 8,
             h: 34,
-            maxW: 5,
-            minW: 3,
+            maxW: 10,
+            minW: 6,
             minH: 7,
             maxH: 68,
           }}
@@ -100,7 +100,7 @@ const Dashboard = ({ account, handleAccount }) => {
         </div>
         <div
           key="Dosbox"
-          data-grid={{ x: 12, y: 68, w: 8, h: 34, minW: 5, minH: 20 }}
+          data-grid={{ x: 24, y: 68, w: 16, h: 34, minW: 10, minH: 20 }}
         >
           <Dosbox />
         </div>

@@ -1,9 +1,7 @@
 #feed{
-    grid-area: feed;
     overflow: hidden;
     height: 100%;
-    /* z-index: -1; */
-      border: solid #070707;;
+    border: solid #070707;
 }
 
 #feed table{
