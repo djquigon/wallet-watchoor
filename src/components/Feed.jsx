@@ -13,6 +13,7 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
   const [lastBlockNum, setLastBlockNum] = useState(null);
   const [prevBlockNum, setPrevBlockNum] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
 
   const decodeLogs = (logs) => {};
 
@@ -200,6 +201,8 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
         account={account}
         isPaused={isPaused}
         setIsPaused={setIsPaused}
+        isMuted={isMuted}
+        setIsMuted={setIsMuted}
         feedTransactions={feedTransactions}
         setFeedTransactions={setFeedTransactions}
         currBlockNum={block ? block.number : null}

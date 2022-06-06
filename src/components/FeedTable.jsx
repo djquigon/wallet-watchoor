@@ -15,6 +15,7 @@ import {
   FaPause,
 } from "react-icons/fa";
 import { GiNuclearBomb } from "react-icons/gi";
+import { GoMute, GoUnmute } from "react-icons/go";
 import makeBlockie from "ethereum-blockies-base64";
 import etherscanLogo from "../assets/etherscanlogo.png";
 import FeedGlobalFilter from "./FeedGlobalFilter";
@@ -27,6 +28,8 @@ const FeedTable = ({
   account,
   isPaused,
   setIsPaused,
+  isMuted,
+  setIsMuted,
   feedTransactions,
   setFeedTransactions,
   currBlockNum,
@@ -272,6 +275,21 @@ const FeedTable = ({
           setCurrPageIndex={setCurrPageIndex}
         />
         <span>
+          <span>
+            {isMuted ? (
+              <GoMute
+                color="Red"
+                role="button"
+                onClick={() => setIsMuted(!isMuted)}
+              />
+            ) : (
+              <GoUnmute
+                color="#00ac31"
+                role="button"
+                onClick={() => setIsMuted(!isMuted)}
+              />
+            )}
+          </span>
           <ReactTooltip class="tooltip" id="setPaused" />
           <span
             data-place="left"

@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import HomeCSS from "../style/Home.module.css";
 import { ImFeed, ImList2 } from "react-icons/im";
+import { RiUserSearchFill, RiContactsBookFill } from "react-icons/ri";
 import { GrDos } from "react-icons/gr";
 import { IoMdChatboxes } from "react-icons/io";
 import WalletConnector from "./WalletConnector";
@@ -55,7 +56,7 @@ const Home = ({ account, handleAccount }) => {
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
               <Link to="app">
-                <ImList2
+                <RiContactsBookFill
                   style={{
                     color: featureColor,
                   }}

@@ -1,7 +1,6 @@
 import React from "react";
 import WindowHeaderCSS from "../style/WindowHeader.module.css";
 import { AiOutlineArrowsAlt, AiOutlineClose } from "react-icons/ai";
-import { GoMute, GoUnmute } from "react-icons/go";
 import { GrDos } from "react-icons/gr";
 import { IoMdChatboxes } from "react-icons/io";
 import { RiUserSearchFill, RiContactsBookFill } from "react-icons/ri";
@@ -62,9 +61,6 @@ const WindowHeader = ({ window, removeItem, addItem }) => {
               }}
             >
               <GrDos color="white" />
-            </button>
-            <button>
-              <GoUnmute color="white" />
             </button>
           </>
         )}
