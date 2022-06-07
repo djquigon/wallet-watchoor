@@ -7,13 +7,8 @@ import {
 } from "react-table";
 import FeedCSS from "../style/Feed.module.css";
 import "../style/FeedRow.css";
-import {
-  FaTrashAlt,
-  FaExclamation,
-  FaCopy,
-  FaPlay,
-  FaPause,
-} from "react-icons/fa";
+import { FaTrashAlt, FaExclamation, FaCopy } from "react-icons/fa";
+import { IoMdPlay, IoMdPause } from "react-icons/io";
 import { GiNuclearBomb } from "react-icons/gi";
 import { GoMute, GoUnmute } from "react-icons/go";
 import makeBlockie from "ethereum-blockies-base64";
@@ -275,7 +270,16 @@ const FeedTable = ({
           setCurrPageIndex={setCurrPageIndex}
         />
         <span>
-          <span>
+          <ReactTooltip class="tooltip" id="setMuted" />
+          <span
+            data-place="left"
+            data-tip={
+              isMuted
+                ? "Feed muted. Click to unmute."
+                : "Feed unmuted. Click to mute."
+            }
+            data-for="setPaused"
+          >
             {isMuted ? (
               <GoMute
                 color="Red"
@@ -296,18 +300,18 @@ const FeedTable = ({
             data-tip={
               isPaused
                 ? "Feed paused. Click to unpause."
-                : "Feed Unpaused. Click to pause."
+                : "Feed unpaused. Click to pause."
             }
             data-for="setPaused"
           >
             {isPaused ? (
-              <FaPause
+              <IoMdPause
                 color="red"
                 role="button"
                 onClick={() => setIsPaused(!isPaused)}
               />
             ) : (
-              <FaPlay
+              <IoMdPlay
                 color="#00ac31"
                 role="button"
                 onClick={() => setIsPaused(!isPaused)}

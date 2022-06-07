@@ -3,8 +3,26 @@ import FeedCSS from "../style/Feed.module.css";
 import WindowHeader from "./WindowHeader";
 import { ethers } from "ethers";
 import FeedTable from "./FeedTable";
+// "UI_3-1 FHSandal sinus(Sytrus,arpegio,multiprocessing,rsmpl).wav" by newlocknew of Freesound.org
+import smallSFX from "../assets/sfx/smallSFX.wav";
+// "UI_1 Sweet saw(Sytrus,arpegio,multiprocessing,rsmpl).wav" by newlocknew of Freesound.org
+import mediumSFX from "../assets/sfx/mediumSFX.wav";
+// "UI Confirmation Alert, C3.wav" by InspectorJ (www.jshaw.co.uk) of Freesound.org
+import largeSFX from "../assets/sfx/largeSFX.wav";
+// "UI Confirmation Alert, D1.wav" by InspectorJ (www.jshaw.co.uk) of Freesound.org
+import massiveSFX from "../assets/sfx/massiveSFX.wav";
+import jesusSFX from "../assets/sfx/jesusSFX.wav";
+import holyshitSFX from "../assets/sfx/holyshitSFX.wav";
+import creationSFX from "../assets/sfx/creationSFX.wav";
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
+const smallAudio = new Audio(smallSFX);
+const mediumAudio = new Audio(mediumSFX);
+const largeAudio = new Audio(largeSFX);
+const massiveAudio = new Audio(massiveSFX);
+const jesusAudio = new Audio(jesusSFX);
+const holyshitAudio = new Audio(holyshitSFX);
+const creationAudio = new Audio(creationSFX);
 
 const Feed = ({ block, account, addresses, removeItem, addItem }) => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
@@ -192,6 +210,27 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
       console.log(newFeedTransactions);
     }
     setFeedTransactions(newFeedTransactions);
+
+    //if user doesn't have feed muted
+    if (!isMuted) {
+      //play sounds for various value sizes
+      if (filteredTransactions.some((txn) => txn.contractAddress !== null)) {
+        creationAudio.play();
+      } else if (filteredTransactions.some((txn) => txn.value >= 1000)) {
+        holyshitAudio.play();
+      } else if (filteredTransactions.some((txn) => txn.value >= 500)) {
+        jesusAudio.play();
+      } else if (filteredTransactions.some((txn) => txn.value >= 100)) {
+        massiveAudio.play();
+      } else if (filteredTransactions.some((txn) => txn.value >= 50)) {
+        largeAudio.play();
+      } else if (filteredTransactions.some((txn) => txn.value >= 10)) {
+        mediumAudio.play();
+      } else if (filteredTransactions.some((txn) => txn.value >= 1)) {
+        smallAudio.play();
+        //remove but keep for testing for now
+      }
+    }
   }, [filteredTransactions]);
 
   return (

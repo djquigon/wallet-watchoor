@@ -120,16 +120,14 @@ const WatchListAddress = ({ address, handleChangeAlert, handleDelete }) => {
             />
           </>
         )}
+        <ReactTooltip class="tooltip" id={address.address} />
         <a
           target="_blank"
           href={`https://etherscan.io/address/${address.address}`}
+          data-tip={`View address on etherscan`}
+          data-for={address.address}
         >
-          <ReactTooltip class="tooltip" id={address.address} />
-          <img
-            data-tip={`View address on etherscan`}
-            data-for={address.address}
-            src={etherscanLogo}
-          ></img>
+          <img src={etherscanLogo}></img>
         </a>
         <ReactTooltip class="tooltip" id={`delete${address.address}`} />
         <FaTrashAlt

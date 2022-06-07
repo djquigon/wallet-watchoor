@@ -12,8 +12,18 @@ import "../../node_modules/react-resizable/css/styles.css";
 
 const ReactGridLayout = WidthProvider(RGL);
 const defaultLayout = [
-  { i: "Feed", x: 0, y: 0, w: 24, h: 68, minW: 16, minH: 14 },
-  { i: "Watchlist", x: 24, y: 0, w: 8, h: 34, minW: 6, minH: 7 },
+  { i: "Feed", x: 0, y: 0, w: 24, h: 68, minW: 16, minH: 14, maxW: 40 },
+  {
+    i: "Watchlist",
+    x: 24,
+    y: 0,
+    w: 8,
+    h: 34,
+    minW: 6,
+    minH: 7,
+    maxH: 88,
+    maxW: 15,
+  },
   {
     i: "Trollbox",
     x: 32,
@@ -23,8 +33,20 @@ const defaultLayout = [
     maxW: 10,
     minW: 6,
     minH: 7,
+    maxH: 88,
+    maxW: 15,
   },
-  { i: "Dosbox", x: 24, y: 68, w: 16, h: 34, minW: 10, minH: 20 },
+  {
+    i: "Dosbox",
+    x: 24,
+    y: 68,
+    w: 16,
+    h: 34,
+    minW: 10,
+    minH: 20,
+    maxH: 88,
+    maxW: 40,
+  },
 ];
 const originalLayout = getFromLS("layout") || defaultLayout;
 
@@ -87,6 +109,8 @@ const Dashboard = ({ account, handleAccount }) => {
               h: 34,
               minW: 6,
               minH: 7,
+              maxH: 88,
+              maxW: 15,
             }
           : newItem === "Trollbox"
           ? {
@@ -97,6 +121,8 @@ const Dashboard = ({ account, handleAccount }) => {
               h: 34,
               minW: 6,
               minH: 7,
+              maxH: 88,
+              maxW: 15,
             }
           : newItem === "Dosbox"
           ? {
@@ -107,6 +133,8 @@ const Dashboard = ({ account, handleAccount }) => {
               h: 34,
               minW: 10,
               minH: 20,
+              maxH: 88,
+              maxW: 40,
             }
           : null;
       let newLayout = layout.concat(newItem);
