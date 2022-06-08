@@ -15,7 +15,6 @@ import jesusSFX from "../assets/sfx/jesusSFX.wav";
 import holyshitSFX from "../assets/sfx/holyshitSFX.wav";
 import creationSFX from "../assets/sfx/creationSFX.wav";
 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
 const smallAudio = new Audio(smallSFX);
 const mediumAudio = new Audio(mediumSFX);
 const largeAudio = new Audio(largeSFX);
@@ -24,16 +23,66 @@ const jesusAudio = new Audio(jesusSFX);
 const holyshitAudio = new Audio(holyshitSFX);
 const creationAudio = new Audio(creationSFX);
 
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+const ERC20_ABI = [
+  // Read-Only Functions
+  "function balanceOf(address owner) view returns (uint256)",
+  "function decimals() view returns (uint8)",
+  "function symbol() view returns (string)",
+
+  // Authenticated Functions
+  "function transfer(address to, uint amount) returns (bool)",
+
+  // Events
+  "event Transfer(address indexed from, address indexed to, uint amount)",
+];
+
 const Feed = ({ block, account, addresses, removeItem, addItem }) => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   //add filterredTransactions to feedTransactions in useEffect?
   const [feedTransactions, setFeedTransactions] = useState([]);
   const [lastBlockNum, setLastBlockNum] = useState(null);
   const [prevBlockNum, setPrevBlockNum] = useState(null);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isPaused, setIsPaused] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
 
-  const decodeLogs = (logs) => {};
+  const decodeLogs = async (logs) => {
+    let decodedLogs = [];
+    for (const log of logs) {
+      const contractAddress = log.address;
+      /**ERC-20 transfer event */
+      if (
+        log.topics[0] ===
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+      ) {
+        const from = `0x${log.topics[1].substring(26)}`;
+        const to = `0x${log.topics[2].substring(26)}`;
+        const contract = new ethers.Contract(
+          contractAddress,
+          ERC20_ABI,
+          provider
+        );
+        const symbol = await contract.symbol();
+        const decimals = await contract.decimals();
+        const value = (
+          parseFloat(
+            ethers.utils.defaultAbiCoder.decode(["uint256"], log.data)[0]
+          ) / Math.pow(10, decimals)
+        ).toFixed(5);
+        decodedLogs.push({
+          event: "Transfer",
+          value: value,
+          symbol: symbol,
+          from: from,
+          to: to,
+          decimals: decimals,
+          contractAddress: contractAddress,
+        });
+      }
+    }
+    console.log("LOGS DECODED.....", decodedLogs);
+    return decodedLogs;
+  };
 
   const filterTransactions = async () => {
     const watchedAddresses = addresses
@@ -82,13 +131,21 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
               address.address.toLowerCase() ===
               newFilteredTransactions[i].from.toLowerCase()
           );
+          //if there are logs, decode them and set logs to that
+          if (newFilteredTransactions[i].logs.length > 0) {
+            const decodedLogs = await decodeLogs(
+              newFilteredTransactions[i].logs
+            );
+            console.log(decodedLogs);
+            newFilteredTransactions[i].logs = decodedLogs;
+          }
         }
         console.log("Setting Filtered Transactions to ...");
         console.log(newFilteredTransactions);
       } else {
         console.log("No matching transactions in block " + block.number);
       }
-      //if there is a last block and there are mised blocks , add them to newFilteredTransactions
+      //if there is a last block and there are missed blocks , add them to newFilteredTransactions
     } else {
       console.log(
         "Blocks were skipped, filtering all skipped blocks and current block..."
@@ -139,6 +196,14 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
                 address.address.toLowerCase() ===
                 blockToAddFilteredTransactions[i].from.toLowerCase()
             );
+            //if there are logs, decode them and set logs to that
+            if (blockToAddFilteredTransactions[i].logs.length > 0) {
+              const decodedLogs = await decodeLogs(
+                blockToAddFilteredTransactions[i].logs
+              );
+              console.log(decodedLogs);
+              blockToAddFilteredTransactions[i].logs = decodedLogs;
+            }
           }
           console.log("Setting Filtered Transactions to ...");
           newFilteredTransactions = newFilteredTransactions.concat(

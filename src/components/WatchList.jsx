@@ -174,8 +174,8 @@ const WatchList = ({
         // console.log(listAddresses)
         // console.log(addresses)
         setFetchError(null);
-      } catch (err) {
-        setFetchError(err.message);
+      } catch (e) {
+        setFetchError(e.message);
       } finally {
         setIsLoading(false);
       }

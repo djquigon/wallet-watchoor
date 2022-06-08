@@ -122,3 +122,18 @@
     font-family: monospace !important;
     border-radius: 24px !important;
 }
+
+.tokenLogo{
+    border-radius: 100px;
+    height: 18px;
+    width: 18px;
+}
+
+.logs{
+    display: flex;
+}
+
+.logs span{
+    margin-right: 1em;
+    margin-left: 1em;
+}

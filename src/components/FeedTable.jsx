@@ -13,11 +13,28 @@ import { GiNuclearBomb } from "react-icons/gi";
 import { GoMute, GoUnmute } from "react-icons/go";
 import makeBlockie from "ethereum-blockies-base64";
 import etherscanLogo from "../assets/etherscanlogo.png";
+import unknownLogo from "../assets/unknownlogo.png";
 import FeedGlobalFilter from "./FeedGlobalFilter";
 import ClipboardJS from "clipboard";
 import ReactTooltip from "react-tooltip";
+import axios from "axios";
 
 //GO BACK AND COMMENT THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+const getLogoFromCoinGecko = async (img, contractAddress) => {
+  console.log("getLogoFromCoinGecko...");
+  try {
+    const res = await axios.get(
+      `https://api.coingecko.com/api/v3/coins/ethereum/contract/${contractAddress}`
+    );
+    img.target.onError = null;
+    img.target.src = res.data.image.thumb;
+  } catch (e) {
+    console.log("No token logo found, setting default...");
+    img.target.onError = null;
+    img.target.src = unknownLogo;
+  }
+};
 
 const FeedTable = ({
   account,
@@ -123,9 +140,51 @@ const FeedTable = ({
       ),
     },
     {
-      Header: "Method",
+      Header: "Logs",
       accessor: "logs",
-      Cell: ({ value }) => <p>Atomic_Match</p>,
+      Cell: ({ value }) => (
+        <span className={FeedCSS.logs}>
+          {value.map((log, index) => (
+            <span key={index}>
+              <p>
+                {log.event}{" "}
+                <a
+                  target="_blank"
+                  href={`https://etherscan.io/address/${log.contractAddress}`}
+                >
+                  <img
+                    className={FeedCSS.tokenLogo}
+                    src={`https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/${log.contractAddress}/logo.png`}
+                    onError={(img) => {
+                      getLogoFromCoinGecko(img, log.contractAddress);
+                    }}
+                  ></img>
+                </a>{" "}
+                {log.value} {log.symbol}
+              </p>
+              <p>
+                From:{" "}
+                <a
+                  target="_blank"
+                  href={`https://etherscan.io/address/${log.from}`}
+                >{`${log.from.substring(0, 6)}...${log.from.substring(
+                  log.from.length - 4
+                )}`}</a>{" "}
+              </p>
+              <p>
+                {" "}
+                To:{" "}
+                <a
+                  target="_blank"
+                  href={`https://etherscan.io/address/${log.to}`}
+                >{`${log.to.substring(0, 6)}...${log.to.substring(
+                  log.to.length - 4
+                )}`}</a>
+              </p>
+            </span>
+          ))}
+        </span>
+      ),
       disableGlobalFilter: true,
     },
     {
