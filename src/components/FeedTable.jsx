@@ -150,7 +150,7 @@ const FeedTable = ({
                 {log.event}{" "}
                 <a
                   target="_blank"
-                  href={`https://etherscan.io/address/${log.contractAddress}`}
+                  href={`https://www.coingecko.com/en/coins/${log.contractAddress}`}
                 >
                   <img
                     className={FeedCSS.tokenLogo}
