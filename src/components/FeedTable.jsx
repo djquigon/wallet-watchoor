@@ -151,7 +151,7 @@ const FeedTable = ({
         <span className={FeedCSS.logs}>
           {value.map((log, index) => (
             <>
-              {index > 0 ? <FaArrowRight color="white" /> : null}
+              {index > 0 ? <FaArrowRight color="inherit" /> : null}
               <span key={index}>
                 <p>
                   {log.event}{" "}
@@ -208,7 +208,7 @@ const FeedTable = ({
             value >= 500 && value <= 1000 ? "jesusValue" : ""
           }${value >= 1000 ? "holyshitValue" : ""}`}
         >
-          <h2>{value} Ξ</h2>
+          <h2 style={{ textAlign: "center" }}>{value} Ξ</h2>
         </div>
       ),
       disableGlobalFilter: true,

@@ -119,7 +119,7 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
           newFilteredTransactions[i].timestamp = block.timestamp;
           newFilteredTransactions[i].value = parseFloat(
             ethers.utils.formatEther(value)
-          ).toFixed(3);
+          ).toFixed(2);
           newFilteredTransactions[i].toAddressInfo = addresses.find((address) =>
             newFilteredTransactions[i].to
               ? address.address.toLowerCase() ===
@@ -183,7 +183,7 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
             blockToAddFilteredTransactions[i].timestamp = timestamp;
             blockToAddFilteredTransactions[i].value = parseFloat(
               ethers.utils.formatEther(value)
-            ).toFixed(3);
+            ).toFixed(2);
             blockToAddFilteredTransactions[i].toAddressInfo = addresses.find(
               (address) =>
                 blockToAddFilteredTransactions[i].to
