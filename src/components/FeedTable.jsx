@@ -7,7 +7,12 @@ import {
 } from "react-table";
 import FeedCSS from "../style/Feed.module.css";
 import "../style/FeedRow.css";
-import { FaTrashAlt, FaExclamation, FaCopy } from "react-icons/fa";
+import {
+  FaTrashAlt,
+  FaExclamation,
+  FaCopy,
+  FaArrowRight,
+} from "react-icons/fa";
 import { IoMdPlay, IoMdPause } from "react-icons/io";
 import { GiNuclearBomb } from "react-icons/gi";
 import { GoMute, GoUnmute } from "react-icons/go";
@@ -145,43 +150,46 @@ const FeedTable = ({
       Cell: ({ value }) => (
         <span className={FeedCSS.logs}>
           {value.map((log, index) => (
-            <span key={index}>
-              <p>
-                {log.event}{" "}
-                <a
-                  target="_blank"
-                  href={`https://www.coingecko.com/en/coins/${log.contractAddress}`}
-                >
-                  <img
-                    className={FeedCSS.tokenLogo}
-                    src={`https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/${log.contractAddress}/logo.png`}
-                    onError={(img) => {
-                      getLogoFromCoinGecko(img, log.contractAddress);
-                    }}
-                  ></img>
-                </a>{" "}
-                {log.value} {log.symbol}
-              </p>
-              <p>
-                From:{" "}
-                <a
-                  target="_blank"
-                  href={`https://etherscan.io/address/${log.from}`}
-                >{`${log.from.substring(0, 6)}...${log.from.substring(
-                  log.from.length - 4
-                )}`}</a>{" "}
-              </p>
-              <p>
-                {" "}
-                To:{" "}
-                <a
-                  target="_blank"
-                  href={`https://etherscan.io/address/${log.to}`}
-                >{`${log.to.substring(0, 6)}...${log.to.substring(
-                  log.to.length - 4
-                )}`}</a>
-              </p>
-            </span>
+            <>
+              {index > 0 ? <FaArrowRight color="white" /> : null}
+              <span key={index}>
+                <p>
+                  {log.event}{" "}
+                  <a
+                    target="_blank"
+                    href={`https://www.coingecko.com/en/coins/${log.contractAddress}`}
+                  >
+                    <img
+                      className={FeedCSS.tokenLogo}
+                      src={`https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/${log.contractAddress}/logo.png`}
+                      onError={(img) => {
+                        getLogoFromCoinGecko(img, log.contractAddress);
+                      }}
+                    ></img>
+                  </a>{" "}
+                  {log.value} {log.symbol}
+                </p>
+                <p>
+                  From:{" "}
+                  <a
+                    target="_blank"
+                    href={`https://etherscan.io/address/${log.from}`}
+                  >{`${log.from.substring(0, 6)}...${log.from.substring(
+                    log.from.length - 4
+                  )}`}</a>{" "}
+                </p>
+                <p>
+                  {" "}
+                  To:{" "}
+                  <a
+                    target="_blank"
+                    href={`https://etherscan.io/address/${log.to}`}
+                  >{`${log.to.substring(0, 6)}...${log.to.substring(
+                    log.to.length - 4
+                  )}`}</a>
+                </p>
+              </span>
+            </>
           ))}
         </span>
       ),
@@ -200,7 +208,7 @@ const FeedTable = ({
             value >= 500 && value <= 1000 ? "jesusValue" : ""
           }${value >= 1000 ? "holyshitValue" : ""}`}
         >
-          <b>{value} Ξ</b>
+          <h2>{value} Ξ</h2>
         </div>
       ),
       disableGlobalFilter: true,

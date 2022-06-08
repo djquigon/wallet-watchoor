@@ -2,6 +2,8 @@
     overflow: hidden;
     height: 100%;
     border: solid #070707;
+    display: flex;
+    flex-direction: column;
 }
 
 #feed table{
@@ -131,6 +133,7 @@
 
 .logs{
     display: flex;
+    align-items: center;
 }
 
 .logs span{
