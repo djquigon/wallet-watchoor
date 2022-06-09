@@ -44,6 +44,34 @@
 .contractCreation{
     color: gold;
     background: url(https://media1.giphy.com/media/hYAvfvuj8xKxO/giphy.gif?cid=ecf05e47xqlj115qdk20c6xpl9hgh2sbiijkoenrarafjxth&rid=giphy.gif&ct=g);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
     border: 1px inset gold;
+}
+
+.dompeet{
+    background: url(../assets/dompeet.gif) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: red;
+    border: 1px inset red;
+    border-radius: 56px;
+    height: 5em;
+}
+
+.pompeet{
+    background: url(../assets/pompeet1.gif) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-size: cover;
+    color: #13ff00;
+    border: 1px inset #13ff00;
+    border-radius: 56px;
+    height: 5em;
 }

@@ -148,7 +148,19 @@ const FeedTable = ({
       Header: "Logs",
       accessor: "logs",
       Cell: ({ value }) => (
-        <span className={FeedCSS.logs}>
+        <span
+          className={`${FeedCSS.logs} ${
+            value.length > 1 &&
+            value[0].symbol.toUpperCase().includes("USD") &&
+            value[0].value < 1000000
+              ? "pompeet"
+              : value.length > 1 &&
+                value[value.length - 1].symbol.toUpperCase().includes("USD") &&
+                value[value.length - 1].value < 1000000
+              ? "dompeet"
+              : ""
+          } `}
+        >
           {value.map((log, index) => (
             <>
               {index > 0 ? <FaArrowRight color="inherit" /> : null}
@@ -167,7 +179,9 @@ const FeedTable = ({
                       }}
                     ></img>
                   </a>{" "}
-                  {log.value} {log.symbol}
+                  <strong>
+                    {log.value} {log.symbol}
+                  </strong>
                 </p>
                 <p>
                   From:{" "}
@@ -193,7 +207,6 @@ const FeedTable = ({
           ))}
         </span>
       ),
-      disableGlobalFilter: true,
     },
     {
       Header: "Value",
@@ -257,9 +270,9 @@ const FeedTable = ({
         <span className={FeedCSS.deleteCell}>
           {row.original.blockNumber > prevBlockNum &&
           row.original.blockNumber <= currBlockNum ? (
-            <p style={{ color: "#00ca00" }}>
+            <h3 style={{ color: "#00ca00" }}>
               <FaExclamation color="#00ca00" /> new
-            </p>
+            </h3>
           ) : (
             <p></p>
           )}
