@@ -20,7 +20,7 @@ const FeedGlobalFilter = ({
       <input
         id={FeedCSS.feedSearch}
         type="search"
-        placeholder="Search Address, Txn Hash, or Block #"
+        placeholder="Search by Address, Txn Hash, Block #, or token ticker"
         value={value || ""}
         onChange={(e) => {
           if (currPageIndex !== 0) {

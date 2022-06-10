@@ -145,8 +145,9 @@ const FeedTable = ({
       ),
     },
     {
+      id: "logs",
       Header: "Logs",
-      accessor: "logs",
+      accessor: (row) => row.logs.map((log) => log.symbol),
       Cell: ({ value, row }) => (
         <span
           className={`${FeedCSS.logs} ${
@@ -157,7 +158,7 @@ const FeedTable = ({
               : ""
           } `}
         >
-          {value.map((log, index) => (
+          {row.original.logs.map((log, index) => (
             <>
               {index > 0 ? <FaArrowRight color="inherit" /> : null}
               <span key={index}>
@@ -203,6 +204,7 @@ const FeedTable = ({
           ))}
         </span>
       ),
+      disableSortBy: true,
     },
     {
       Header: "Value",
