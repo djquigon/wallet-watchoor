@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
+import React from "react";
 import {
   useTable,
   useSortBy,
@@ -159,9 +160,10 @@ const FeedTable = ({
           } `}
         >
           {row.original.logs.map((log, index) => (
-            <>
+            //had to use full syntax here to add key
+            <React.Fragment key={index}>
               {index > 0 ? <FaArrowRight color="inherit" /> : null}
-              <span key={index}>
+              <span>
                 <p>
                   {log.event}{" "}
                   <a
@@ -200,7 +202,7 @@ const FeedTable = ({
                   )}`}</a>
                 </p>
               </span>
-            </>
+            </React.Fragment>
           ))}
         </span>
       ),

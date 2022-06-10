@@ -97,46 +97,43 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
   };
 
   const buildFilteredTransactions = async (
-    blockToAddFilteredTransactions,
+    newFilteredTransactions,
     timestamp
   ) => {
-    for (let i = 0; i < blockToAddFilteredTransactions.length; i++) {
-      const value = blockToAddFilteredTransactions[i].value;
-      blockToAddFilteredTransactions[i] = await provider.getTransactionReceipt(
-        blockToAddFilteredTransactions[i].hash
+    for (let i = 0; i < newFilteredTransactions.length; i++) {
+      const value = newFilteredTransactions[i].value;
+      newFilteredTransactions[i] = await provider.getTransactionReceipt(
+        newFilteredTransactions[i].hash
       );
-      // console.log("DOOODOOOODOOOO", blockToAddFilteredTransactions[i]);
-      blockToAddFilteredTransactions[i].timestamp = timestamp;
-      blockToAddFilteredTransactions[i].value = parseFloat(
+      // console.log("DOOODOOOODOOOO", newFilteredTransactions[i]);
+      newFilteredTransactions[i].timestamp = timestamp;
+      newFilteredTransactions[i].value = parseFloat(
         ethers.utils.formatEther(value)
       ).toFixed(2);
-      blockToAddFilteredTransactions[i].toAddressInfo = addresses.find(
-        (address) =>
-          blockToAddFilteredTransactions[i].to
-            ? address.address.toLowerCase() ===
-              blockToAddFilteredTransactions[i].to.toLowerCase()
-            : null
+      newFilteredTransactions[i].toAddressInfo = addresses.find((address) =>
+        newFilteredTransactions[i].to
+          ? address.address.toLowerCase() ===
+            newFilteredTransactions[i].to.toLowerCase()
+          : null
       );
-      blockToAddFilteredTransactions[i].fromAddressInfo = addresses.find(
+      newFilteredTransactions[i].fromAddressInfo = addresses.find(
         (address) =>
           address.address.toLowerCase() ===
-          blockToAddFilteredTransactions[i].from.toLowerCase()
+          newFilteredTransactions[i].from.toLowerCase()
       );
       //if there are logs, decode them and set logs to that
-      if (blockToAddFilteredTransactions[i].logs.length > 0) {
-        const decodedLogs = await decodeLogs(
-          blockToAddFilteredTransactions[i].logs
-        );
+      if (newFilteredTransactions[i].logs.length > 0) {
+        const decodedLogs = await decodeLogs(newFilteredTransactions[i].logs);
         if (decodedLogs.length > 1) {
           const sminemd = checkLogsForUSD(decodedLogs, 0);
           const bogged = checkLogsForUSD(decodedLogs, decodedLogs.length - 1);
-          blockToAddFilteredTransactions[i].bogged = bogged;
-          blockToAddFilteredTransactions[i].sminemd = sminemd;
+          newFilteredTransactions[i].bogged = bogged;
+          newFilteredTransactions[i].sminemd = sminemd;
         }
-        blockToAddFilteredTransactions[i].logs = decodedLogs;
+        newFilteredTransactions[i].logs = decodedLogs;
       }
     }
-    return blockToAddFilteredTransactions;
+    return newFilteredTransactions;
   };
 
   const filterTransactions = async () => {
@@ -144,6 +141,7 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
       .filter((address) => address.alerts === true)
       .map((address) => address.address.toLowerCase());
     console.log("Watched addresses to filter: ", watchedAddresses);
+    //function to filter out only txns from watchedAddresses
     function filter(transaction) {
       //in case of contract creation where to is null
       if (transaction.to) {
