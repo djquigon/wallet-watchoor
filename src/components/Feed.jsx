@@ -14,6 +14,8 @@ import massiveSFX from "../assets/sfx/massiveSFX.wav";
 import jesusSFX from "../assets/sfx/jesusSFX.wav";
 import holyshitSFX from "../assets/sfx/holyshitSFX.wav";
 import creationSFX from "../assets/sfx/creationSFX.wav";
+import dompeetSFX from "../assets/sfx/dompeetSFX.wav";
+import pompeetSFX from "../assets/sfx/pompeetSFX.wav";
 
 const smallAudio = new Audio(smallSFX);
 const mediumAudio = new Audio(mediumSFX);
@@ -22,6 +24,8 @@ const massiveAudio = new Audio(massiveSFX);
 const jesusAudio = new Audio(jesusSFX);
 const holyshitAudio = new Audio(holyshitSFX);
 const creationAudio = new Audio(creationSFX);
+const dompeetAudio = new Audio(dompeetSFX);
+const pompeetAudio = new Audio(pompeetSFX);
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const ERC20_ABI = [
@@ -281,6 +285,28 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
       //play sounds for various value sizes
       if (filteredTransactions.some((txn) => txn.contractAddress !== null)) {
         creationAudio.play();
+      } else if (
+        filteredTransactions.some(
+          (txn) =>
+            txn.logs.length > 1 &&
+            (txn.logs[0].symbol.toUpperCase().includes("USD") ||
+              txn.logs[0].symbol === "DAI") &&
+            txn.logs[0].value < 1000000
+        )
+      ) {
+        pompeetAudio.play();
+      } else if (
+        filteredTransactions.some(
+          (txn) =>
+            txn.logs.length > 1 &&
+            (txn.logs[txn.logs.length - 1].symbol
+              .toUpperCase()
+              .includes("USD") ||
+              txn.logs[txn.logs.length - 1].symbol === "DAI") &&
+            txn.logs[txn.logs.length - 1].value < 1000000
+        )
+      ) {
+        dompeetAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 1000)) {
         holyshitAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 500)) {

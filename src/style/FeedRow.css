@@ -12,38 +12,58 @@
 }
 
 .smallValue{
-    background: url(https://media2.giphy.com/media/3oEdvbpl0X32bXD2Vi/giphy.gif);
+    background: url(https://media2.giphy.com/media/3oEdvbpl0X32bXD2Vi/giphy.gif) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
   
 .mediumValue{
-    background: url(https://media4.giphy.com/media/h0MTqLyvgG0Ss/giphy.gif?cid=ecf05e476otp58306kqs6kfz8jopwh20dvdbdjfw9ylf87rv&rid=giphy.gif&ct=g);
+    background: url(https://media4.giphy.com/media/h0MTqLyvgG0Ss/giphy.gif?cid=ecf05e476otp58306kqs6kfz8jopwh20dvdbdjfw9ylf87rv&rid=giphy.gif&ct=g) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     background-size: cover;
 }
 
 .largeValue{
-    background: url(https://media0.giphy.com/media/SsTcO55LJDBsI/giphy.gif?cid=ecf05e47n1tjvwfn9w8xy3nrc5s3bavfz2e5kzcfjg54aqqv&rid=giphy.gif&ct=g);
+    background: url(https://media0.giphy.com/media/SsTcO55LJDBsI/giphy.gif?cid=ecf05e47n1tjvwfn9w8xy3nrc5s3bavfz2e5kzcfjg54aqqv&rid=giphy.gif&ct=g) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
 
 .massiveValue{
-    background: url(https://media1.giphy.com/media/2rqEdFfkMzXmo/giphy.gif?cid=ecf05e47bfxccg88eu7zyrco2fzbfgbkfcs7ly82o5dlkqut&rid=giphy.gif&ct=g);
+    background: url(https://media1.giphy.com/media/2rqEdFfkMzXmo/giphy.gif?cid=ecf05e47bfxccg88eu7zyrco2fzbfgbkfcs7ly82o5dlkqut&rid=giphy.gif&ct=g) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
 
 .jesusValue{
-    background: url(https://media0.giphy.com/media/Y2ZUWLrTy63j9T6qrK/giphy.gif?cid=ecf05e47yr23xlt1nc4qwfzjxtpr3r12oguy9ue75tyf9a0g&rid=giphy.gif&ct=g);
+    background: url(https://media0.giphy.com/media/Y2ZUWLrTy63j9T6qrK/giphy.gif?cid=ecf05e47yr23xlt1nc4qwfzjxtpr3r12oguy9ue75tyf9a0g&rid=giphy.gif&ct=g) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
 
 .holyshitValue{
-    background: url(https://c.tenor.com/ZMlYoFXVCLgAAAAd/indiana-jones-face-melting.gif);
+    background: url(https://c.tenor.com/ZMlYoFXVCLgAAAAd/indiana-jones-face-melting.gif) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     background-size: cover;
 }
 
 .contractCreation{
     color: gold;
-    background: url(https://media1.giphy.com/media/hYAvfvuj8xKxO/giphy.gif?cid=ecf05e47xqlj115qdk20c6xpl9hgh2sbiijkoenrarafjxth&rid=giphy.gif&ct=g);
+    background: url(https://media1.giphy.com/media/hYAvfvuj8xKxO/giphy.gif?cid=ecf05e47xqlj115qdk20c6xpl9hgh2sbiijkoenrarafjxth&rid=giphy.gif&ct=g) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -68,7 +88,6 @@
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
     background-size: cover;
     color: #13ff00;
     border: 1px inset #13ff00;
