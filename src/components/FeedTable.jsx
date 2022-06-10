@@ -147,19 +147,13 @@ const FeedTable = ({
     {
       Header: "Logs",
       accessor: "logs",
-      Cell: ({ value }) => (
+      Cell: ({ value, row }) => (
         <span
           className={`${FeedCSS.logs} ${
-            value.length > 1 &&
-            (value[0].symbol.toUpperCase().includes("USD") ||
-              value[0].symbol === "DAI") &&
-            value[0].value < 1000000
-              ? "pompeet"
-              : value.length > 1 &&
-                (value[value.length - 1].symbol.toUpperCase().includes("USD") ||
-                  value[value.length - 1].symbol === "DAI") &&
-                value[value.length - 1].value < 1000000
+            row.original.bogged === true
               ? "dompeet"
+              : row.original.sminemd === true
+              ? "pompeet"
               : ""
           } `}
         >

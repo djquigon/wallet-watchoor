@@ -50,6 +50,14 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
   const [isPaused, setIsPaused] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
 
+  const checkLogsForUSD = (logs, index) => {
+    return (
+      (logs[index].symbol.toUpperCase().includes("USD") ||
+        logs[index].symbol === "DAI") &&
+      logs[index].value < 1000000
+    );
+  };
+
   const decodeLogs = async (logs) => {
     let decodedLogs = [];
     for (const log of logs) {
@@ -140,6 +148,15 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
             const decodedLogs = await decodeLogs(
               newFilteredTransactions[i].logs
             );
+            if (decodedLogs.length > 1) {
+              const sminemd = checkLogsForUSD(decodedLogs, 0);
+              const bogged = checkLogsForUSD(
+                decodedLogs,
+                decodedLogs.length - 1
+              );
+              newFilteredTransactions[i].bogged = bogged;
+              newFilteredTransactions[i].sminemd = sminemd;
+            }
             console.log(decodedLogs);
             newFilteredTransactions[i].logs = decodedLogs;
           }
@@ -205,6 +222,15 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
               const decodedLogs = await decodeLogs(
                 blockToAddFilteredTransactions[i].logs
               );
+              if (decodedLogs.length > 1) {
+                const sminemd = checkLogsForUSD(decodedLogs, 0);
+                const bogged = checkLogsForUSD(
+                  decodedLogs,
+                  decodedLogs.length - 1
+                );
+                blockToAddFilteredTransactions[i].bogged = bogged;
+                blockToAddFilteredTransactions[i].sminemd = sminemd;
+              }
               console.log(decodedLogs);
               blockToAddFilteredTransactions[i].logs = decodedLogs;
             }
@@ -285,28 +311,10 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
       //play sounds for various value sizes
       if (filteredTransactions.some((txn) => txn.contractAddress !== null)) {
         creationAudio.play();
-      } else if (
-        filteredTransactions.some(
-          (txn) =>
-            txn.logs.length > 1 &&
-            (txn.logs[0].symbol.toUpperCase().includes("USD") ||
-              txn.logs[0].symbol === "DAI") &&
-            txn.logs[0].value < 1000000
-        )
-      ) {
-        pompeetAudio.play();
-      } else if (
-        filteredTransactions.some(
-          (txn) =>
-            txn.logs.length > 1 &&
-            (txn.logs[txn.logs.length - 1].symbol
-              .toUpperCase()
-              .includes("USD") ||
-              txn.logs[txn.logs.length - 1].symbol === "DAI") &&
-            txn.logs[txn.logs.length - 1].value < 1000000
-        )
-      ) {
+      } else if (filteredTransactions.some((txn) => txn.bogged === true)) {
         dompeetAudio.play();
+      } else if (filteredTransactions.some((txn) => txn.sminemd === true)) {
+        pompeetAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 1000)) {
         holyshitAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 500)) {
