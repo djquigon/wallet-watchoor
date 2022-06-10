@@ -1,5 +1,5 @@
 .normal, .smallValue, .mediumValue, .largeValue, .massiveValue, .jesusValue, .holyshitValue, .contractCreation{
-    height: 5em;
+    min-height: 5em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -80,7 +80,7 @@
     color: red;
     border: 1px inset red;
     border-radius: 56px;
-    height: 5em;
+    min-height: 5em;
 }
 
 .pompeet{
@@ -92,5 +92,5 @@
     color: #13ff00;
     border: 1px inset #13ff00;
     border-radius: 56px;
-    height: 5em;
+    min-height: 5em;
 }

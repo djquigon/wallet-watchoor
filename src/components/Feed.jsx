@@ -92,16 +92,58 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
         });
       }
     }
-    console.log("LOGS DECODED.....", decodedLogs);
+    console.log("LOGS DECODED: ", decodedLogs);
     return decodedLogs;
+  };
+
+  const buildFilteredTransactions = async (
+    blockToAddFilteredTransactions,
+    timestamp
+  ) => {
+    for (let i = 0; i < blockToAddFilteredTransactions.length; i++) {
+      const value = blockToAddFilteredTransactions[i].value;
+      blockToAddFilteredTransactions[i] = await provider.getTransactionReceipt(
+        blockToAddFilteredTransactions[i].hash
+      );
+      // console.log("DOOODOOOODOOOO", blockToAddFilteredTransactions[i]);
+      blockToAddFilteredTransactions[i].timestamp = timestamp;
+      blockToAddFilteredTransactions[i].value = parseFloat(
+        ethers.utils.formatEther(value)
+      ).toFixed(2);
+      blockToAddFilteredTransactions[i].toAddressInfo = addresses.find(
+        (address) =>
+          blockToAddFilteredTransactions[i].to
+            ? address.address.toLowerCase() ===
+              blockToAddFilteredTransactions[i].to.toLowerCase()
+            : null
+      );
+      blockToAddFilteredTransactions[i].fromAddressInfo = addresses.find(
+        (address) =>
+          address.address.toLowerCase() ===
+          blockToAddFilteredTransactions[i].from.toLowerCase()
+      );
+      //if there are logs, decode them and set logs to that
+      if (blockToAddFilteredTransactions[i].logs.length > 0) {
+        const decodedLogs = await decodeLogs(
+          blockToAddFilteredTransactions[i].logs
+        );
+        if (decodedLogs.length > 1) {
+          const sminemd = checkLogsForUSD(decodedLogs, 0);
+          const bogged = checkLogsForUSD(decodedLogs, decodedLogs.length - 1);
+          blockToAddFilteredTransactions[i].bogged = bogged;
+          blockToAddFilteredTransactions[i].sminemd = sminemd;
+        }
+        blockToAddFilteredTransactions[i].logs = decodedLogs;
+      }
+    }
+    return blockToAddFilteredTransactions;
   };
 
   const filterTransactions = async () => {
     const watchedAddresses = addresses
       .filter((address) => address.alerts === true)
       .map((address) => address.address.toLowerCase());
-    console.log("Watched addresses to filter...");
-    console.log(watchedAddresses);
+    console.log("Watched addresses to filter: ", watchedAddresses);
     function filter(transaction) {
       //in case of contract creation where to is null
       if (transaction.to) {
@@ -114,55 +156,23 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
       }
     }
     console.log("Last block " + lastBlockNum);
-    console.log("Filtering Block " + block.number);
     let newFilteredTransactions = [];
     //if there is no last block or missed blocks simply filter the current block
     if (!lastBlockNum || lastBlockNum + 1 === block.number) {
       console.log("No blocks skipped, filtering current block...");
-      console.log("Transactions found:");
+      console.log("Filtering Block " + block.number);
       newFilteredTransactions = block.transactions.filter(filter);
       if (newFilteredTransactions.length > 0) {
+        console.log("Transactions found: ", newFilteredTransactions);
         //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
-        for (let i = 0; i < newFilteredTransactions.length; i++) {
-          const value = newFilteredTransactions[i].value;
-          newFilteredTransactions[i] = await provider.getTransactionReceipt(
-            newFilteredTransactions[i].hash
-          );
-          newFilteredTransactions[i].timestamp = block.timestamp;
-          newFilteredTransactions[i].value = parseFloat(
-            ethers.utils.formatEther(value)
-          ).toFixed(2);
-          newFilteredTransactions[i].toAddressInfo = addresses.find((address) =>
-            newFilteredTransactions[i].to
-              ? address.address.toLowerCase() ===
-                newFilteredTransactions[i].to.toLowerCase()
-              : null
-          );
-          newFilteredTransactions[i].fromAddressInfo = addresses.find(
-            (address) =>
-              address.address.toLowerCase() ===
-              newFilteredTransactions[i].from.toLowerCase()
-          );
-          //if there are logs, decode them and set logs to that
-          if (newFilteredTransactions[i].logs.length > 0) {
-            const decodedLogs = await decodeLogs(
-              newFilteredTransactions[i].logs
-            );
-            if (decodedLogs.length > 1) {
-              const sminemd = checkLogsForUSD(decodedLogs, 0);
-              const bogged = checkLogsForUSD(
-                decodedLogs,
-                decodedLogs.length - 1
-              );
-              newFilteredTransactions[i].bogged = bogged;
-              newFilteredTransactions[i].sminemd = sminemd;
-            }
-            console.log(decodedLogs);
-            newFilteredTransactions[i].logs = decodedLogs;
-          }
-        }
-        console.log("Setting Filtered Transactions to ...");
-        console.log(newFilteredTransactions);
+        newFilteredTransactions = await buildFilteredTransactions(
+          newFilteredTransactions,
+          block.timestamp
+        );
+        console.log(
+          "Setting Filtered Transactions to ... ",
+          newFilteredTransactions
+        );
       } else {
         console.log("No matching transactions in block " + block.number);
       }
@@ -190,56 +200,19 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
             blockToAdd.transactions.filter(filter);
         }
         console.log("Filtering Block " + blockNumToAdd);
-        console.log("Transactions found:");
-        console.log(blockToAddFilteredTransactions);
         //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
         if (blockToAddFilteredTransactions.length > 0) {
-          for (let i = 0; i < blockToAddFilteredTransactions.length; i++) {
-            const value = blockToAddFilteredTransactions[i].value;
-            blockToAddFilteredTransactions[i] =
-              await provider.getTransactionReceipt(
-                blockToAddFilteredTransactions[i].hash
-              );
-            // console.log("DOOODOOOODOOOO", blockToAddFilteredTransactions[i]);
-            blockToAddFilteredTransactions[i].timestamp = timestamp;
-            blockToAddFilteredTransactions[i].value = parseFloat(
-              ethers.utils.formatEther(value)
-            ).toFixed(2);
-            blockToAddFilteredTransactions[i].toAddressInfo = addresses.find(
-              (address) =>
-                blockToAddFilteredTransactions[i].to
-                  ? address.address.toLowerCase() ===
-                    blockToAddFilteredTransactions[i].to.toLowerCase()
-                  : null
-            );
-            blockToAddFilteredTransactions[i].fromAddressInfo = addresses.find(
-              (address) =>
-                address.address.toLowerCase() ===
-                blockToAddFilteredTransactions[i].from.toLowerCase()
-            );
-            //if there are logs, decode them and set logs to that
-            if (blockToAddFilteredTransactions[i].logs.length > 0) {
-              const decodedLogs = await decodeLogs(
-                blockToAddFilteredTransactions[i].logs
-              );
-              if (decodedLogs.length > 1) {
-                const sminemd = checkLogsForUSD(decodedLogs, 0);
-                const bogged = checkLogsForUSD(
-                  decodedLogs,
-                  decodedLogs.length - 1
-                );
-                blockToAddFilteredTransactions[i].bogged = bogged;
-                blockToAddFilteredTransactions[i].sminemd = sminemd;
-              }
-              console.log(decodedLogs);
-              blockToAddFilteredTransactions[i].logs = decodedLogs;
-            }
-          }
-          console.log("Setting Filtered Transactions to ...");
+          console.log("Transactions found: ", blockToAddFilteredTransactions);
           newFilteredTransactions = newFilteredTransactions.concat(
-            blockToAddFilteredTransactions
+            await buildFilteredTransactions(
+              blockToAddFilteredTransactions,
+              timestamp
+            )
           );
-          console.log(newFilteredTransactions);
+          console.log(
+            "Setting Filtered Transactions to: ",
+            newFilteredTransactions
+          );
         } else {
           console.log("No matching transactions in block " + blockNumToAdd);
         }
@@ -292,18 +265,16 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
     console.log(
       "Filtered transactions changed. Concatenating filtered transactions..."
     );
-    console.log("Setting Feed transactions to...");
     let newFeedTransactions = null;
     //for initial load
     if (feedTransactions.length === 0) {
       newFeedTransactions = filteredTransactions.reverse();
-      console.log(newFeedTransactions);
     } else {
       newFeedTransactions = filteredTransactions
         .reverse()
         .concat(feedTransactions);
-      console.log(newFeedTransactions);
     }
+    console.log("Setting Feed transactions to: ", newFeedTransactions);
     setFeedTransactions(newFeedTransactions);
 
     //if user doesn't have feed muted
