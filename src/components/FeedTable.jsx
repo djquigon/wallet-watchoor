@@ -152,13 +152,24 @@ const FeedTable = ({
       Cell: ({ value, row }) => (
         <span
           className={`${FeedCSS.logs} ${
-            row.original.bogged === true
+            row.original.usdSell === true
               ? "dompeet"
-              : row.original.sminemd === true
+              : row.original.usdBuy === true
               ? "pompeet"
+              : row.original.usdTransfer
+              ? "usdTransfer"
               : ""
           } `}
         >
+          {row.original.contractAddress ? (
+            <span>
+              <a
+                href={`https://etherscan.io/address/${row.original.contractAddress}`}
+              >
+                {row.original.contractAddress}
+              </a>
+            </span>
+          ) : null}
           {row.original.logs.map((log, index) => (
             //had to use full syntax here to add key
             <React.Fragment key={index}>

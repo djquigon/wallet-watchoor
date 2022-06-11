@@ -16,7 +16,7 @@
 }
 
 .feedRow{
-    height: 5em;
+    min-height: 5em;
 }
 
 .feedRow svg:hover {

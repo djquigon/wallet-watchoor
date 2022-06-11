@@ -16,6 +16,7 @@ import holyshitSFX from "../assets/sfx/holyshitSFX.wav";
 import creationSFX from "../assets/sfx/creationSFX.wav";
 import dompeetSFX from "../assets/sfx/dompeetSFX.wav";
 import pompeetSFX from "../assets/sfx/pompeetSFX.wav";
+import transferSFX from "../assets/sfx/transferSFX.wav";
 
 const smallAudio = new Audio(smallSFX);
 const mediumAudio = new Audio(mediumSFX);
@@ -26,6 +27,7 @@ const holyshitAudio = new Audio(holyshitSFX);
 const creationAudio = new Audio(creationSFX);
 const dompeetAudio = new Audio(dompeetSFX);
 const pompeetAudio = new Audio(pompeetSFX);
+const transferAudio = new Audio(transferSFX);
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const ERC20_ABI = [
@@ -54,7 +56,7 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
     return (
       (logs[index].symbol.toUpperCase().includes("USD") ||
         logs[index].symbol === "DAI") &&
-      logs[index].value < 1000000
+      logs[index].value > 100000
     );
   };
 
@@ -125,10 +127,13 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
       if (newFilteredTransactions[i].logs.length > 0) {
         const decodedLogs = await decodeLogs(newFilteredTransactions[i].logs);
         if (decodedLogs.length > 1) {
-          const sminemd = checkLogsForUSD(decodedLogs, 0);
-          const bogged = checkLogsForUSD(decodedLogs, decodedLogs.length - 1);
-          newFilteredTransactions[i].bogged = bogged;
-          newFilteredTransactions[i].sminemd = sminemd;
+          const usdBuy = checkLogsForUSD(decodedLogs, 0);
+          const usdSell = checkLogsForUSD(decodedLogs, decodedLogs.length - 1);
+          newFilteredTransactions[i].usdBuy = usdBuy;
+          newFilteredTransactions[i].usdSell = usdSell;
+        } else {
+          const usdTransfer = checkLogsForUSD(decodedLogs, 0);
+          newFilteredTransactions[i].usdTransfer = usdTransfer;
         }
         newFilteredTransactions[i].logs = decodedLogs;
       }
@@ -141,6 +146,7 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
       .filter((address) => address.alerts === true)
       .map((address) => address.address.toLowerCase());
     console.log("Watched addresses to filter: ", watchedAddresses);
+
     //function to filter out only txns from watchedAddresses
     function filter(transaction) {
       //in case of contract creation where to is null
@@ -153,81 +159,87 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
         return watchedAddresses.includes(transaction.from.toLowerCase());
       }
     }
+
     console.log("Last block " + lastBlockNum);
     let newFilteredTransactions = [];
-    //if there is no last block or missed blocks simply filter the current block
-    if (!lastBlockNum || lastBlockNum + 1 === block.number) {
-      console.log("No blocks skipped, filtering current block...");
-      console.log("Filtering Block " + block.number);
-      newFilteredTransactions = block.transactions.filter(filter);
-      if (newFilteredTransactions.length > 0) {
-        console.log("Transactions found: ", newFilteredTransactions);
-        //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
-        newFilteredTransactions = await buildFilteredTransactions(
-          newFilteredTransactions,
-          block.timestamp
-        );
-        console.log(
-          "Setting Filtered Transactions to ... ",
-          newFilteredTransactions
-        );
-      } else {
-        console.log("No matching transactions in block " + block.number);
-      }
-      //if there is a last block and there are missed blocks , add them to newFilteredTransactions
-    } else {
-      console.log(
-        "Blocks were skipped, filtering all skipped blocks and current block..."
-      );
-      for (
-        let blockNumToAdd = lastBlockNum + 1;
-        blockNumToAdd <= block.number;
-        blockNumToAdd++
-      ) {
-        let blockToAdd = null;
-        let timestamp = null;
-        let blockToAddFilteredTransactions = null;
-        if (blockNumToAdd === block.mumber) {
-          blockToAdd = block;
-          timestamp = block.timestamp;
-          blockToAddFilteredTransactions = block.transactions.filter(filter);
-        } else {
-          blockToAdd = await provider.getBlockWithTransactions(blockNumToAdd);
-          timestamp = blockToAdd.timestamp;
-          blockToAddFilteredTransactions =
-            blockToAdd.transactions.filter(filter);
-        }
-        console.log("Filtering Block " + blockNumToAdd);
-        //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
-        if (blockToAddFilteredTransactions.length > 0) {
-          console.log("Transactions found: ", blockToAddFilteredTransactions);
-          newFilteredTransactions = newFilteredTransactions.concat(
-            await buildFilteredTransactions(
-              blockToAddFilteredTransactions,
-              timestamp
-            )
+    try {
+      //if there is no last block or missed blocks simply filter the current block
+      if (!lastBlockNum || lastBlockNum + 1 === block.number) {
+        console.log("No blocks skipped, filtering current block...");
+        console.log("Filtering Block " + block.number);
+        newFilteredTransactions = block.transactions.filter(filter);
+        if (newFilteredTransactions.length > 0) {
+          console.log("Transactions found: ", newFilteredTransactions);
+          //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
+          newFilteredTransactions = await buildFilteredTransactions(
+            newFilteredTransactions,
+            block.timestamp
           );
           console.log(
-            "Setting Filtered Transactions to: ",
+            "Setting Filtered Transactions to ... ",
             newFilteredTransactions
           );
         } else {
-          console.log("No matching transactions in block " + blockNumToAdd);
+          console.log("No matching transactions in block " + block.number);
+        }
+        //if there is a last block and there are missed blocks , add them to newFilteredTransactions
+      } else {
+        console.log(
+          "Blocks were skipped, filtering all skipped blocks and current block..."
+        );
+        for (
+          let blockNumToAdd = lastBlockNum + 1;
+          blockNumToAdd <= block.number;
+          blockNumToAdd++
+        ) {
+          let blockToAdd = null;
+          let timestamp = null;
+          let blockToAddFilteredTransactions = null;
+          if (blockNumToAdd === block.mumber) {
+            blockToAdd = block;
+            timestamp = block.timestamp;
+            blockToAddFilteredTransactions = block.transactions.filter(filter);
+          } else {
+            blockToAdd = await provider.getBlockWithTransactions(blockNumToAdd);
+            timestamp = blockToAdd.timestamp;
+            blockToAddFilteredTransactions =
+              blockToAdd.transactions.filter(filter);
+          }
+          console.log("Filtering Block " + blockNumToAdd);
+          //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
+          if (blockToAddFilteredTransactions.length > 0) {
+            console.log("Transactions found: ", blockToAddFilteredTransactions);
+            newFilteredTransactions = newFilteredTransactions.concat(
+              await buildFilteredTransactions(
+                blockToAddFilteredTransactions,
+                timestamp
+              )
+            );
+            console.log(
+              "Setting Filtered Transactions to: ",
+              newFilteredTransactions
+            );
+          } else {
+            console.log("No matching transactions in block " + blockNumToAdd);
+          }
         }
       }
-    }
-    //newFilteredTransactions = block.transactions.filter(filter)
+      //newFilteredTransactions = block.transactions.filter(filter)
 
-    if (newFilteredTransactions.length > 0) {
-      console.log("Filtering done, setting filtered transactions.");
-      setFilteredTransactions(newFilteredTransactions);
+      if (newFilteredTransactions.length > 0) {
+        console.log("Filtering done, setting filtered transactions.");
+        setFilteredTransactions(newFilteredTransactions);
+      }
+      //copy of last block to track last black for use in feedtable detecting if txn is new
+      if (lastBlockNum) {
+        setPrevBlockNum(lastBlockNum);
+      }
+      //set last block for forward for next iteration
+      setLastBlockNum(block.number);
+    } catch (e) {
+      alert(e);
+      console.log(e);
     }
-    //copy of last block to track last black for use in feedtable detecting if txn is new
-    if (lastBlockNum) {
-      setPrevBlockNum(lastBlockNum);
-    }
-    //set last block for forward for next iteration
-    setLastBlockNum(block.number);
   };
 
   useEffect(() => {
@@ -280,10 +292,12 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
       //play sounds for various value sizes
       if (filteredTransactions.some((txn) => txn.contractAddress !== null)) {
         creationAudio.play();
-      } else if (filteredTransactions.some((txn) => txn.bogged === true)) {
+      } else if (filteredTransactions.some((txn) => txn.usdSell === true)) {
         dompeetAudio.play();
-      } else if (filteredTransactions.some((txn) => txn.sminemd === true)) {
+      } else if (filteredTransactions.some((txn) => txn.usdBuy === true)) {
         pompeetAudio.play();
+      } else if (filteredTransactions.some((txn) => txn.usdTransfer === true)) {
+        transferAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 1000)) {
         holyshitAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 500)) {

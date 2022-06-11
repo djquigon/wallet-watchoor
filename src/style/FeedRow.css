@@ -1,5 +1,6 @@
 .normal, .smallValue, .mediumValue, .largeValue, .massiveValue, .jesusValue, .holyshitValue, .contractCreation{
     min-height: 5em;
+    min-width: 10em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,8 +8,8 @@
 }
 
 .smallValue, .mediumValue, .largeValue, .massiveValue, .jesusValue, .holyshitValue{
-    color: #13ff00;
-    border: 1px inset #13ff00;
+    color: #7a86fb;
+    border: 1px inset #7a86fb;
 }
 
 .smallValue{
@@ -36,7 +37,7 @@
     background-size: cover;
 }
 
-.massiveValue{
+.jesusValue{
     background: url(https://media1.giphy.com/media/2rqEdFfkMzXmo/giphy.gif?cid=ecf05e47bfxccg88eu7zyrco2fzbfgbkfcs7ly82o5dlkqut&rid=giphy.gif&ct=g) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -44,8 +45,8 @@
     background-size: cover;
 }
 
-.jesusValue{
-    background: url(https://media0.giphy.com/media/Y2ZUWLrTy63j9T6qrK/giphy.gif?cid=ecf05e47yr23xlt1nc4qwfzjxtpr3r12oguy9ue75tyf9a0g&rid=giphy.gif&ct=g) no-repeat center center fixed;
+.massiveValue{
+    background: url(https://media4.giphy.com/media/pPzjpxJXa0pna/giphy.gif?cid=ecf05e47cxdka0pq0rlys0vh52fxyvg8r4i2k0bcywahoqgq&rid=giphy.gif&ct=g) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -91,6 +92,18 @@
     background-size: cover;
     color: #13ff00;
     border: 1px inset #13ff00;
+    border-radius: 56px;
+    min-height: 5em;
+}
+
+.usdTransfer{
+    background: url(https://media0.giphy.com/media/Y2ZUWLrTy63j9T6qrK/giphy.gif?cid=ecf05e47yr23xlt1nc4qwfzjxtpr3r12oguy9ue75tyf9a0g&rid=giphy.gif&ct=g) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #0080ff;
+    border: 1px inset #0080ff;
     border-radius: 56px;
     min-height: 5em;
 }

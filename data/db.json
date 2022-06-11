@@ -259,6 +259,20 @@
       "email": null,
       "website": null,
       "location": null
+    },
+    {
+      "id": 31,
+      "userAddress": "0x957671bad1f6b675b73d9fec994b5a11fee3f5b8",
+      "alerts": true,
+      "alias": "ALCX",
+      "address": "0xdBdb4d16EdA451D0503b854CF79D55697F90c8DF",
+      "ens": null,
+      "avatar": null,
+      "twitterName": null,
+      "telegramName": null,
+      "email": null,
+      "website": null,
+      "location": null
     }
   ]
 }
