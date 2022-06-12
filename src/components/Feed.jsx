@@ -52,8 +52,17 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
   const [isPaused, setIsPaused] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
 
+  const checkLogsForETH = (logs, index) => {
+    return (
+      logs[index] !== undefined &&
+      logs[index].symbol.toUpperCase().includes("ETH") &&
+      logs[index].value > 100
+    );
+  };
+
   const checkLogsForUSD = (logs, index) => {
     return (
+      logs[index] !== undefined &&
       (logs[index].symbol.toUpperCase().includes("USD") ||
         logs[index].symbol === "DAI") &&
       logs[index].value > 100000
@@ -127,13 +136,20 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
       if (newFilteredTransactions[i].logs.length > 0) {
         const decodedLogs = await decodeLogs(newFilteredTransactions[i].logs);
         if (decodedLogs.length > 1) {
-          const usdBuy = checkLogsForUSD(decodedLogs, 0);
-          const usdSell = checkLogsForUSD(decodedLogs, decodedLogs.length - 1);
-          newFilteredTransactions[i].usdBuy = usdBuy;
+          const usdSell = checkLogsForUSD(decodedLogs, 0);
+          const ethSell = !usdSell && checkLogsForETH(decodedLogs, 0);
+          const usdBuy = checkLogsForUSD(decodedLogs, decodedLogs.length - 1);
+          const ethBuy =
+            !usdBuy && checkLogsForETH(decodedLogs, decodedLogs.length - 1);
           newFilteredTransactions[i].usdSell = usdSell;
+          newFilteredTransactions[i].usdBuy = usdBuy;
+          newFilteredTransactions[i].ethSell = ethSell;
+          newFilteredTransactions[i].ethBuy = ethBuy;
         } else {
           const usdTransfer = checkLogsForUSD(decodedLogs, 0);
+          const ethTransfer = checkLogsForETH(decodedLogs, 0);
           newFilteredTransactions[i].usdTransfer = usdTransfer;
+          newFilteredTransactions[i].ethTransfer = ethTransfer;
         }
         newFilteredTransactions[i].logs = decodedLogs;
       }
@@ -292,11 +308,23 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
       //play sounds for various value sizes
       if (filteredTransactions.some((txn) => txn.contractAddress !== null)) {
         creationAudio.play();
-      } else if (filteredTransactions.some((txn) => txn.usdSell === true)) {
+      } else if (
+        filteredTransactions.some(
+          (txn) => txn.usdBuy === true || txn.ethSell === true
+        )
+      ) {
         dompeetAudio.play();
-      } else if (filteredTransactions.some((txn) => txn.usdBuy === true)) {
+      } else if (
+        filteredTransactions.some(
+          (txn) => txn.usdSell === true || txn.ethBuy === true
+        )
+      ) {
         pompeetAudio.play();
-      } else if (filteredTransactions.some((txn) => txn.usdTransfer === true)) {
+      } else if (
+        filteredTransactions.some(
+          (txn) => txn.usdTransfer === true || txn.ethTransfer === true
+        )
+      ) {
         transferAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 1000)) {
         holyshitAudio.play();

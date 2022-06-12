@@ -152,10 +152,16 @@ const FeedTable = ({
       Cell: ({ value, row }) => (
         <span
           className={`${FeedCSS.logs} ${
-            row.original.usdSell === true
-              ? "dompeet"
+            row.original.ethBuy === true
+              ? "ethBuy"
+              : row.original.ethSell === true
+              ? "ethSell"
+              : row.original.ethTransfer
+              ? "ethTransfer"
               : row.original.usdBuy === true
-              ? "pompeet"
+              ? "usdBuy"
+              : row.original.usdSell === true
+              ? "usdSell"
               : row.original.usdTransfer
               ? "usdTransfer"
               : ""
@@ -217,7 +223,14 @@ const FeedTable = ({
           ))}
         </span>
       ),
-      disableSortBy: true,
+      sortType: useMemo(() => (a, b) => {
+        a = a.values.logs.length;
+        b = b.values.logs.length;
+        if (a === b) {
+          return 0;
+        }
+        return a > b ? 1 : -1;
+      }), // custom function
     },
     {
       Header: "Value",
