@@ -15,10 +15,6 @@
     text-align: center;  
 }
 
-.feedRow{
-    min-height: 5em;
-}
-
 .feedRow svg:hover {
     color: red;
     outline: none;
@@ -129,6 +125,7 @@
     border-radius: 100px;
     height: 18px;
     width: 18px;
+    background-color: white;
 }
 
 .logs{

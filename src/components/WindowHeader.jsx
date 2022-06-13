@@ -79,6 +79,9 @@ const WindowHeader = ({
               data-place="left"
               data-for="accountViewer"
               data-tip="Open Account Viewer?"
+              onClick={() => {
+                alert("Coming soon...");
+              }}
             >
               <RiUserSearchFill color="white" />
             </button>
