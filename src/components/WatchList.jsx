@@ -17,6 +17,8 @@ const WatchList = ({
   setAddresses,
   removeItem,
   addItem,
+  isItemStatic,
+  setItemStatic,
 }) => {
   const API_URL = "http://localhost:8000/addresses?userAddress=" + account;
   const [newAddress, setNewAddress] = useState("");
@@ -197,6 +199,8 @@ const WatchList = ({
         window="Watchlist"
         removeItem={removeItem}
         addItem={addItem}
+        isItemStatic={isItemStatic}
+        setItemStatic={setItemStatic}
       />
       {isLoading && (
         <AiOutlineLoading style={{ marginTop: "40%" }} className="loadingSvg" />

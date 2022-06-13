@@ -12,7 +12,17 @@ import "../../node_modules/react-resizable/css/styles.css";
 
 const ReactGridLayout = WidthProvider(RGL);
 const defaultLayout = [
-  { i: "Feed", x: 0, y: 0, w: 24, h: 68, minW: 16, minH: 14, maxW: 40 },
+  {
+    i: "Feed",
+    x: 0,
+    y: 0,
+    w: 24,
+    h: 68,
+    minW: 16,
+    minH: 14,
+    maxW: 40,
+    static: false,
+  },
   {
     i: "Watchlist",
     x: 24,
@@ -23,6 +33,7 @@ const defaultLayout = [
     minH: 7,
     maxH: 88,
     maxW: 15,
+    static: false,
   },
   {
     i: "Trollbox",
@@ -35,6 +46,7 @@ const defaultLayout = [
     minH: 7,
     maxH: 88,
     maxW: 15,
+    static: false,
   },
   {
     i: "Dosbox",
@@ -46,6 +58,7 @@ const defaultLayout = [
     minH: 20,
     maxH: 88,
     maxW: 40,
+    static: false,
   },
 ];
 const originalLayout = getFromLS("layout") || defaultLayout;
@@ -111,6 +124,7 @@ const Dashboard = ({ account, handleAccount }) => {
               minH: 7,
               maxH: 88,
               maxW: 15,
+              static: false,
             }
           : newItem === "Trollbox"
           ? {
@@ -123,6 +137,7 @@ const Dashboard = ({ account, handleAccount }) => {
               minH: 7,
               maxH: 88,
               maxW: 15,
+              static: false,
             }
           : newItem === "Dosbox"
           ? {
@@ -135,11 +150,25 @@ const Dashboard = ({ account, handleAccount }) => {
               minH: 20,
               maxH: 88,
               maxW: 40,
+              static: false,
             }
           : null;
-      let newLayout = layout.concat(newItem);
+      const newLayout = layout.concat(newItem);
       setLayout(newLayout);
     }
+  };
+
+  const setItemStatic = (window) => {
+    console.log("Setting static:  " + window);
+    console.log(layout);
+    const newLayout = layout.map((item) =>
+      item.i === window ? { ...item, static: !item.static } : item
+    );
+    setLayout(newLayout);
+  };
+
+  const isItemStatic = (window) => {
+    return layout.some((item) => item.i === window && item.static === true);
   };
 
   return (
@@ -168,6 +197,8 @@ const Dashboard = ({ account, handleAccount }) => {
                 addresses={addresses}
                 removeItem={removeItem}
                 addItem={addItem}
+                isItemStatic={isItemStatic}
+                setItemStatic={setItemStatic}
               />
             </div>
           ) : item.i === "Watchlist" ? (
@@ -178,6 +209,8 @@ const Dashboard = ({ account, handleAccount }) => {
                 setAddresses={setAddresses}
                 removeItem={removeItem}
                 addItem={addItem}
+                isItemStatic={isItemStatic}
+                setItemStatic={setItemStatic}
               />
             </div>
           ) : item.i === "Trollbox" ? (
@@ -186,11 +219,18 @@ const Dashboard = ({ account, handleAccount }) => {
                 account={account}
                 removeItem={removeItem}
                 addItem={addItem}
+                isItemStatic={isItemStatic}
+                setItemStatic={setItemStatic}
               />
             </div>
           ) : item.i === "Dosbox" ? (
             <div key={item.i} data-grid={{ item }}>
-              <Dosbox removeItem={removeItem} addItem={addItem} />
+              <Dosbox
+                removeItem={removeItem}
+                addItem={addItem}
+                isItemStatic={isItemStatic}
+                setItemStatic={setItemStatic}
+              />
             </div>
           ) : null
         )}

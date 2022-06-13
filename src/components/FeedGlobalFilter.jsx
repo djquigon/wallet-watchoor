@@ -16,7 +16,7 @@ const FeedGlobalFilter = ({
   }, 300);
 
   return (
-    <span style={{ width: "30%" }}>
+    <span style={{ width: "70%" }}>
       <input
         id={FeedCSS.feedSearch}
         type="search"

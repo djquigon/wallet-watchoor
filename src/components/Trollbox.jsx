@@ -21,7 +21,13 @@ function reducer(state, message) {
   };
 }
 
-const Trollbox = ({ account, removeItem, addItem }) => {
+const Trollbox = ({
+  account,
+  removeItem,
+  addItem,
+  isItemStatic,
+  setItemStatic,
+}) => {
   const [formMessage, setFormMessage] = useState("");
 
   const submitButton = useRef(null);
@@ -70,6 +76,8 @@ const Trollbox = ({ account, removeItem, addItem }) => {
         window="Trollbox"
         removeItem={removeItem}
         addItem={addItem}
+        isItemStatic={isItemStatic}
+        setItemStatic={setItemStatic}
       />
       {!account ? (
         <p style={{ marginTop: "40%", height: "100%" }}>

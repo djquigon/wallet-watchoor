@@ -43,7 +43,15 @@ const ERC20_ABI = [
   "event Transfer(address indexed from, address indexed to, uint amount)",
 ];
 
-const Feed = ({ block, account, addresses, removeItem, addItem }) => {
+const Feed = ({
+  block,
+  account,
+  addresses,
+  removeItem,
+  addItem,
+  isItemStatic,
+  setItemStatic,
+}) => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   //add filterredTransactions to feedTransactions in useEffect?
   const [feedTransactions, setFeedTransactions] = useState([]);
@@ -345,7 +353,13 @@ const Feed = ({ block, account, addresses, removeItem, addItem }) => {
 
   return (
     <div id={FeedCSS.feed}>
-      <WindowHeader window="Feed" removeItem={removeItem} addItem={addItem} />
+      <WindowHeader
+        window="Feed"
+        removeItem={removeItem}
+        addItem={addItem}
+        isItemStatic={isItemStatic}
+        setItemStatic={setItemStatic}
+      />
       <FeedTable
         account={account}
         isPaused={isPaused}

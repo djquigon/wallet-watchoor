@@ -1,24 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import WindowHeaderCSS from "../style/WindowHeader.module.css";
 import { AiOutlineArrowsAlt, AiOutlineClose } from "react-icons/ai";
 import { GrDos } from "react-icons/gr";
-import { IoMdChatboxes } from "react-icons/io";
+import { IoMdChatboxes, IoMdLock, IoMdUnlock } from "react-icons/io";
 import { RiUserSearchFill, RiContactsBookFill } from "react-icons/ri";
 import ReactTooltip from "react-tooltip";
 
-const WindowHeader = ({ window, removeItem, addItem }) => {
+const WindowHeader = ({
+  window,
+  removeItem,
+  addItem,
+  isItemStatic,
+  setItemStatic,
+}) => {
+  const [isStatic, setIsStatic] = useState(isItemStatic(window));
   return (
     <div id={WindowHeaderCSS.windowHeader}>
       <p>{window}</p>
       <div className={WindowHeaderCSS.windowOptions}>
         {window != "Feed" ? (
-          <button
-            onClick={() => {
-              removeItem(window);
-            }}
-          >
-            <AiOutlineClose color="white" />
-          </button>
+          <>
+            <button
+              onClick={() => {
+                setItemStatic(window);
+                setIsStatic(!isStatic);
+              }}
+            >
+              {isStatic === true ? (
+                <IoMdLock color="green" />
+              ) : (
+                <IoMdUnlock color="red" />
+              )}
+            </button>
+            <button
+              onClick={() => {
+                removeItem(window);
+              }}
+            >
+              <AiOutlineClose color="white" />
+            </button>
+          </>
         ) : (
           <>
             <ReactTooltip id="watchlist" class="tooltip" />
@@ -61,6 +82,18 @@ const WindowHeader = ({ window, removeItem, addItem }) => {
               }}
             >
               <GrDos color="white" />
+            </button>
+            <button
+              onClick={() => {
+                setItemStatic(window);
+                setIsStatic(!isStatic);
+              }}
+            >
+              {isStatic === true ? (
+                <IoMdLock color="green" />
+              ) : (
+                <IoMdUnlock color="red" />
+              )}
             </button>
           </>
         )}
