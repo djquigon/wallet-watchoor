@@ -43,6 +43,10 @@ const ERC20_ABI = [
   "event Transfer(address indexed from, address indexed to, uint amount)",
 ];
 
+const transactionsInLS = window.localStorage
+  ? JSON.parse(localStorage.getItem("feedTransactions"))
+  : null;
+
 const Feed = ({
   block,
   account,
@@ -54,7 +58,9 @@ const Feed = ({
 }) => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   //add filterredTransactions to feedTransactions in useEffect?
-  const [feedTransactions, setFeedTransactions] = useState([]);
+  const [feedTransactions, setFeedTransactions] = useState(
+    transactionsInLS.feedTransactions || []
+  );
   const [lastBlockNum, setLastBlockNum] = useState(null);
   const [prevBlockNum, setPrevBlockNum] = useState(null);
   const [isPaused, setIsPaused] = useState(true);
@@ -162,6 +168,7 @@ const Feed = ({
         newFilteredTransactions[i].logs = decodedLogs;
       }
     }
+    console.log("Returning transaction from build: ", newFilteredTransactions);
     return newFilteredTransactions;
   };
 
@@ -232,7 +239,10 @@ const Feed = ({
           console.log("Filtering Block " + blockNumToAdd);
           //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
           if (blockToAddFilteredTransactions.length > 0) {
-            console.log("Transactions found: ", blockToAddFilteredTransactions);
+            console.log(
+              "Transactions found1: ",
+              blockToAddFilteredTransactions
+            );
             newFilteredTransactions = newFilteredTransactions.concat(
               await buildFilteredTransactions(
                 blockToAddFilteredTransactions,
@@ -293,6 +303,17 @@ const Feed = ({
     //check if any blocks were skipped
     filterTransactions();
   }, [block]); //addresses maybe account
+
+  useEffect(() => {
+    if (window.localStorage) {
+      window.localStorage.setItem(
+        "feedTransactions",
+        JSON.stringify({
+          feedTransactions,
+        })
+      );
+    }
+  }, [feedTransactions]);
 
   //called when filtered transactions is set, ensures feed is updated after
   useEffect(() => {
