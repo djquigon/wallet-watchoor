@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import WindowHeaderCSS from "../style/WindowHeader.module.css";
+import { FaLockOpen, FaLock } from "react-icons/fa";
 import { AiOutlineArrowsAlt, AiOutlineClose } from "react-icons/ai";
 import { GrDos } from "react-icons/gr";
 import { IoMdChatboxes, IoMdLock, IoMdUnlock } from "react-icons/io";
@@ -20,16 +21,25 @@ const WindowHeader = ({
       <div className={WindowHeaderCSS.windowOptions}>
         {window != "Feed" ? (
           <>
+            <ReactTooltip id={`makeStatic${window}`} class="tooltip" />
             <button
+              data-place="left"
+              data-for={`makeStatic${window}`}
+              data-tip={
+                isStatic
+                  ? `${window} is static.<br/>Make movable/resizeable?`
+                  : `${window} is non-static.<br/>Make unmoveable/unresizable?`
+              }
+              data-multiline="true"
               onClick={() => {
                 setItemStatic(window);
                 setIsStatic(!isStatic);
               }}
             >
               {isStatic === true ? (
-                <IoMdLock color="green" />
+                <FaLock color="green" />
               ) : (
-                <IoMdUnlock color="red" />
+                <FaLockOpen color="red" />
               )}
             </button>
             <button
@@ -83,16 +93,25 @@ const WindowHeader = ({
             >
               <GrDos color="white" />
             </button>
+            <ReactTooltip id={`makeStatic${window}`} class="tooltip" />
             <button
+              data-place="left"
+              data-for={`makeStatic${window}`}
+              data-tip={
+                isStatic
+                  ? `${window} is static.<br/>Make movable/resizeable?`
+                  : `${window} is non-static.<br/>Make unmoveable/unresizable?`
+              }
+              data-multiline="true"
               onClick={() => {
                 setItemStatic(window);
                 setIsStatic(!isStatic);
               }}
             >
               {isStatic === true ? (
-                <IoMdLock color="green" />
+                <FaLock color="green" />
               ) : (
-                <IoMdUnlock color="red" />
+                <FaLockOpen color="red" />
               )}
             </button>
           </>
