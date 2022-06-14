@@ -125,6 +125,11 @@ const Feed = ({
     newFilteredTransactions,
     timestamp
   ) => {
+    //in case of a txn filtering returning a null value due to bug i have yet to figure out
+    newFilteredTransactions = newFilteredTransactions.filter(
+      (txn) => txn !== null
+    );
+
     for (let i = 0; i < newFilteredTransactions.length; i++) {
       const value = newFilteredTransactions[i].value;
       newFilteredTransactions[i] = await provider.getTransactionReceipt(
@@ -168,7 +173,6 @@ const Feed = ({
         newFilteredTransactions[i].logs = decodedLogs;
       }
     }
-    console.log("Returning transaction from build: ", newFilteredTransactions);
     return newFilteredTransactions;
   };
 
@@ -349,14 +353,14 @@ const Feed = ({
         )
       ) {
         pompeetAudio.play();
+      } else if (filteredTransactions.some((txn) => txn.value >= 1000)) {
+        holyshitAudio.play();
       } else if (
         filteredTransactions.some(
           (txn) => txn.usdTransfer === true || txn.ethTransfer === true
         )
       ) {
         transferAudio.play();
-      } else if (filteredTransactions.some((txn) => txn.value >= 1000)) {
-        holyshitAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 500)) {
         jesusAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 100)) {
