@@ -87,7 +87,7 @@ function saveToLS(key, value) {
   }
 }
 
-const Dashboard = ({ account, handleAccount }) => {
+const Dashboard = ({ database, account, handleAccount }) => {
   const [addresses, setAddresses] = useState([]);
   const [block, setBlock] = useState(null);
   const [layout, setLayout] = useState(
@@ -204,6 +204,7 @@ const Dashboard = ({ account, handleAccount }) => {
           ) : item.i === "Watchlist" ? (
             <div key={item.i} data-grid={{ item }}>
               <WatchList
+                database={database}
                 account={account}
                 addresses={addresses}
                 setAddresses={setAddresses}

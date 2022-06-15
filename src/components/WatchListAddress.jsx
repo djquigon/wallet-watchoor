@@ -18,19 +18,33 @@ const WatchListAddress = ({ address, handleChangeAlert, handleDelete }) => {
   return (
     /**Keys are required for react list addresses */
     <li className={WatchListCSS.address}>
-      <p>
-        {address.avatar ? (
-          <img className={WatchListCSS.avatar} src={address.avatar}></img>
-        ) : (
-          <img
-            className={WatchListCSS.avatar}
-            src={makeBlockie(address.address)}
-          ></img>
-        )}
-        {address.ens
-          ? ` ${address.alias} (${address.ens})`
-          : ` ${address.alias}`}
-      </p>
+      <ReactTooltip class="tooltip" id={`dateAdded${address.address}`} />
+      <span
+        data-place="right"
+        data-tip={`Added ${address.dateAdded.substring(
+          0,
+          address.dateAdded.indexOf("T")
+        )} ${address.dateAdded.substring(
+          address.dateAdded.indexOf("T") + 1,
+          address.dateAdded.indexOf(".")
+        )} UTC`}
+        data-for={`dateAdded${address.address}`}
+        style={{ width: "fit-content" }}
+      >
+        <p>
+          {address.avatar ? (
+            <img className={WatchListCSS.avatar} src={address.avatar}></img>
+          ) : (
+            <img
+              className={WatchListCSS.avatar}
+              src={makeBlockie(address.address)}
+            ></img>
+          )}
+          {address.ens
+            ? ` ${address.alias} (${address.ens})`
+            : ` ${address.alias}`}
+        </p>
+      </span>
       <p>{address.address}</p>
       <div className={WatchListCSS.addressOptions}>
         <ReactTooltip class="tooltip" id={`alerts${address.address}`} />
@@ -47,13 +61,13 @@ const WatchListAddress = ({ address, handleChangeAlert, handleDelete }) => {
             <FaVolumeUp
               color="#00ac31"
               role="button"
-              onClick={() => handleChangeAlert(address.id)}
+              onClick={() => handleChangeAlert(address.address)}
             />
           ) : (
             <FaVolumeMute
               color="red"
               role="button"
-              onClick={() => handleChangeAlert(address.id)}
+              onClick={() => handleChangeAlert(address.address)}
             />
           )}
         </span>
@@ -137,7 +151,7 @@ const WatchListAddress = ({ address, handleChangeAlert, handleDelete }) => {
           role="button"
           tabIndex="0"
           aria-label={`Delete ${address.alias}`}
-          onClick={() => handleDelete(address.id)}
+          onClick={() => handleDelete(address.address)}
         />
       </div>
     </li>

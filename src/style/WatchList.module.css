@@ -79,7 +79,7 @@
   left: -99999px;
 }
 
-.searchForm input[type='text'], .addForm input[type='text'] {
+.searchForm input[type='search'], .addForm input[type='text'] {
   flex-grow: 1; /*assign all remaining space to the text input based on button*/
   padding: 0.25rem;
   border-radius: 12px;

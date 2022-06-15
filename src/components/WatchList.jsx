@@ -5,13 +5,14 @@ import WatchListCSS from "../style/WatchList.module.css";
 import WatchListAddress from "./WatchListAddress";
 import WatchListAddAddress from "./WatchListAddAddress";
 import WatchListSearch from "./WatchListSearch";
-import apiRequest from "../apiRequest";
 import { ethers } from "ethers";
 import { AiOutlineLoading } from "react-icons/ai";
+import { onValue, set, ref, update, remove } from "firebase/database";
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 const WatchList = ({
+  database,
   account,
   addresses,
   setAddresses,
@@ -20,62 +21,55 @@ const WatchList = ({
   isItemStatic,
   setItemStatic,
 }) => {
-  const API_URL = "http://localhost:8000/addresses?userAddress=" + account;
   const [newAddress, setNewAddress] = useState("");
   const [newAlias, setNewAlias] = useState("");
   const [search, setSearch] = useState("");
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const addWatchListAddress = async (addressInfo) => {
-    const listAddresses = [...addresses, addressInfo];
+  const addWatchListAddress = async (address, addressInfo) => {
+    //update state
+    const listAddresses = [...addresses, { ...addressInfo, address: address }];
     setAddresses(listAddresses);
 
-    const postOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(addressInfo),
-    };
-
-    const result = await apiRequest(API_URL, postOptions);
-    if (result) setFetchError(result);
+    //update database
+    set(
+      ref(database, `users/${account}/watchedAddresses/${address}`),
+      addressInfo
+    );
   };
 
-  const handleChangeAlert = async (id) => {
+  const handleChangeAlert = async (addressToChange) => {
+    //update state
+    const prevAlerts = addresses.find(
+      (address) => address.address === addressToChange
+    ).alerts;
     const listAddresses = addresses.map((address) =>
-      address.id === id
+      address.address === addressToChange
         ? /*Copy address but changed alerts status to opposite*/
           { ...address, alerts: !address.alerts }
         : address
     );
     setAddresses(listAddresses);
 
-    const myAddress = listAddresses.filter((address) => address.id === id);
-    const updateOptions = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ alerts: myAddress[0].alerts }),
-    };
-    const reqUrl = "http://localhost:8000/addresses/" + id;
-    // const reqUrl = `${API_URL}&id=${id}`;
-    const result = await apiRequest(reqUrl, updateOptions);
-    if (result) setFetchError(result);
+    //update database
+    update(
+      ref(database, `users/${account}/watchedAddresses/${addressToChange}`),
+      { alerts: !prevAlerts }
+    );
   };
 
-  const handleDelete = async (id) => {
-    const listAddresses = addresses.filter((address) => address.id !== id);
+  const handleDelete = async (addressToDelete) => {
+    //set state
+    const listAddresses = addresses.filter(
+      (address) => address.address !== addressToDelete
+    );
     setAddresses(listAddresses);
 
-    const deleteOptions = {
-      method: "DELETE",
-    };
-    const reqUrl = "http://localhost:8000/addresses/" + id;
-    const result = await apiRequest(reqUrl, deleteOptions);
-    if (result) setFetchError(result);
+    //update database
+    remove(
+      ref(database, `users/${account}/watchedAddresses/${addressToDelete}`)
+    );
   };
 
   const getAddressInfo = async (address, ens) => {
@@ -84,12 +78,8 @@ const WatchList = ({
       resolver = await provider.getResolver(ens);
     }
     const addressInfo = {
-      id: addresses.length ? addresses[addresses.length - 1].id + 1 : 1,
-      userAddress: account,
       alerts: true,
-      //first three are default
       alias: newAlias,
-      address: address,
       ens: ens,
       avatar: resolver ? await resolver.getAvatar() : null,
       twitterName: resolver ? await resolver.getText("com.twitter") : null,
@@ -97,6 +87,7 @@ const WatchList = ({
       email: resolver ? await resolver.getText("email") : null,
       website: resolver ? await resolver.getText("url") : null,
       location: resolver ? await resolver.getText("location") : null,
+      dateAdded: new Date().toISOString(),
     };
     //if address avatar is not null get the url
     if (addressInfo.avatar) {
@@ -135,7 +126,7 @@ const WatchList = ({
       } else {
         const ens = await provider.lookupAddress(newAddress);
         const addressInfo = await getAddressInfo(newAddress, ens);
-        addWatchListAddress(addressInfo);
+        addWatchListAddress(newAddress, addressInfo);
       }
       // if the address to add is a valid ens
     } else if (await provider.resolveName(newAddress)) {
@@ -145,7 +136,7 @@ const WatchList = ({
         return;
       } else {
         const addressInfo = await getAddressInfo(address, newAddress);
-        addWatchListAddress(addressInfo);
+        addWatchListAddress(address, addressInfo);
       }
     } else {
       alert(
@@ -159,20 +150,55 @@ const WatchList = ({
     setNewAlias("");
   };
 
-  const filteredAddresses = addresses.filter(
-    (address) =>
-      address.alias.toLowerCase().includes(search.toLowerCase()) ||
-      address.address.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredAddresses = addresses
+    .filter(
+      (address) =>
+        address.address.toLowerCase().includes(search.toLowerCase()) ||
+        (address.alias &&
+          address.alias.toLowerCase().includes(search.toLowerCase())) ||
+        (address.ens &&
+          address.ens.toLowerCase().includes(search.toLowerCase()))
+    )
+    .sort((a, b) => {
+      a = new Date(a.dateAdded);
+      b = new Date(b.dateAdded);
+      return a < b ? 1 : a > b ? -1 : 0;
+    });
 
   /**An empty array makes useEffect run at every reload, not every render */
   useEffect(() => {
     const fetchAddresses = async () => {
       try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw Error("Did not receive expected data");
-        const listAddresses = await response.json();
-        setAddresses(listAddresses);
+        let data = null;
+        onValue(
+          ref(database, `users/${account}/watchedAddresses`),
+          (snapshot) => {
+            try {
+              data = snapshot.val();
+              const listAddresses = Object.entries(data).map(
+                ([key, value]) => ({
+                  address: key,
+                  alerts: value.alerts,
+                  alias: value.alias,
+                  ens: value.ens,
+                  avatar: value.avatar,
+                  twitterName: value.twitterName,
+                  telegramName: value.telegramName,
+                  email: value.email,
+                  website: value.website,
+                  location: value.location,
+                  dateAdded: value.dateAdded,
+                })
+              );
+              setAddresses(listAddresses);
+            } catch (e) {
+              console.log(
+                "Caught BS error that I cannot figure out but affects nothing" +
+                  e
+              );
+            }
+          }
+        );
         // console.log(listAddresses)
         // console.log(addresses)
         setFetchError(null);
@@ -220,7 +246,7 @@ const WatchList = ({
             <ol>
               {filteredAddresses.map((address) => (
                 <WatchListAddress
-                  key={address.id}
+                  key={address.address}
                   address={address}
                   handleChangeAlert={handleChangeAlert}
                   handleDelete={handleDelete}

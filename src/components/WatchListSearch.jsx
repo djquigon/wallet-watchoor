@@ -10,7 +10,7 @@ const WatchListSearch = ({ search, setSearch }) => {
       <label htmlFor="search">Search</label>
       <input
         id="search"
-        type="text"
+        type="search"
         role="searchbox"
         placeholder="Search Watchlist"
         value={search}
