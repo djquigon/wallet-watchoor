@@ -59,7 +59,7 @@ const Feed = ({
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   //add filterredTransactions to feedTransactions in useEffect?
   const [feedTransactions, setFeedTransactions] = useState(
-    transactionsInLS.feedTransactions || []
+    (transactionsInLS && transactionsInLS.feedTransactions) || []
   );
   const [lastBlockNum, setLastBlockNum] = useState(null);
   const [prevBlockNum, setPrevBlockNum] = useState(null);
