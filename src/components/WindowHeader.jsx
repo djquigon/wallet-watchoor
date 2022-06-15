@@ -19,7 +19,7 @@ const WindowHeader = ({
     <div id={WindowHeaderCSS.windowHeader}>
       <p>{window}</p>
       <div className={WindowHeaderCSS.windowOptions}>
-        {window != "Feed" ? (
+        {window !== "Feed" ? (
           <>
             <ReactTooltip id={`makeStatic${window}`} class="tooltip" />
             <button
