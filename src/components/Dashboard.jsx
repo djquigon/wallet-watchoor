@@ -217,6 +217,7 @@ const Dashboard = ({ database, account, handleAccount }) => {
           ) : item.i === "Trollbox" ? (
             <div key={item.i} data-grid={{ item }}>
               <Trollbox
+                database={database}
                 account={account}
                 removeItem={removeItem}
                 addItem={addItem}

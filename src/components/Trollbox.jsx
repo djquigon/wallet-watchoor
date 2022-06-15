@@ -1,74 +1,56 @@
 import { useEffect, useState, useReducer, useRef } from "react";
-import Gun from "gun";
 import TrollboxCSS from "../style/Trollbox.module.css";
 import WindowHeader from "./WindowHeader";
 import makeBlockie from "ethereum-blockies-base64";
 import { MdSend } from "react-icons/md";
 import InputEmoji from "react-input-emoji";
 import { AiOutlineLoading } from "react-icons/ai";
-
-const gun = Gun({
-  peers: ["http://localhost:3030/gun"],
-});
-
-const initialState = {
-  messages: [],
-};
-
-function reducer(state, message) {
-  return {
-    messages: [message, ...state.messages],
-  };
-}
+import { onValue, set, ref, push } from "firebase/database";
 
 const Trollbox = ({
+  database,
   account,
   removeItem,
   addItem,
   isItemStatic,
   setItemStatic,
 }) => {
+  const [messages, setMessages] = useState([]);
+
   const [formMessage, setFormMessage] = useState("");
 
   const submitButton = useRef(null);
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-
   const [gunLength, setGunLength] = useState(null);
 
+  //read
   useEffect(() => {
-    const messages = gun.get("messages");
-    messages.map().once((message) => {
-      dispatch({
-        name: message.name,
-        message: message.message,
-        createdAt: message.createdAt,
-      });
-      //this works for now, allows me to set loading so that messages dont display when loading, use gun.on if this stops working
-      setGunLength(Object.keys(messages._.back.graph).length - 1);
-      return () => {
-        alert("htrrt");
-        this.setState({});
-        setGunLength(null);
-      };
+    onValue(ref(database, `messages/`), (snapshot) => {
+      let data = snapshot.val();
+      data = Object.keys(data)
+        .map((key) => data[key])
+        .reverse();
+      setGunLength(data.length);
+      setMessages(data);
     });
   }, []);
 
-  function saveMessage(e) {
+  //write
+  const saveMessage = (e) => {
     e.preventDefault();
     //if empty string or only spaces, or too long
     if (/^ *$/.test(formMessage) || formMessage.length > 132) {
       alert(formMessage.length);
       return;
     }
-    const messages = gun.get("messages");
-    messages.set({
-      name: account,
+    const date = new Date().toISOString();
+    push(ref(database, `messages/`), {
+      user: account,
       message: formMessage,
-      createdAt: new Date().toISOString(),
+      dateAdded: date,
     });
     setFormMessage("");
-  }
+  };
 
   return (
     <div id={TrollboxCSS.trollbox}>
@@ -94,30 +76,30 @@ const Trollbox = ({
             </p>
           </div>
           <div id={TrollboxCSS.chatContainer}>
-            {state.messages.length < gunLength ? (
+            {messages.length < gunLength ? (
               <AiOutlineLoading
                 style={{ marginTop: "40%" }}
                 className="loadingSvg"
               />
             ) : (
               <ol id={TrollboxCSS.messages}>
-                {state.messages.map((message) => (
+                {messages.map((message) => (
                   <li
-                    key={`${message.createdAt}${message.message}${message.name}`}
+                    key={`${message.dateAdded}${message.message}${message.user}`}
                   >
                     <div className={TrollboxCSS.message}>
                       <p>
-                        {`[${message.createdAt.substring(
-                          message.createdAt.indexOf("T") + 1,
-                          message.createdAt.indexOf(".")
+                        {`[${message.dateAdded.substring(
+                          message.dateAdded.indexOf("T") + 1,
+                          message.dateAdded.indexOf(".")
                         )}]\u00A0`}
 
-                        <img width="14px" src={makeBlockie(message.name)}></img>
-                        {` ${message.name.substring(
+                        <img width="14px" src={makeBlockie(message.user)}></img>
+                        {` ${message.user.substring(
                           0,
                           6
-                        )}...${message.name.substring(
-                          message.name.length - 4
+                        )}...${message.user.substring(
+                          message.user.length - 4
                         )}:\u00A0`}
                         <br />
 
