@@ -121,7 +121,10 @@ const WalletConnector = ({ account, handleAccount }) => {
           <div className={WalletConnectorCSS.modalContent}>
             <h2>Account</h2>
             <div id={WalletConnectorCSS.modalAccountInfo}>
-              <img src={makeBlockie(account)} alt="avatar"></img>
+              <img
+                src={account ? makeBlockie(account) : null}
+                alt="avatar"
+              ></img>
               <p>{accountBalance + " Ξ"}</p>
               <p>{accountTransactionCount + " txn(s)"}</p>
               <p>{account}</p>

@@ -232,7 +232,12 @@ const WatchList = ({
         <AiOutlineLoading style={{ marginTop: "40%" }} className="loadingSvg" />
       )}
       {fetchError && <p> {`Error: ${fetchError}`}</p>}
-      {!fetchError && !isLoading && (
+      {!account && (
+        <p style={{ marginTop: "30%", height: "100%" }}>
+          Your wallet is not connected.
+        </p>
+      )}
+      {account && !fetchError && !isLoading && (
         <>
           <WatchListAddAddress
             newAddress={newAddress}
@@ -253,10 +258,6 @@ const WatchList = ({
                 />
               ))}
             </ol>
-          ) : !account ? (
-            <p style={{ marginTop: "30%", height: "100%" }}>
-              Your wallet is not connected.
-            </p>
           ) : (
             <p style={{ marginTop: "30%", height: "100%" }}>
               Your list is empty.

@@ -493,33 +493,22 @@ const FeedTable = ({
           </thead>
 
           <tbody {...getTableBodyProps()}>
-            {!account ? (
-              <tr
-                id={FeedCSS.walletWarning}
-                style={{ backgroundColor: "transparent" }}
-              >
-                <td colSpan="7">
-                  <p>Your wallet is not connected.</p>
-                </td>
-              </tr>
-            ) : (
-              page.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr
-                    key={row.original.hash}
-                    {...row.getRowProps()}
-                    className={FeedCSS.feedRow}
-                  >
-                    {row.cells.map((cell) => {
-                      return (
-                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                      );
-                    })}
-                  </tr>
-                );
-              })
-            )}
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <tr
+                  key={row.original.hash}
+                  {...row.getRowProps()}
+                  className={FeedCSS.feedRow}
+                >
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

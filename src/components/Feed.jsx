@@ -387,17 +387,24 @@ const Feed = ({
         isItemStatic={isItemStatic}
         setItemStatic={setItemStatic}
       />
-      <FeedTable
-        account={account}
-        isPaused={isPaused}
-        setIsPaused={setIsPaused}
-        isMuted={isMuted}
-        setIsMuted={setIsMuted}
-        feedTransactions={feedTransactions}
-        setFeedTransactions={setFeedTransactions}
-        currBlockNum={block ? block.number : null}
-        prevBlockNum={prevBlockNum}
-      />
+
+      {account ? (
+        <FeedTable
+          account={account}
+          isPaused={isPaused}
+          setIsPaused={setIsPaused}
+          isMuted={isMuted}
+          setIsMuted={setIsMuted}
+          feedTransactions={feedTransactions}
+          setFeedTransactions={setFeedTransactions}
+          currBlockNum={block ? block.number : null}
+          prevBlockNum={prevBlockNum}
+        />
+      ) : (
+        <p style={{ marginTop: "30%", height: "100%" }}>
+          Your wallet is not connected.
+        </p>
+      )}
     </div>
   );
 };
