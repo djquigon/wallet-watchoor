@@ -3,11 +3,11 @@ import Dashboard from './components/Dashboard'; /**App */
 import Home from './components/Home';
 import Info from './components/Info';
 import Missing from './components/Missing';
-import {Route, Routes, useNavigate} from 'react-router-dom';
-import {useState, useEffect} from 'react';
+import {Route, Routes} from 'react-router-dom';
+import {useState} from 'react';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getDatabase} from "firebase/database"
@@ -25,7 +25,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+//const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
 function App() {

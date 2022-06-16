@@ -46,9 +46,6 @@ const Navbar = () => {
     if (typeof window.ethereum !== "undefined") {
       const feeData = await provider.getFeeData();
 
-      const maxFee = parseInt(
-        ethers.utils.formatUnits(feeData.maxFeePerGas, "gwei")
-      );
       const gasPrice = parseInt(
         ethers.utils.formatUnits(feeData.gasPrice, "gwei")
       );
@@ -75,7 +72,7 @@ const Navbar = () => {
       <ul id={NavbarCSS.menu}>
         <li>
           <div id={NavbarCSS.logoContainer}>
-            <img id={NavbarCSS.logo} src={logo}></img>
+            <img id={NavbarCSS.logo} src={logo} alt="watchoor logo"></img>
             <div id={NavbarCSS.logoOverlay}>
               <a href="https://github.com/djquigon">
                 <FaGithub />
@@ -132,7 +129,11 @@ const Navbar = () => {
           )}
         </li>
         <li className={NavbarCSS.menuItem} id={NavbarCSS.gweiTracker}>
-          <a target="_blank" href="https://etherscan.io/gastracker">
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://etherscan.io/gastracker"
+          >
             <FaGasPump className={NavbarCSS.menuIcon} />
             <p>
               {gasPrice ? (

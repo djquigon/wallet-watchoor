@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import WindowHeaderCSS from "../style/WindowHeader.module.css";
 import { FaLockOpen, FaLock } from "react-icons/fa";
-import { AiOutlineArrowsAlt, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import { GrDos } from "react-icons/gr";
-import { IoMdChatboxes, IoMdLock, IoMdUnlock } from "react-icons/io";
+import { IoMdChatboxes } from "react-icons/io";
 import { RiUserSearchFill, RiContactsBookFill } from "react-icons/ri";
 import ReactTooltip from "react-tooltip";
 

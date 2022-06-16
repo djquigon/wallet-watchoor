@@ -33,11 +33,16 @@ const WatchListAddress = ({ address, handleChangeAlert, handleDelete }) => {
       >
         <p>
           {address.avatar ? (
-            <img className={WatchListCSS.avatar} src={address.avatar}></img>
+            <img
+              className={WatchListCSS.avatar}
+              src={address.avatar}
+              alt="avatar"
+            ></img>
           ) : (
             <img
               className={WatchListCSS.avatar}
               src={makeBlockie(address.address)}
+              alt="avatar"
             ></img>
           )}
           {address.ens
@@ -74,6 +79,7 @@ const WatchListAddress = ({ address, handleChangeAlert, handleDelete }) => {
         {address.twitterName && (
           <a
             target="_blank"
+            rel="noreferrer"
             href={`https://twitter.com/${address.twitterName}`}
           >
             <ReactTooltip class="tooltip" id={address.twitterName} />
@@ -85,7 +91,11 @@ const WatchListAddress = ({ address, handleChangeAlert, handleDelete }) => {
           </a>
         )}
         {address.telegramName && (
-          <a target="_blank" href={`https://t.me/${address.telegramName}`}>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`https://t.me/${address.telegramName}`}
+          >
             <ReactTooltip class="tooltip" id={address.telegramName} />
             <FaTelegram
               data-tip={`Link to ${address.telegramName} on Telegram`}
@@ -106,7 +116,7 @@ const WatchListAddress = ({ address, handleChangeAlert, handleDelete }) => {
         )}
         {address.website &&
           (address.website.includes("https://") ? (
-            <a target="_blank" href={address.website}>
+            <a target="_blank" rel="noreferrer" href={address.website}>
               <ReactTooltip class="tooltip" id={address.website} />
               <FaGlobe
                 data-tip={`Link to ${address.alias}'s website`}
@@ -115,7 +125,11 @@ const WatchListAddress = ({ address, handleChangeAlert, handleDelete }) => {
               />
             </a>
           ) : (
-            <a target="_blank" href={`https://${address.website}`}>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`https://${address.website}`}
+            >
               <ReactTooltip class="tooltip" id={address.website} />
               <FaGlobe
                 data-tip={`Link to ${address.alias}'s website`}
@@ -137,11 +151,12 @@ const WatchListAddress = ({ address, handleChangeAlert, handleDelete }) => {
         <ReactTooltip class="tooltip" id={address.address} />
         <a
           target="_blank"
+          rel="noreferrer"
           href={`https://etherscan.io/address/${address.address}`}
           data-tip={`View address on etherscan`}
           data-for={address.address}
         >
-          <img src={etherscanLogo}></img>
+          <img src={etherscanLogo} alt="avatar"></img>
         </a>
         <ReactTooltip class="tooltip" id={`delete${address.address}`} />
         <FaTrashAlt

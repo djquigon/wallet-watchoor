@@ -33,7 +33,8 @@ const Info = () => {
         >
           <div id={InfoCSS.handbookNavbar}>
             <div>
-              <img width="16px" src={watchoor}></img> Wallet Watchoor Handbook
+              <img width="16px" src={watchoor} alt="watchoor logo"></img> Wallet
+              Watchoor Handbook
             </div>
             <hr></hr>
             <ul className={InfoCSS.featureNav}>
@@ -233,7 +234,12 @@ const Info = () => {
             </ul>
           </div>
           <div className={InfoCSS.handbookContent}>
-            <img width="70%" height="70%" src={contentGif}></img>
+            <img
+              width="70%"
+              height="70%"
+              src={contentGif}
+              alt="content gif"
+            ></img>
             <hr style={{ width: "100%" }} />
             <p>{contentText}</p>
             <hr style={{ width: "50%" }} />

@@ -176,110 +176,6 @@ const Feed = ({
     return newFilteredTransactions;
   };
 
-  const filterTransactions = async () => {
-    const watchedAddresses = addresses
-      .filter((address) => address.alerts === true)
-      .map((address) => address.address.toLowerCase());
-    console.log("Watched addresses to filter: ", watchedAddresses);
-
-    //function to filter out only txns from watchedAddresses
-    function filter(transaction) {
-      //in case of contract creation where to is null
-      if (transaction.to) {
-        return (
-          watchedAddresses.includes(transaction.from.toLowerCase()) ||
-          watchedAddresses.includes(transaction.to.toLowerCase())
-        );
-      } else {
-        return watchedAddresses.includes(transaction.from.toLowerCase());
-      }
-    }
-
-    console.log("Last block " + lastBlockNum);
-    let newFilteredTransactions = [];
-    try {
-      //if there is no last block or missed blocks simply filter the current block
-      if (!lastBlockNum || lastBlockNum + 1 === block.number) {
-        console.log("No blocks skipped, filtering current block...");
-        console.log("Filtering Block " + block.number);
-        newFilteredTransactions = block.transactions.filter(filter);
-        if (newFilteredTransactions.length > 0) {
-          console.log("Transactions found: ", newFilteredTransactions);
-          //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
-          newFilteredTransactions = await buildFilteredTransactions(
-            newFilteredTransactions,
-            block.timestamp
-          );
-          console.log(
-            "Setting Filtered Transactions to ... ",
-            newFilteredTransactions
-          );
-        } else {
-          console.log("No matching transactions in block " + block.number);
-        }
-        //if there is a last block and there are missed blocks , add them to newFilteredTransactions
-      } else {
-        console.log(
-          "Blocks were skipped, filtering all skipped blocks and current block..."
-        );
-        for (
-          let blockNumToAdd = lastBlockNum + 1;
-          blockNumToAdd <= block.number;
-          blockNumToAdd++
-        ) {
-          let blockToAdd = null;
-          let timestamp = null;
-          let blockToAddFilteredTransactions = null;
-          if (blockNumToAdd === block.mumber) {
-            blockToAdd = block;
-            timestamp = block.timestamp;
-            blockToAddFilteredTransactions = block.transactions.filter(filter);
-          } else {
-            blockToAdd = await provider.getBlockWithTransactions(blockNumToAdd);
-            timestamp = blockToAdd.timestamp;
-            blockToAddFilteredTransactions =
-              blockToAdd.transactions.filter(filter);
-          }
-          console.log("Filtering Block " + blockNumToAdd);
-          //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
-          if (blockToAddFilteredTransactions.length > 0) {
-            console.log(
-              "Transactions found1: ",
-              blockToAddFilteredTransactions
-            );
-            newFilteredTransactions = newFilteredTransactions.concat(
-              await buildFilteredTransactions(
-                blockToAddFilteredTransactions,
-                timestamp
-              )
-            );
-            console.log(
-              "Setting Filtered Transactions to: ",
-              newFilteredTransactions
-            );
-          } else {
-            console.log("No matching transactions in block " + blockNumToAdd);
-          }
-        }
-      }
-      //newFilteredTransactions = block.transactions.filter(filter)
-
-      if (newFilteredTransactions.length > 0) {
-        console.log("Filtering done, setting filtered transactions.");
-        setFilteredTransactions(newFilteredTransactions);
-      }
-      //copy of last block to track last black for use in feedtable detecting if txn is new
-      if (lastBlockNum) {
-        setPrevBlockNum(lastBlockNum);
-      }
-      //set last block for forward for next iteration
-      setLastBlockNum(block.number);
-    } catch (e) {
-      alert(e);
-      console.log(e);
-    }
-  };
-
   useEffect(() => {
     setLastBlockNum(null);
     //setPrevBlockNum(null)
@@ -292,21 +188,127 @@ const Feed = ({
   }, [account]);
 
   useEffect(() => {
-    //if fee is paused, or account block or addresses are null or lastBlockNum is still this block
-    if (
-      isPaused ||
-      !account ||
-      !block ||
-      !addresses ||
-      lastBlockNum === block.number
-    ) {
-      console.log("Not filtering transactions...");
-      // setIsPaused(true)
-      return;
-    }
+    const filterTransactions = async () => {
+      //if fee is paused, or account block or addresses are null or lastBlockNum is still this block
+      if (
+        isPaused ||
+        !account ||
+        !block ||
+        !addresses ||
+        lastBlockNum === block.number
+      ) {
+        console.log("Not filtering transactions...");
+        // setIsPaused(true)
+        return;
+      }
+      const watchedAddresses = addresses
+        .filter((address) => address.alerts === true)
+        .map((address) => address.address.toLowerCase());
+      console.log("Watched addresses to filter: ", watchedAddresses);
+
+      //function to filter out only txns from watchedAddresses
+      function filter(transaction) {
+        //in case of contract creation where to is null
+        if (transaction.to) {
+          return (
+            watchedAddresses.includes(transaction.from.toLowerCase()) ||
+            watchedAddresses.includes(transaction.to.toLowerCase())
+          );
+        } else {
+          return watchedAddresses.includes(transaction.from.toLowerCase());
+        }
+      }
+
+      console.log("Last block " + lastBlockNum);
+      let newFilteredTransactions = [];
+      try {
+        //if there is no last block or missed blocks simply filter the current block
+        if (!lastBlockNum || lastBlockNum + 1 === block.number) {
+          console.log("No blocks skipped, filtering current block...");
+          console.log("Filtering Block " + block.number);
+          newFilteredTransactions = block.transactions.filter(filter);
+          if (newFilteredTransactions.length > 0) {
+            console.log("Transactions found: ", newFilteredTransactions);
+            //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
+            newFilteredTransactions = await buildFilteredTransactions(
+              newFilteredTransactions,
+              block.timestamp
+            );
+            console.log(
+              "Setting Filtered Transactions to ... ",
+              newFilteredTransactions
+            );
+          } else {
+            console.log("No matching transactions in block " + block.number);
+          }
+          //if there is a last block and there are missed blocks , add them to newFilteredTransactions
+        } else {
+          console.log(
+            "Blocks were skipped, filtering all skipped blocks and current block..."
+          );
+          for (
+            let blockNumToAdd = lastBlockNum + 1;
+            blockNumToAdd <= block.number;
+            blockNumToAdd++
+          ) {
+            let blockToAdd = null;
+            let timestamp = null;
+            let blockToAddFilteredTransactions = null;
+            if (blockNumToAdd === block.mumber) {
+              blockToAdd = block;
+              timestamp = block.timestamp;
+              blockToAddFilteredTransactions =
+                block.transactions.filter(filter);
+            } else {
+              blockToAdd = await provider.getBlockWithTransactions(
+                blockNumToAdd
+              );
+              timestamp = blockToAdd.timestamp;
+              blockToAddFilteredTransactions =
+                blockToAdd.transactions.filter(filter);
+            }
+            console.log("Filtering Block " + blockNumToAdd);
+            //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
+            if (blockToAddFilteredTransactions.length > 0) {
+              console.log(
+                "Transactions found1: ",
+                blockToAddFilteredTransactions
+              );
+              newFilteredTransactions = newFilteredTransactions.concat(
+                await buildFilteredTransactions(
+                  blockToAddFilteredTransactions,
+                  timestamp
+                )
+              );
+              console.log(
+                "Setting Filtered Transactions to: ",
+                newFilteredTransactions
+              );
+            } else {
+              console.log("No matching transactions in block " + blockNumToAdd);
+            }
+          }
+        }
+        //newFilteredTransactions = block.transactions.filter(filter)
+
+        if (newFilteredTransactions.length > 0) {
+          console.log("Filtering done, setting filtered transactions.");
+          setFilteredTransactions(newFilteredTransactions);
+        }
+        //copy of last block to track last black for use in feedtable detecting if txn is new
+        if (lastBlockNum) {
+          setPrevBlockNum(lastBlockNum);
+        }
+        //set last block for forward for next iteration
+        setLastBlockNum(block.number);
+      } catch (e) {
+        alert(e);
+        console.log(e);
+      }
+    };
     //check if any blocks were skipped
     filterTransactions();
-  }, [block]); //addresses maybe account
+  }, [block]);
 
   useEffect(() => {
     if (window.localStorage) {

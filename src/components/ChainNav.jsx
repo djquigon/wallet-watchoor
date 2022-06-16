@@ -12,15 +12,6 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
   // const [chain, setChain] = useState("ethereum")
   const [refreshTime, setRefreshTime] = useState(null);
 
-  const getBlock = async () => {
-    console.log("Getting Block...");
-    const blockInfo = await provider.getBlockWithTransactions();
-    console.log(blockInfo);
-    setBlock(blockInfo);
-    setRefreshTime(15);
-    console.log("Timer Reset");
-  };
-
   const setTime = () => {
     setRefreshTime((refreshTime) => (refreshTime > 0 ? refreshTime - 1 : null));
   };
@@ -39,6 +30,14 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
   };
 
   useEffect(() => {
+    const getBlock = async () => {
+      console.log("Getting Block...");
+      const blockInfo = await provider.getBlockWithTransactions();
+      console.log(blockInfo);
+      setBlock(blockInfo);
+      setRefreshTime(15);
+      console.log("Timer Reset");
+    };
     //call for initial load
     getBlock();
     //set loading somewhere and have conditionals for elements
@@ -166,6 +165,7 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
             EST{" "}
             <a
               target="_blank"
+              rel="noreferrer"
               href={block && `https://etherscan.io/block/${block.number}`}
             >
               <ReactTooltip id="etherscanBlock" class="tooltip" />
@@ -174,6 +174,7 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
                 data-tip="View block on etherscan"
                 height="14px"
                 src={etherscanLogo}
+                alt="etherscan logo"
               ></img>
             </a>
           </span>

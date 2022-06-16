@@ -1,11 +1,11 @@
-import { useEffect, useState, useReducer, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import TrollboxCSS from "../style/Trollbox.module.css";
 import WindowHeader from "./WindowHeader";
 import makeBlockie from "ethereum-blockies-base64";
 import { MdSend } from "react-icons/md";
 import InputEmoji from "react-input-emoji";
 import { AiOutlineLoading } from "react-icons/ai";
-import { onValue, set, ref, push } from "firebase/database";
+import { onValue, ref, push } from "firebase/database";
 
 const Trollbox = ({
   database,
@@ -94,7 +94,11 @@ const Trollbox = ({
                           message.dateAdded.indexOf(".")
                         )}]\u00A0`}
 
-                        <img width="14px" src={makeBlockie(message.user)}></img>
+                        <img
+                          width="14px"
+                          src={makeBlockie(message.user)}
+                          alt="avatar"
+                        ></img>
                         {` ${message.user.substring(
                           0,
                           6

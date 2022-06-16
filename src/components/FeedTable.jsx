@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import React from "react";
 import {
   useTable,
@@ -66,9 +66,14 @@ const FeedTable = ({
             <img
               className={FeedCSS.avatar}
               src={row.original.fromAddressInfo.avatar}
+              alt="avatar"
             ></img>
           ) : (
-            <img className={FeedCSS.avatar} src={makeBlockie(value)}></img>
+            <img
+              className={FeedCSS.avatar}
+              src={makeBlockie(value)}
+              alt="avatar"
+            ></img>
           )}
 
           {row.original.fromAddressInfo !== undefined &&
@@ -89,9 +94,13 @@ const FeedTable = ({
             role="button"
           />
           <br></br>
-          <a target="_blank" href={`https://etherscan.io/address/${value}`}>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`https://etherscan.io/address/${value}`}
+          >
             {`${value.substring(0, 6)}...${value.substring(value.length - 4)}`}{" "}
-            <img height="14px" src={etherscanLogo}></img>
+            <img height="14px" src={etherscanLogo} alt="etherscan logo"></img>
           </a>
         </>
       ),
@@ -111,9 +120,14 @@ const FeedTable = ({
                 <img
                   className={FeedCSS.avatar}
                   src={row.original.toAddressInfo.avatar}
+                  alt="avatar"
                 ></img>
               ) : (
-                <img className={FeedCSS.avatar} src={makeBlockie(value)}></img>
+                <img
+                  className={FeedCSS.avatar}
+                  src={makeBlockie(value)}
+                  alt="avatar"
+                ></img>
               )}
 
               {row.original.toAddressInfo !== undefined &&
@@ -134,11 +148,19 @@ const FeedTable = ({
                 role="button"
               />
               <br></br>
-              <a target="_blank" href={`https://etherscan.io/address/${value}`}>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`https://etherscan.io/address/${value}`}
+              >
                 {`${value.substring(0, 6)}...${value.substring(
                   value.length - 4
                 )}`}{" "}
-                <img height="14px" src={etherscanLogo}></img>
+                <img
+                  height="14px"
+                  src={etherscanLogo}
+                  alt="etherscan logo"
+                ></img>
               </a>
             </>
           )}
@@ -185,11 +207,13 @@ const FeedTable = ({
                   {log.event}{" "}
                   <a
                     target="_blank"
+                    rel="noreferrer"
                     href={`https://www.coingecko.com/en/coins/${log.contractAddress}`}
                   >
                     <img
                       className={FeedCSS.tokenLogo}
                       src={`https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/${log.contractAddress}/logo.png`}
+                      alt="token logo"
                       onError={(img) => {
                         getLogoFromCoinGecko(img, log.contractAddress);
                       }}
@@ -203,6 +227,7 @@ const FeedTable = ({
                   From:{" "}
                   <a
                     target="_blank"
+                    rel="noreferrer"
                     href={`https://etherscan.io/address/${log.from}`}
                   >{`${log.from.substring(0, 6)}...${log.from.substring(
                     log.from.length - 4
@@ -213,6 +238,7 @@ const FeedTable = ({
                   To:{" "}
                   <a
                     target="_blank"
+                    rel="noreferrer"
                     href={`https://etherscan.io/address/${log.to}`}
                   >{`${log.to.substring(0, 6)}...${log.to.substring(
                     log.to.length - 4
@@ -258,9 +284,13 @@ const FeedTable = ({
           {new Date(row.original.timestamp * 1000).toLocaleTimeString("en-US")}{" "}
           EST
           <br></br>
-          <a href={`https://etherscan.io/block/${value}`} target="_blank">
+          <a
+            href={`https://etherscan.io/block/${value}`}
+            target="_blank"
+            rel="noreferrer"
+          >
             Block {row.original.blockNumber}{" "}
-            <img height="14px" src={etherscanLogo}></img>
+            <img height="14px" src={etherscanLogo} alt="etherscan logo"></img>
           </a>
         </p>
       ),
@@ -274,9 +304,13 @@ const FeedTable = ({
             row.original.contractAddress ? "contractCreation" : ""
           }`}
         >
-          <a target="_blank" href={`https://etherscan.io/tx/${value}`}>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`https://etherscan.io/tx/${value}`}
+          >
             {`${value.substring(0, 6)}...${value.substring(value.length - 4)}`}{" "}
-            <img height="14px" src={etherscanLogo}></img>
+            <img height="14px" src={etherscanLogo} alt="etherscan logo"></img>
           </a>
         </div>
       ),
@@ -360,7 +394,7 @@ const FeedTable = ({
 
   const { globalFilter, pageIndex, pageSize } = state;
 
-  let clipboard = new ClipboardJS(".copyBtn");
+  new ClipboardJS(".copyBtn");
 
   return (
     <>

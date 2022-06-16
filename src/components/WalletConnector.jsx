@@ -115,18 +115,20 @@ const WalletConnector = ({ account, handleAccount }) => {
           <div className={WalletConnectorCSS.modalContent}>
             <h2>Account</h2>
             <div id={WalletConnectorCSS.modalAccountInfo}>
-              <img src={makeBlockie(account)}></img>
+              <img src={makeBlockie(account)} alt="avatar"></img>
               <p>{accountBalance + " Ξ"}</p>
               <p>{accountTransactionCount + " txn(s)"}</p>
               <p>{account}</p>
               <a
                 target="_blank"
+                rel="noreferrer"
                 href={"https://etherscan.io/address/" + account}
               >
                 View on Explorer{" "}
                 <img
                   style={{ width: "1em", height: "1em" }}
                   src={etherscanLogo}
+                  alt="etherscan logo"
                 />
               </a>
             </div>

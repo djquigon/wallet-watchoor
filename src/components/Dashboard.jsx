@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import DashboardCSS from "../style/Dashboard.module.css";
 import ChainNav from "./ChainNav";
 import Feed from "./Feed";
 import WatchList from "./WatchList";
@@ -41,7 +40,6 @@ const defaultLayout = [
     y: 0,
     w: 8,
     h: 34,
-    maxW: 10,
     minW: 6,
     minH: 7,
     maxH: 88,

@@ -1,21 +1,21 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import HomeCSS from "../style/Home.module.css";
-import { ImFeed, ImList2 } from "react-icons/im";
-import { RiUserSearchFill, RiContactsBookFill } from "react-icons/ri";
+import { ImFeed } from "react-icons/im";
+import { RiContactsBookFill } from "react-icons/ri";
 import { GrDos } from "react-icons/gr";
 import { IoMdChatboxes } from "react-icons/io";
 import WalletConnector from "./WalletConnector";
 import Footer from "./Footer";
 import { ThemeContext } from "./Layout";
-import lightHeader from "../assets/light_header.png";
-import darkHeader from "../assets/dark_header.png";
+// import lightHeader from "../assets/light_header.png";
+// import darkHeader from "../assets/dark_header.png";
 
 const Home = ({ account, handleAccount }) => {
   const theme = useContext(ThemeContext);
-  const headerBackground = `url(${
-    theme.theme === "light" ? lightHeader : darkHeader
-  })  0% 0% / cover`;
+  // const headerBackground = `url(${
+  //   theme.theme === "light" ? lightHeader : darkHeader
+  // })  0% 0% / cover`;
   const featureColor = theme.theme === "light" ? "#f4ad49" : "#829fc3";
   const headerColor = theme.theme === "light" ? "black" : "white";
 
@@ -42,7 +42,11 @@ const Home = ({ account, handleAccount }) => {
             <Link to="app">
               <button>Enter App</button>
             </Link>
-            <a target="_blank" href="https://discord.gg/Phh6A2nW">
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://discord.gg/Phh6A2nW"
+            >
               <button>Join the Community</button>
             </a>
           </div>

@@ -15,12 +15,12 @@ const canvasCSS = `
     }
 `
 
-const DosPlayer = ({game, startGame, exitGame}) => {
-    let gameName = game.slice(game.lastIndexOf('/') + 1, game.lastIndexOf('.')) + ".EXE"    
+const DosPlayer = ({game, startGame, exitGame}) => {    
     const ref = useRef<HTMLCanvasElement>(null);
 
 
     useEffect(() => {
+        const gameName = game.slice(game.lastIndexOf('/') + 1, game.lastIndexOf('.')) + ".EXE"
         if (ref !== null && game !== null) {
             const ciPromise = Dos(ref.current as HTMLCanvasElement, {
                 wdosboxUrl: "https://js-dos.com/6.22/current/wdosbox.js",
@@ -37,7 +37,7 @@ const DosPlayer = ({game, startGame, exitGame}) => {
             };
         }
         console.log('here')
-    }, [ref]);
+    }, [ref, game]);
 
     return (
         <div id={DosboxCSS.gameContainer}>
