@@ -308,7 +308,7 @@ const Feed = ({
     };
     //check if any blocks were skipped
     filterTransactions();
-  }, [block]);
+  }, [block]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (window.localStorage) {
@@ -376,7 +376,7 @@ const Feed = ({
         //remove but keep for testing for now
       }
     }
-  }, [filteredTransactions]);
+  }, [filteredTransactions]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div id={FeedCSS.feed}>

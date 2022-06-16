@@ -5,6 +5,7 @@ import { AiOutlineLoading } from "react-icons/ai";
 import etherscanLogo from "../assets/etherscanlogo.png";
 import { ethers } from "ethers";
 import ReactTooltip from "react-tooltip";
+import { useCallback } from "react";
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -29,15 +30,16 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
     return baseFeePerGas * gasUsed;
   };
 
+  const getBlock = useCallback(async () => {
+    console.log("Getting Block...");
+    const blockInfo = await provider.getBlockWithTransactions();
+    console.log(blockInfo);
+    setBlock(blockInfo);
+    setRefreshTime(15);
+    console.log("Timer Reset");
+  }, [setBlock]);
+
   useEffect(() => {
-    const getBlock = async () => {
-      console.log("Getting Block...");
-      const blockInfo = await provider.getBlockWithTransactions();
-      console.log(blockInfo);
-      setBlock(blockInfo);
-      setRefreshTime(15);
-      console.log("Timer Reset");
-    };
     //call for initial load
     getBlock();
     //set loading somewhere and have conditionals for elements
@@ -48,7 +50,7 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
       clearInterval(blockUpdater);
       clearInterval(timeUpdater);
     };
-  }, []);
+  }, [getBlock]);
 
   return (
     <nav id={ChainNavCSS.chainNav}>

@@ -33,7 +33,7 @@ const Trollbox = ({
       setGunLength(data.length);
       setMessages(data);
     });
-  }, []);
+  }, [database]);
 
   //write
   const saveMessage = (e) => {

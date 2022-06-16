@@ -211,12 +211,12 @@ const WatchList = ({
 
     /**fetchAddresses returns no value, so you can simply call it, if it did return something you'd need to us an async instantly invoked function expression */
     /**simulate api response time */
-    setTimeout(() => {
-      fetchAddresses();
-    }, 5000);
+    fetchAddresses();
     // fetchAddresses()
   }, [
     account,
+    database,
+    setAddresses,
   ]); /**Account as a depedency, ensures account is not null when addresses are fetched */
 
   return (

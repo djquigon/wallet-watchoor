@@ -4,6 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import etherscanLogo from "../assets/etherscanlogo.png";
 import makeBlockie from "ethereum-blockies-base64";
 import { ethers } from "ethers";
+import { useCallback } from "react";
 
 const WalletConnector = ({ account, handleAccount }) => {
   const [accountBalance, setAccountBalance] = useState(null);
@@ -37,22 +38,26 @@ const WalletConnector = ({ account, handleAccount }) => {
     window.location.reload();
   };
 
-  const accountChangedHandler = (newAccount) => {
-    if (newAccount.length === 0) {
-      newAccount = null;
-      setAccountBalance(null);
-      setAccountTransactionCount(null);
-    }
-    //for when multiple addresses are connected
-    else if (Array.isArray(newAccount)) {
-      newAccount = newAccount[0];
-    }
-    handleAccount(newAccount);
-    if (newAccount) {
-      getAccountBalance(newAccount.toString());
-      getAccountTransactionCount(newAccount.toString());
-    }
-  };
+  //adding callbacks to functions below fixes issue with depdencies in useEffect
+  const accountChangedHandler = useCallback(
+    (newAccount) => {
+      if (newAccount.length === 0) {
+        newAccount = null;
+        setAccountBalance(null);
+        setAccountTransactionCount(null);
+      }
+      //for when multiple addresses are connected
+      else if (Array.isArray(newAccount)) {
+        newAccount = newAccount[0];
+      }
+      handleAccount(newAccount);
+      if (newAccount) {
+        getAccountBalance(newAccount.toString());
+        getAccountTransactionCount(newAccount.toString());
+      }
+    },
+    [handleAccount]
+  );
 
   const connectWallet = () => {
     if (typeof window.ethereum !== "undefined") {
@@ -70,25 +75,26 @@ const WalletConnector = ({ account, handleAccount }) => {
     }
   };
 
-  useEffect(() => {
-    const connectWalletOnPageLoad = async () => {
-      if (typeof window.ethereum !== "undefined") {
-        const accounts = await window.ethereum.request({
-          method: "eth_accounts",
-        });
-        if (accounts.length > 0) {
-          window.ethereum
-            .request({ method: "eth_requestAccounts" })
-            .then((accounts) => {
-              accountChangedHandler(accounts[0]);
-            });
-        }
-        window.ethereum.on("accountsChanged", accountChangedHandler);
-        window.ethereum.on("chainChanged", chainChangedHandler);
+  const connectWalletOnPageLoad = useCallback(async () => {
+    if (typeof window.ethereum !== "undefined") {
+      const accounts = await window.ethereum.request({
+        method: "eth_accounts",
+      });
+      if (accounts.length > 0) {
+        window.ethereum
+          .request({ method: "eth_requestAccounts" })
+          .then((accounts) => {
+            accountChangedHandler(accounts[0]);
+          });
       }
-    };
+      window.ethereum.on("accountsChanged", accountChangedHandler);
+      window.ethereum.on("chainChanged", chainChangedHandler);
+    }
+  }, [accountChangedHandler]);
+
+  useEffect(() => {
     connectWalletOnPageLoad();
-  }, []);
+  }, [connectWalletOnPageLoad]);
 
   /**Removed scrolling if modal is active */
   if (modal) {

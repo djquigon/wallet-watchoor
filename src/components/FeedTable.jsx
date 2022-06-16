@@ -249,14 +249,17 @@ const FeedTable = ({
           ))}
         </span>
       ),
-      sortType: useMemo(() => (a, b) => {
-        a = a.values.logs.length;
-        b = b.values.logs.length;
-        if (a === b) {
-          return 0;
-        }
-        return a > b ? 1 : -1;
-      }), // custom function
+      sortType: useMemo(
+        () => (a, b) => {
+          a = a.values.logs.length;
+          b = b.values.logs.length;
+          if (a === b) {
+            return 0;
+          }
+          return a > b ? 1 : -1;
+        },
+        []
+      ), // custom function
     },
     {
       Header: "Value",
@@ -356,8 +359,8 @@ const FeedTable = ({
 
   //usemmemo ensures data isnt recreated on every render
   const data = useMemo(() => feedTransactions, [feedTransactions]);
-  //placing data inside here fixed handleDelete issue, why?
-  const columns = useMemo(() => COLUMNS, [data]);
+  //placing data inside here fixed handleDelete issue, fixing the warning here creates a chain of other issues to fix, ignoring it...
+  const columns = useMemo(() => COLUMNS, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**Ensures pageIndex isnt reset every time feed is updated */
   const [currPageIndex, setCurrPageIndex] = useState(0);
