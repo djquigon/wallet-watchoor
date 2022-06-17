@@ -44,35 +44,57 @@ function App() {
       dateJoined: date,
       transactionsWatched: 0,
       //default watched addresses for new user
-      watchedAddresses: {        
+      watchedAddresses: {
+        "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045": {
+          "alerts": true,
+          "alias": "Vitalik",
+          "dateAdded": "2022-06-17T00:53:55.574Z",
+          "ens": "vitalik.eth",
+          "website": "https://vitalik.ca"
+        },
+        "0x4862733B5FdDFd35f35ea8CCf08F5045e57388B3": {
+          "alerts": true,
+          "alias": "3AC",
+          "dateAdded": date
+        },  
+        "0xF30026fe8a2C0D01b70B1949Ceaf2e09EFd8B4A5": {
+          "alerts": true,
+          "alias": "3AC 2",
+          "dateAdded": date
+        },     
+        "0xc5ed2333f8a2C351fCA35E5EBAdb2A82F5d254C3": {
+          "alerts": true,
+          "alias": "Alameda",
+          "dateAdded": date
+        },
+        "0x293ed38530005620e4b28600f196a97e1125daac": {
+          "alerts": true,
+          "alias": "Mark Cuban",
+          "dateAdded": date
+        },      
         "0x2FAF487A4414Fe77e2327F0bf4AE2a264a776AD2": {
           "alerts": true,
-          "alias": "ftx",
+          "alias": "FTX Exchange",
           "dateAdded": date
         },
         "0xE592427A0AEce92De3Edee1F18E0157C05861564": {
           "alerts": true,
-          "alias": "univ3",
+          "alias": "Uniswap Router V3",
           "dateAdded": date
         },
         "0xb5d85CBf7cB3EE0D56b3bB207D5Fc4B82f43F511": {
           "alerts": true,
-          "alias": "coinbase 5",
+          "alias": "Coinbase 5",
           "dateAdded": date
         },
-        "0x5555763613a12D8F3e73be831DFf8598089d3dCa": {
+        "0x3DdfA8eC3052539b6C9549F12cEA2C295cfF5296": {
           "alerts": true,
-          "alias": "ricmoo",
-          "avatar": "https://www.ricmoo.com/profile.jpg",
-          "dateAdded": date,
-          "email": "me@ricmoo.com",
-          "ens": "ricmoo.eth",
-          "twitterName": "@ricmoo",
-          "website": "https://www.ricmoo.com/"
+          "alias": "Justin Sun",
+          "dateAdded": date
         },
         "0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5": {
           "alerts": true,
-          "alias": "nick.eth",
+          "alias": "Nick",
           "avatar": "https://lh3.googleusercontent.com/hKHZTZSTmcznonu8I6xcVZio1IF76fq0XmcxnvUykC-FGuVJ75UPdLDlKJsfgVXH9wOSmkyHw0C39VAYtsGyxT7WNybjQ6s3fM3macE",
           "dateAdded": date,
           "email": "arachnid@notdot.net",
