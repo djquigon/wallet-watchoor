@@ -51,6 +51,7 @@ const Feed = ({
   block,
   account,
   addresses,
+  setAddresses,
   removeItem,
   addItem,
   isItemStatic,
@@ -184,6 +185,8 @@ const Feed = ({
   useEffect(() => {
     if (!account) {
       setFeedTransactions([]);
+      setFilteredTransactions([]);
+      setAddresses([]);
     }
   }, [account]);
 

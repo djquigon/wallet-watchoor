@@ -33,7 +33,9 @@ const DosPlayer = ({game, startGame, exitGame}) => {
             });
 
             return () => {
-                ciPromise.then(ci => ci.exit());
+                ciPromise.then((ci) => {
+                    ci.exit()
+                });
             };
         }
         console.log('here')

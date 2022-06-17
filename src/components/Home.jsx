@@ -136,8 +136,8 @@ const Home = ({ account, handleAccount }) => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         ></iframe>
         <h3 className={HomeCSS.landingText}>
-          Head to the learn more tab for an in depth tutorial on how the app and
-          all of its different features work.
+          Head to the learn more tab to view an in depth handbook covering how
+          the app and all of its different features work.
         </h3>
       </main>
       <Footer />

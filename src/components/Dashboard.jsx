@@ -193,6 +193,7 @@ const Dashboard = ({ database, account, handleAccount }) => {
                 block={block}
                 account={account}
                 addresses={addresses}
+                setAddresses={setAddresses}
                 removeItem={removeItem}
                 addItem={addItem}
                 isItemStatic={isItemStatic}

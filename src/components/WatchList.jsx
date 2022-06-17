@@ -175,6 +175,10 @@ const WatchList = ({
           (snapshot) => {
             try {
               data = snapshot.val();
+              //ensure data isn't null
+              if (!data) {
+                data = [];
+              }
               const listAddresses = Object.entries(data).map(
                 ([key, value]) => ({
                   address: key,
@@ -192,10 +196,7 @@ const WatchList = ({
               );
               setAddresses(listAddresses);
             } catch (e) {
-              console.log(
-                "Caught BS error that I cannot figure out but affects nothing" +
-                  e
-              );
+              console.log(e);
             }
           }
         );
