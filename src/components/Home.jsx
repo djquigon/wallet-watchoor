@@ -34,7 +34,7 @@ const Home = ({ account, handleAccount }) => {
         <div id={HomeCSS.headerContent}>
           <h1>Welcome Watchoooors</h1>
           <h3>
-            Tired of getting dumped on unknowingly by your favorite influencers?
+            Tired of getting dumped on unknowingly your favorite influencers?
             Need a way to get ahead of the curve? Well you've come to the right
             place.
           </h3>
@@ -125,12 +125,9 @@ const Home = ({ account, handleAccount }) => {
         </div>
         <h3 className={HomeCSS.landingText}>
           Wallet Watchoor allows you to track those influencers on chain, and
-          receive alerts directly to your browser! No more unnanounced dumps
-          from 3AC or Alameda wallets! Start by connecting your wallet so you
-          can start adding addresses to your watch list to populate your feed.
-          Wanna talk to the other on-chain checkoors? Check out the trollbox.
-          Need something to keep you busy while you wait for alerts? Have fun
-          trying old-school games in the Dosbox.
+          receive audio alerts in your browser. Start by connecting your wallet
+          so you can access the app. Then explore the many features it has to
+          offer.
         </h3>
         <iframe
           src="https://www.youtube.com/embed/61Q6wWu5ziY"
@@ -139,7 +136,8 @@ const Home = ({ account, handleAccount }) => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         ></iframe>
         <h3 className={HomeCSS.landingText}>
-          Head to the learn more tab if you have any other questions.
+          Head to the learn more tab for an in depth tutorial on how the app and
+          all of its different features work.
         </h3>
       </main>
       <Footer />
