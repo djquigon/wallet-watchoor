@@ -4,6 +4,7 @@ import HomeCSS from "../style/Home.module.css";
 import { ImFeed } from "react-icons/im";
 import { RiContactsBookFill } from "react-icons/ri";
 import { GrDos } from "react-icons/gr";
+import { GiFox } from "react-icons/gi";
 import { IoMdChatboxes } from "react-icons/io";
 import WalletConnector from "./WalletConnector";
 import Footer from "./Footer";
@@ -127,8 +128,20 @@ const Home = ({ account, handleAccount }) => {
           Wallet Watchoor allows you to track those influencers on chain, and
           receive audio alerts in your browser. Start by connecting your wallet
           so you can access the app. Then explore the many features it has to
-          offer.
+          offer. If you don't have metamask or a web3 wallet provider installed
+          in your browser, you won't be able to access the app. You can install
+          metamask via the link below.
         </h3>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://metamask.io/"
+          style={{ textDecoration: "none" }}
+        >
+          <h4 id={HomeCSS.metamaskLink}>
+            Download Metamask <GiFox />
+          </h4>
+        </a>
         <iframe
           src="https://www.youtube.com/embed/61Q6wWu5ziY"
           title="YouTube video player"

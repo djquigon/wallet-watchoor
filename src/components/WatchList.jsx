@@ -9,7 +9,9 @@ import { ethers } from "ethers";
 import { AiOutlineLoading } from "react-icons/ai";
 import { onValue, set, ref, update, remove } from "firebase/database";
 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+let provider = null;
+if (window.ethereum)
+  provider = new ethers.providers.Web3Provider(window.ethereum);
 
 const WatchList = ({
   database,

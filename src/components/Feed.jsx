@@ -29,7 +29,10 @@ const dompeetAudio = new Audio(dompeetSFX);
 const pompeetAudio = new Audio(pompeetSFX);
 const transferAudio = new Audio(transferSFX);
 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+let provider = null;
+if (window.ethereum)
+  provider = new ethers.providers.Web3Provider(window.ethereum);
+
 const ERC20_ABI = [
   // Read-Only Functions
   "function balanceOf(address owner) view returns (uint256)",

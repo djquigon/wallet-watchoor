@@ -71,7 +71,9 @@ const WalletConnector = ({ account, handleAccount }) => {
           });
       }
     } else {
-      window.alert("MetaMask is not installed. Please download this first.");
+      window.alert(
+        "MetaMask is not installed or could not be found. Please download this or any other compatible web3 wallet from your browsers app store to gain full access to this app."
+      );
     }
   };
 

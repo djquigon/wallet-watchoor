@@ -6,12 +6,15 @@ import { MdInfo } from "react-icons/md";
 import { FaGithub, FaMedium, FaGasPump, FaEthereum } from "react-icons/fa";
 import { AiOutlineLoading } from "react-icons/ai";
 import { ImEnter } from "react-icons/im";
+import { GiFox } from "react-icons/gi";
 import { ethers } from "ethers";
 import { ThemeContext } from "./Layout";
 import axios from "axios";
 import ReactTooltip from "react-tooltip";
 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+let provider = null;
+if (window.ethereum)
+  provider = new ethers.providers.Web3Provider(window.ethereum);
 
 const Navbar = () => {
   const [gasPrice, setGasPrice] = useState(null);
@@ -129,20 +132,37 @@ const Navbar = () => {
           )}
         </li>
         <li className={NavbarCSS.menuItem} id={NavbarCSS.gweiTracker}>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href="https://etherscan.io/gastracker"
-          >
-            <FaGasPump className={NavbarCSS.menuIcon} />
-            <p>
-              {gasPrice ? (
-                gasPrice + " Gwei"
-              ) : (
-                <AiOutlineLoading className="loadingSvg" />
-              )}
-            </p>
-          </a>
+          {window.ethereum ? (
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://etherscan.io/gastracker"
+            >
+              <FaGasPump className={NavbarCSS.menuIcon} />
+              <p>
+                {gasPrice ? (
+                  gasPrice + " Gwei"
+                ) : (
+                  <AiOutlineLoading className="loadingSvg" />
+                )}
+              </p>
+            </a>
+          ) : (
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://metamask.io/"
+              style={{
+                color: "orange",
+                textDecoration: "none",
+                textShadow:
+                  "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
+                width: "75px",
+              }}
+            >
+              Download <br /> Metamask <br /> <GiFox />
+            </a>
+          )}
         </li>
         <li className={NavbarCSS.menuItem}>
           <button id={NavbarCSS.themeBtn} onClick={toggleTheme}>
