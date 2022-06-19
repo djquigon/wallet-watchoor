@@ -137,3 +137,11 @@ body.activeModal {
   border-right: 2px solid rgba(255, 255, 255, 0.5) !important;
   border-bottom: 2px solid rgba(255, 255, 255, 0.5) !important;
 }
+
+#mobileDisplay{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  text-align: center;
+}

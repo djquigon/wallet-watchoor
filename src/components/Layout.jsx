@@ -31,7 +31,9 @@ const Layout = () => {
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <div className="App" id={theme}>
         {window.mobileCheck() ? (
-          <p>Wallet Watchoor is not avaliable on mobile.</p>
+          <h1 id="mobileDisplay">
+            Sorry watchoor. Wallet Watchoor is not avaliable on mobile...
+          </h1>
         ) : (
           <>
             <Navbar />
