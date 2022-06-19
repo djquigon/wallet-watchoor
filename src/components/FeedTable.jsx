@@ -14,7 +14,7 @@ import {
   FaCopy,
   FaArrowRight,
 } from "react-icons/fa";
-import { IoMdPlay, IoMdPause } from "react-icons/io";
+import { IoMdPlay, IoMdPause, IoMdChatboxes } from "react-icons/io";
 import { GiNuclearBomb } from "react-icons/gi";
 import { GoMute, GoUnmute } from "react-icons/go";
 import makeBlockie from "ethereum-blockies-base64";
@@ -52,6 +52,7 @@ const FeedTable = ({
   setFeedTransactions,
   currBlockNum,
   prevBlockNum,
+  setTrollboxFormMessage,
 }) => {
   const COLUMNS = [
     {
@@ -75,7 +76,6 @@ const FeedTable = ({
               alt="avatar"
             ></img>
           )}
-
           {row.original.fromAddressInfo !== undefined &&
           row.original.fromAddressInfo &&
           row.original.fromAddressInfo.alias ? (
@@ -83,6 +83,14 @@ const FeedTable = ({
           ) : (
             " "
           )}
+          <br></br>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`https://etherscan.io/address/${value}`}
+          >
+            {`${value.substring(0, 6)}...${value.substring(value.length - 4)}`}
+          </a>{" "}
           <ReactTooltip id={value} class="tooltip" globalEventOff="click" />
           <FaCopy
             data-for={value}
@@ -93,15 +101,6 @@ const FeedTable = ({
             color="inherit"
             role="button"
           />
-          <br></br>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={`https://etherscan.io/address/${value}`}
-          >
-            {`${value.substring(0, 6)}...${value.substring(value.length - 4)}`}{" "}
-            <img height="14px" src={etherscanLogo} alt="etherscan logo"></img>
-          </a>
         </>
       ),
     },
@@ -129,7 +128,6 @@ const FeedTable = ({
                   alt="avatar"
                 ></img>
               )}
-
               {row.original.toAddressInfo !== undefined &&
               row.original.toAddressInfo &&
               row.original.toAddressInfo.alias ? (
@@ -137,6 +135,16 @@ const FeedTable = ({
               ) : (
                 " "
               )}
+              <br></br>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`https://etherscan.io/address/${value}`}
+              >
+                {`${value.substring(0, 6)}...${value.substring(
+                  value.length - 4
+                )}`}
+              </a>{" "}
               <ReactTooltip id={value} class="tooltip" globalEventOff="click" />
               <FaCopy
                 data-for={value}
@@ -147,21 +155,6 @@ const FeedTable = ({
                 color="inherit"
                 role="button"
               />
-              <br></br>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={`https://etherscan.io/address/${value}`}
-              >
-                {`${value.substring(0, 6)}...${value.substring(
-                  value.length - 4
-                )}`}{" "}
-                <img
-                  height="14px"
-                  src={etherscanLogo}
-                  alt="etherscan logo"
-                ></img>
-              </a>
             </>
           )}
         </>
@@ -284,16 +277,14 @@ const FeedTable = ({
       accessor: "blockNumber",
       Cell: ({ value, row }) => (
         <p>
-          {new Date(row.original.timestamp * 1000).toLocaleTimeString("en-US")}{" "}
-          EST
+          {row.original.timestamp.substring(10)}
           <br></br>
           <a
             href={`https://etherscan.io/block/${value}`}
             target="_blank"
             rel="noreferrer"
           >
-            Block {row.original.blockNumber}{" "}
-            <img height="14px" src={etherscanLogo} alt="etherscan logo"></img>
+            Block {row.original.blockNumber}
           </a>
         </p>
       ),
@@ -313,13 +304,12 @@ const FeedTable = ({
             href={`https://etherscan.io/tx/${value}`}
           >
             {`${value.substring(0, 6)}...${value.substring(value.length - 4)}`}{" "}
-            <img height="14px" src={etherscanLogo} alt="etherscan logo"></img>
           </a>
         </div>
       ),
     },
     {
-      id: "delete",
+      id: "copyDelete",
       Header: ({ data }) => (
         <p>
           Total Txns: <b style={{ color: "#00ca00" }}>{data.length}</b>
@@ -337,7 +327,7 @@ const FeedTable = ({
           ) : (
             <p></p>
           )}
-          <div style={{ textAlign: "right" }}>
+          <span className={FeedCSS.deleteCopyContainer}>
             <FaTrashAlt
               role="button"
               onClick={() => {
@@ -350,7 +340,29 @@ const FeedTable = ({
                 setFeedTransactions(newFeedTransactions);
               }}
             />
-          </div>
+            <ReactTooltip
+              id={`trollboxCopy${row.original.transactionHash}`}
+              class="tooltip"
+            />
+            <button
+              style={{ background: "none", border: "none", color: "inherit" }}
+              data-place="left"
+              data-for={`trollboxCopy${row.original.transactionHash}`}
+              data-tip="Copy transaction to trollbox?"
+              onClick={() => {
+                const transactionMessage = `TRANSACTION = Hash: *{${row.original.transactionHash}}
+                From: @{${row.original.from}}
+                To: %{${row.original.to}}
+                Logs: #${row.original.logs.length} tokens transferred^
+                Value: $${row.original.value} Ξ
+                Timestamp: !${row.original.timestamp}
+              `;
+                setTrollboxFormMessage(transactionMessage);
+              }}
+            >
+              <IoMdChatboxes color="inherit" />
+            </button>
+          </span>
         </span>
       ),
       disableGlobalFilter: true,

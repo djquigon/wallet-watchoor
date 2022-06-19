@@ -2,16 +2,16 @@ import React from "react";
 
 const InfoSublistItem = ({
   contentLabel,
-  contentGif,
+  contentMP4,
   contentText,
-  setContentGif,
+  setContentMP4,
   setContentText,
   setContentLabel,
 }) => {
   return (
     <li
       onClick={() => {
-        setContentGif(contentGif);
+        setContentMP4(contentMP4);
         setContentText(contentText);
         setContentLabel(contentLabel);
       }}

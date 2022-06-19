@@ -14,10 +14,10 @@ const Trollbox = ({
   addItem,
   isItemStatic,
   setItemStatic,
+  trollboxFormMessage,
+  setTrollboxFormMessage,
 }) => {
   const [messages, setMessages] = useState([]);
-
-  const [formMessage, setFormMessage] = useState("");
 
   const submitButton = useRef(null);
 
@@ -39,17 +39,24 @@ const Trollbox = ({
   const saveMessage = (e) => {
     e.preventDefault();
     //if empty string or only spaces, or too long
-    if (/^ *$/.test(formMessage) || formMessage.length > 132) {
-      alert(formMessage.length);
+    if (/^ *$/.test(trollboxFormMessage) || trollboxFormMessage.length > 400) {
+      alert(trollboxFormMessage.length);
       return;
     }
     const date = new Date().toISOString();
     push(ref(database, `messages/`), {
       user: account,
-      message: formMessage,
+      message: trollboxFormMessage,
       dateAdded: date,
     });
-    setFormMessage("");
+    setTrollboxFormMessage("");
+  };
+
+  const formatTransaction = (message, flag, fromIndexOffset, toIndexOffset) => {
+    return message.substring(
+      message.indexOf(flag) + fromIndexOffset,
+      message.indexOf(flag) + toIndexOffset
+    );
   };
 
   return (
@@ -107,7 +114,101 @@ const Trollbox = ({
                         )}:\u00A0`}
                         <br />
 
-                        {message.message}
+                        {message.message.includes("TRANSACTION = ") ? (
+                          <>
+                            Hash:
+                            <a
+                              target="_blank"
+                              rel="noreferrer"
+                              href={`https://etherscan.io/tx/${formatTransaction(
+                                message.message,
+                                "*",
+                                2,
+                                68
+                              )}`}
+                            >
+                              {`${formatTransaction(
+                                message.message,
+                                "*",
+                                2,
+                                8
+                              )}...
+                              ${formatTransaction(message.message, "*", 64, 68)}
+                              `}
+                            </a>
+                            <br />
+                            From:{" "}
+                            <a
+                              target="_blank"
+                              rel="noreferrer"
+                              href={`https://etherscan.io/address/${formatTransaction(
+                                message.message,
+                                "@",
+                                2,
+                                44
+                              )}`}
+                            >
+                              {`
+                              
+                              ${formatTransaction(
+                                message.message,
+                                "@",
+                                2,
+                                8
+                              )}...
+                              ${formatTransaction(message.message, "@", 40, 44)}
+                              `}
+                            </a>
+                            <br />
+                            To:{" "}
+                            <a
+                              target="_blank"
+                              rel="noreferrer"
+                              href={`https://etherscan.io/address/${formatTransaction(
+                                message.message,
+                                "%",
+                                2,
+                                44
+                              )}`}
+                            >
+                              {`
+                              
+                              ${formatTransaction(
+                                message.message,
+                                "%",
+                                2,
+                                8
+                              )}...
+                              ${formatTransaction(message.message, "%", 40, 44)}
+                              `}
+                            </a>
+                            <br />
+                            Logs:{" "}
+                            <>
+                              {message.message.substring(
+                                message.message.indexOf("#") + 1,
+                                message.message.indexOf("^")
+                              )}
+                            </>
+                            <br />
+                            Value:{" "}
+                            <>
+                              {message.message.substring(
+                                message.message.indexOf("$") + 1,
+                                message.message.indexOf("Ξ") + 1
+                              )}
+                            </>
+                            <br />
+                            Timestamp:{" "}
+                            <>
+                              {message.message.substring(
+                                message.message.indexOf("!") + 1
+                              )}
+                            </>
+                          </>
+                        ) : (
+                          <>{message.message}</>
+                        )}
                       </p>
                     </div>
                   </li>
@@ -116,7 +217,7 @@ const Trollbox = ({
             )}
             <form id={TrollboxCSS.chatForm} onSubmit={(e) => saveMessage(e)}>
               <InputEmoji
-                onChange={setFormMessage}
+                onChange={setTrollboxFormMessage}
                 placeholder=""
                 name="message"
                 maxLength={132}
@@ -126,7 +227,7 @@ const Trollbox = ({
                 borderColor="transparent"
                 onEnter={() => submitButton.current.click()}
                 required
-                value={formMessage}
+                value={trollboxFormMessage}
               />{" "}
               <button ref={submitButton} type="submit">
                 <MdSend />

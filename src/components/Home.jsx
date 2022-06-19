@@ -126,11 +126,11 @@ const Home = ({ account, handleAccount }) => {
         </div>
         <h3 className={HomeCSS.landingText}>
           Wallet Watchoor allows you to track those influencers on chain, and
-          receive audio alerts in your browser. Start by connecting your wallet
-          so you can access the app. Then explore the many features it has to
-          offer. If you don't have metamask or a web3 wallet provider installed
-          in your browser, you won't be able to access the app. You can install
-          metamask via the link below.
+          receive audio alerts in your browser whenever they send transactions.
+          Start by connecting your wallet so you can access the app. Then
+          explore the many features it has to offer. If you don't have metamask
+          or a web3 wallet provider installed in your browser, you won't be able
+          to access the app. You can install metamask via the link below.
         </h3>
         <a
           target="_blank"

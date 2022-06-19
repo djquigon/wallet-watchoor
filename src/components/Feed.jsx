@@ -59,6 +59,7 @@ const Feed = ({
   addItem,
   isItemStatic,
   setItemStatic,
+  setTrollboxFormMessage,
 }) => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   //add filterredTransactions to feedTransactions in useEffect?
@@ -140,7 +141,16 @@ const Feed = ({
         newFilteredTransactions[i].hash
       );
       // console.log("DOOODOOOODOOOO", newFilteredTransactions[i]);
-      newFilteredTransactions[i].timestamp = timestamp;
+      const convertedTimestamp = new Date(timestamp * 1000).toISOString();
+
+      newFilteredTransactions[i].timestamp = `${convertedTimestamp.substring(
+        0,
+        convertedTimestamp.indexOf("T")
+      )} ${convertedTimestamp.substring(
+        convertedTimestamp.indexOf("T") + 1,
+        convertedTimestamp.indexOf(".")
+      )} UTC`;
+
       newFilteredTransactions[i].value = parseFloat(
         ethers.utils.formatEther(value)
       ).toFixed(2);
@@ -405,6 +415,7 @@ const Feed = ({
           setFeedTransactions={setFeedTransactions}
           currBlockNum={block ? block.number : null}
           prevBlockNum={prevBlockNum}
+          setTrollboxFormMessage={setTrollboxFormMessage}
         />
       ) : (
         <p style={{ marginTop: "30%", height: "100%" }}>

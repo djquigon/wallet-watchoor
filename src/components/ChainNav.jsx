@@ -20,7 +20,15 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
   };
 
   const convertBlockAge = (timestamp) => {
-    const time = new Date(timestamp * 1000).toLocaleTimeString("en-US");
+    const convertedTimestamp = new Date(timestamp * 1000).toISOString();
+
+    const time = `${convertedTimestamp.substring(
+      0,
+      convertedTimestamp.indexOf("T")
+    )} ${convertedTimestamp.substring(
+      convertedTimestamp.indexOf("T") + 1,
+      convertedTimestamp.indexOf(".")
+    )} UTC`;
     return time;
   };
 
@@ -169,7 +177,6 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
               ) : (
                 <AiOutlineLoading className="loadingSvg" />
               )}{" "}
-              EST{" "}
               <a
                 target="_blank"
                 rel="noreferrer"

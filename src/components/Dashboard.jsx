@@ -79,6 +79,7 @@ const Dashboard = ({ database, account, handleAccount }) => {
   const [layout, setLayout] = useState(
     JSON.parse(JSON.stringify(originalLayout))
   );
+  const [trollboxFormMessage, setTrollboxFormMessage] = useState("");
 
   const onLayoutChange = (layout) => {
     /*eslint no-console: 0*/
@@ -186,6 +187,7 @@ const Dashboard = ({ database, account, handleAccount }) => {
                 addItem={addItem}
                 isItemStatic={isItemStatic}
                 setItemStatic={setItemStatic}
+                setTrollboxFormMessage={setTrollboxFormMessage}
               />
             </div>
           ) : item.i === "Watchlist" ? (
@@ -210,6 +212,8 @@ const Dashboard = ({ database, account, handleAccount }) => {
                 addItem={addItem}
                 isItemStatic={isItemStatic}
                 setItemStatic={setItemStatic}
+                trollboxFormMessage={trollboxFormMessage}
+                setTrollboxFormMessage={setTrollboxFormMessage}
               />
             </div>
           ) : item.i === "Dosbox" ? (
