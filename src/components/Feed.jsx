@@ -75,7 +75,7 @@ const Feed = ({
     return (
       logs[index] !== undefined &&
       logs[index].symbol.toUpperCase().includes("ETH") &&
-      logs[index].value > 100
+      logs[index].value > 0.1
     );
   };
 
@@ -85,6 +85,14 @@ const Feed = ({
       (logs[index].symbol.toUpperCase().includes("USD") ||
         logs[index].symbol === "DAI") &&
       logs[index].value > 100000
+    );
+  };
+
+  const checkLogsForBTC = (logs, index) => {
+    return (
+      logs[index] !== undefined &&
+      logs[index].symbol.toUpperCase().includes("BTC") &&
+      logs[index].value > 0.01
     );
   };
 
@@ -127,11 +135,11 @@ const Feed = ({
   };
 
   const buildFilteredTransactions = async (
-    newFilteredTransactions,
+    oldFilteredTransactions,
     timestamp
   ) => {
     //in case of a txn filtering returning a null value due to bug i have yet to figure out
-    newFilteredTransactions = newFilteredTransactions.filter(
+    let newFilteredTransactions = oldFilteredTransactions.filter(
       (txn) => txn !== null
     );
 
@@ -171,18 +179,31 @@ const Feed = ({
         if (decodedLogs.length > 1) {
           const usdSell = checkLogsForUSD(decodedLogs, 0);
           const ethSell = !usdSell && checkLogsForETH(decodedLogs, 0);
+          const btcSell =
+            !usdSell && !ethSell && checkLogsForBTC(decodedLogs, 0);
           const usdBuy = checkLogsForUSD(decodedLogs, decodedLogs.length - 1);
           const ethBuy =
-            !usdBuy && checkLogsForETH(decodedLogs, decodedLogs.length - 1);
+            !ethSell &&
+            !usdBuy &&
+            checkLogsForETH(decodedLogs, decodedLogs.length - 1);
+          const btcBuy =
+            !btcSell &&
+            !usdBuy &&
+            !ethBuy &&
+            checkLogsForBTC(decodedLogs, decodedLogs.length - 1);
           newFilteredTransactions[i].usdSell = usdSell;
-          newFilteredTransactions[i].usdBuy = usdBuy;
           newFilteredTransactions[i].ethSell = ethSell;
+          newFilteredTransactions[i].btcSell = btcSell;
+          newFilteredTransactions[i].usdBuy = usdBuy;
           newFilteredTransactions[i].ethBuy = ethBuy;
+          newFilteredTransactions[i].btcBuy = btcBuy;
         } else {
           const usdTransfer = checkLogsForUSD(decodedLogs, 0);
           const ethTransfer = checkLogsForETH(decodedLogs, 0);
+          const btcTransfer = checkLogsForBTC(decodedLogs, 0);
           newFilteredTransactions[i].usdTransfer = usdTransfer;
           newFilteredTransactions[i].ethTransfer = ethTransfer;
+          newFilteredTransactions[i].btcTransfer = btcTransfer;
         }
         newFilteredTransactions[i].logs = decodedLogs;
       }
@@ -361,26 +382,26 @@ const Feed = ({
         creationAudio.play();
       } else if (
         filteredTransactions.some(
-          (txn) => txn.usdBuy === true || txn.ethSell === true
+          (txn) => txn.usdBuy || txn.ethSell || txn.btcSell
         )
       ) {
         dompeetAudio.play();
       } else if (
         filteredTransactions.some(
-          (txn) => txn.usdSell === true || txn.ethBuy === true
+          (txn) => txn.usdSell || txn.ethBuy || txn.btcBuy
         )
       ) {
         pompeetAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 1000)) {
         holyshitAudio.play();
+      } else if (filteredTransactions.some((txn) => txn.value >= 500)) {
+        jesusAudio.play();
       } else if (
         filteredTransactions.some(
-          (txn) => txn.usdTransfer === true || txn.ethTransfer === true
+          (txn) => txn.usdTransfer || txn.ethTransfer || txn.btcTransfer
         )
       ) {
         transferAudio.play();
-      } else if (filteredTransactions.some((txn) => txn.value >= 500)) {
-        jesusAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 100)) {
         massiveAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 50)) {

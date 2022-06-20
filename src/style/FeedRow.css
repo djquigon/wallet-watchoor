@@ -113,8 +113,32 @@
     min-height: 10em;
 }
 
+.btcSell{
+    background: url(../assets/btcSell.webp) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: red;
+    border: 1px inset red;
+    border-radius: 56px;
+    min-height: 10em;
+}
+
 .ethBuy{
     background: url(../assets/vitalikPompeet.gif) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #13ff00;
+    border: 1px inset #13ff00;
+    border-radius: 56px;
+    min-height: 10em;
+}
+
+.btcBuy{
+    background: url(../assets/btcBuy.gif) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -145,6 +169,18 @@
     background-size: cover;
     color: #7a86fb;
     border: 1px inset #7a86fb;
+    border-radius: 56px;
+    min-height: 10em;
+}
+
+.btcTransfer{
+    background: url(../assets/btcTransfer.gif) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #f7931a;
+    border: 1px inset #f7931a;
     border-radius: 56px;
     min-height: 10em;
 }

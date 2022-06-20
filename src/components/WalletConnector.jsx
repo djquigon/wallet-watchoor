@@ -151,7 +151,7 @@ const WalletConnector = ({ account, handleAccount }) => {
             <button
               id={WalletConnectorCSS.closeModalBtn}
               onClick={toggleModal}
-              style={{ width: "1em", height: "1em" }}
+              style={{ width: "1em", height: "1em", background: "none" }}
             >
               <AiOutlineClose color="white" />
             </button>

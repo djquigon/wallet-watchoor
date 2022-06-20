@@ -167,18 +167,24 @@ const FeedTable = ({
       Cell: ({ value, row }) => (
         <span
           className={`${FeedCSS.logs} ${
-            row.original.ethBuy === true
+            row.original.ethBuy
               ? "ethBuy"
-              : row.original.ethSell === true
+              : row.original.ethSell
               ? "ethSell"
               : row.original.ethTransfer
               ? "ethTransfer"
-              : row.original.usdBuy === true
+              : row.original.usdBuy
               ? "usdBuy"
-              : row.original.usdSell === true
+              : row.original.usdSell
               ? "usdSell"
               : row.original.usdTransfer
               ? "usdTransfer"
+              : row.original.btcBuy
+              ? "btcBuy"
+              : row.original.btcSell
+              ? "btcSell"
+              : row.original.btcTransfer
+              ? "btcTransfer"
               : ""
           } `}
         >

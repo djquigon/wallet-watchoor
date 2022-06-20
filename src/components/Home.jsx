@@ -35,7 +35,7 @@ const Home = ({ account, handleAccount }) => {
         <div id={HomeCSS.headerContent}>
           <h1>Welcome Watchoooors</h1>
           <h3>
-            Tired of getting dumped on unknowingly your favorite influencers?
+            Tired of getting dumped on unknowingly by your favorite influencers?
             Need a way to get ahead of the curve? Well you've come to the right
             place.
           </h3>
