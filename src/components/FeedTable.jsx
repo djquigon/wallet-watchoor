@@ -18,14 +18,11 @@ import { IoMdPlay, IoMdPause, IoMdChatboxes } from "react-icons/io";
 import { GiNuclearBomb } from "react-icons/gi";
 import { GoMute, GoUnmute } from "react-icons/go";
 import makeBlockie from "ethereum-blockies-base64";
-import etherscanLogo from "../assets/etherscanlogo.png";
 import unknownLogo from "../assets/unknownlogo.png";
 import FeedGlobalFilter from "./FeedGlobalFilter";
 import ClipboardJS from "clipboard";
 import ReactTooltip from "react-tooltip";
 import axios from "axios";
-
-//GO BACK AND COMMENT THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 
 const getLogoFromCoinGecko = async (img, contractAddress) => {
   console.log("getLogoFromCoinGecko...");
@@ -201,49 +198,105 @@ const FeedTable = ({
             //had to use full syntax here to add key
             <React.Fragment key={index}>
               {index > 0 ? <FaArrowRight color="inherit" /> : null}
-              <span>
-                <p>
-                  {log.event}{" "}
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href={`https://www.coingecko.com/en/coins/${log.contractAddress}`}
+              {log.failed ? (
+                <span>
+                  <p>
+                    Failed to add this log, check etherscan txn hash link for
+                    more details.
+                  </p>
+                </span>
+              ) : log.tokenID ? (
+                <span className={FeedCSS.nftLog}>
+                  <span>
+                    <p>
+                      {log.event}{" "}
+                      <strong>{`${log.name} (${log.symbol}) #${log.tokenID}`}</strong>
+                    </p>
+                    <p>
+                      From:{" "}
+                      <a
+                        target="_blank"
+                        rel="noreferrer"
+                        href={`https://etherscan.io/address/${log.from}`}
+                      >{`${log.from.substring(0, 6)}...${log.from.substring(
+                        log.from.length - 4
+                      )}`}</a>{" "}
+                    </p>
+                    <p>
+                      {" "}
+                      To:{" "}
+                      <a
+                        target="_blank"
+                        rel="noreferrer"
+                        href={`https://etherscan.io/address/${log.to}`}
+                      >{`${log.to.substring(0, 6)}...${log.to.substring(
+                        log.to.length - 4
+                      )}`}</a>
+                    </p>
+                  </span>
+                  <ReactTooltip
+                    id={`openseaLink${log.contractAddress}/${log.tokenID}/${index}`}
+                    class="tooltip"
+                  />
+                  <span
+                    data-for={`openseaLink${log.contractAddress}/${log.tokenID}/${index}`}
+                    data-tip={`View ${log.name} #${log.tokenID} on Opensea`}
+                    style={{ display: "flex" }}
                   >
-                    <img
-                      className={FeedCSS.tokenLogo}
-                      src={`https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/${log.contractAddress}/logo.png`}
-                      alt="token logo"
-                      onError={(img) => {
-                        getLogoFromCoinGecko(img, log.contractAddress);
-                      }}
-                    ></img>
-                  </a>{" "}
-                  <strong>
-                    {log.value} {log.symbol}
-                  </strong>
-                </p>
-                <p>
-                  From:{" "}
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href={`https://etherscan.io/address/${log.from}`}
-                  >{`${log.from.substring(0, 6)}...${log.from.substring(
-                    log.from.length - 4
-                  )}`}</a>{" "}
-                </p>
-                <p>
-                  {" "}
-                  To:{" "}
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href={`https://etherscan.io/address/${log.to}`}
-                  >{`${log.to.substring(0, 6)}...${log.to.substring(
-                    log.to.length - 4
-                  )}`}</a>
-                </p>
-              </span>
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://opensea.io/assets/ethereum/${log.contractAddress}/${log.tokenID}`}
+                    >
+                      <img className={FeedCSS.nftImage} src={log.image}></img>
+                    </a>
+                  </span>
+                </span>
+              ) : (
+                <span>
+                  <p>
+                    {log.event}{" "}
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://www.coingecko.com/en/coins/${log.contractAddress}`}
+                    >
+                      <img
+                        className={FeedCSS.tokenLogo}
+                        src={`https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/${log.contractAddress}/logo.png`}
+                        alt="token logo"
+                        onError={(img) => {
+                          getLogoFromCoinGecko(img, log.contractAddress);
+                        }}
+                      ></img>
+                    </a>{" "}
+                    <strong>
+                      {log.value} {log.symbol}
+                    </strong>
+                  </p>
+                  <p>
+                    From:{" "}
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://etherscan.io/address/${log.from}`}
+                    >{`${log.from.substring(0, 6)}...${log.from.substring(
+                      log.from.length - 4
+                    )}`}</a>{" "}
+                  </p>
+                  <p>
+                    {" "}
+                    To:{" "}
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={`https://etherscan.io/address/${log.to}`}
+                    >{`${log.to.substring(0, 6)}...${log.to.substring(
+                      log.to.length - 4
+                    )}`}</a>
+                  </p>
+                </span>
+              )}
             </React.Fragment>
           ))}
         </span>

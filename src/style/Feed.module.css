@@ -153,3 +153,15 @@
     margin-right: 1em;
     margin-left: 1em;
 }
+
+.nftLog{
+    display: flex;
+    align-items: center;
+}
+
+.nftImage{
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    border: solid #7a86fb;
+}

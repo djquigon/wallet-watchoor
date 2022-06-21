@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import FeedCSS from "../style/Feed.module.css";
 import WindowHeader from "./WindowHeader";
 import { ethers } from "ethers";
+import axios from "axios";
+import unknownLogo from "../assets/unknownlogo.png";
 import FeedTable from "./FeedTable";
 // "UI_3-1 FHSandal sinus(Sytrus,arpegio,multiprocessing,rsmpl).wav" by newlocknew of Freesound.org
 import smallSFX from "../assets/sfx/smallSFX.wav";
@@ -46,6 +48,54 @@ const ERC20_ABI = [
   "event Transfer(address indexed from, address indexed to, uint amount)",
 ];
 
+const ERC721_ABI = [
+  //methods
+  {
+    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+    name: "tokenURI",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+    constant: true,
+  },
+  {
+    inputs: [],
+    name: "name",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+    constant: true,
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+    name: "ownerOf",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+    constant: true,
+  },
+  {
+    inputs: [],
+    name: "symbol",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+    constant: true,
+  },
+  {
+    inputs: [],
+    name: "totalSupply",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+    constant: true,
+  },
+  // Events
+  "event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);",
+];
+
 const transactionsInLS = window.localStorage
   ? JSON.parse(localStorage.getItem("feedTransactions"))
   : null;
@@ -75,7 +125,7 @@ const Feed = ({
     return (
       logs[index] !== undefined &&
       logs[index].symbol.toUpperCase().includes("ETH") &&
-      logs[index].value > 0.1
+      logs[index].value > 100
     );
   };
 
@@ -92,46 +142,132 @@ const Feed = ({
     return (
       logs[index] !== undefined &&
       logs[index].symbol.toUpperCase().includes("BTC") &&
-      logs[index].value > 0.01
+      logs[index].value > 10
     );
+  };
+
+  const getImageFromURI = async (URI) => {
+    console.log("getImageForTokenID...");
+    if (URI.substring(0, 4).includes("ipfs")) {
+      const gatewayURI = `https://ipfs.io/ipfs/${URI.substring(7)}`;
+      const res = await axios.get(gatewayURI);
+      const imageURL = `https://ipfs.io/ipfs/${res.data.image.substring(7)}`;
+      console.log(imageURL);
+      return imageURL;
+    } else {
+      try {
+        console.log("NON IPFS");
+        const res = await axios.get(URI);
+        let imageURL = res.data.image;
+        if (imageURL.substring(0, 4).includes("ipfs")) {
+          imageURL = `https://ipfs.io/ipfs/${imageURL.substring(7)}`;
+        }
+        console.log(imageURL);
+        return imageURL;
+      } catch (e) {
+        console.log(e);
+        return unknownLogo;
+      }
+    }
   };
 
   const decodeLogs = async (logs) => {
     let decodedLogs = [];
+    let isNFTLog = false;
+    let hasFailedLog = false;
     for (const log of logs) {
-      const contractAddress = log.address;
-      /**ERC-20 transfer event */
-      if (
-        log.topics[0] ===
-        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
-      ) {
-        const from = `0x${log.topics[1].substring(26)}`;
-        const to = `0x${log.topics[2].substring(26)}`;
-        const contract = new ethers.Contract(
-          contractAddress,
-          ERC20_ABI,
-          provider
-        );
-        const symbol = await contract.symbol();
-        const decimals = await contract.decimals();
-        const value = (
-          parseFloat(
-            ethers.utils.defaultAbiCoder.decode(["uint256"], log.data)[0]
-          ) / Math.pow(10, decimals)
-        ).toFixed(5);
-        decodedLogs.push({
-          event: "Transfer",
-          value: value,
-          symbol: symbol,
-          from: from,
-          to: to,
-          decimals: decimals,
-          contractAddress: contractAddress,
-        });
+      try {
+        const contractAddress = log.address;
+        /**ERC-20/ERC-721 transfer event */
+        if (
+          log.topics[0] ===
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+        ) {
+          const from = `0x${log.topics[1].substring(26)}`;
+          const to = `0x${log.topics[2].substring(26)}`;
+          //is ERC721
+          if (log.topics[3]) {
+            isNFTLog = true;
+            const tokenID = Number(log.topics[3]);
+            //if ens transfer
+            if (
+              contractAddress == "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85"
+            ) {
+              alert("ENS TRANSFER");
+              const symbol = "ENS";
+              const nameData = await axios.get(
+                `https://metadata.ens.domains/mainnet/0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85/79233663829379634837589865448569342784712482819484549289560981379859480642508`
+              );
+              console.log(nameData);
+              decodedLogs.push({
+                event: "Transfer",
+                name: nameData.name,
+                symbol: symbol,
+                from: from,
+                to: to,
+                tokenID: tokenID,
+                contractAddress: contractAddress,
+                image: nameData.image_url,
+              });
+            } else {
+              const contract = new ethers.Contract(
+                contractAddress,
+                ERC721_ABI,
+                provider
+              );
+              console.log(contract);
+              const symbol = await contract.symbol();
+              const name = await contract.name();
+              console.log(tokenID);
+              console.log(tokenID.toString());
+              const URI = await contract.tokenURI(tokenID.toString());
+              const image = await getImageFromURI(URI);
+              decodedLogs.push({
+                event: "Transfer",
+                name: name,
+                symbol: symbol,
+                from: from,
+                to: to,
+                tokenID: tokenID,
+                contractAddress: contractAddress,
+                image: image,
+              });
+            }
+          } else {
+            //is ERC20
+            const contract = new ethers.Contract(
+              contractAddress,
+              ERC20_ABI,
+              provider
+            );
+            const symbol = await contract.symbol();
+            const decimals = await contract.decimals();
+            const value = (
+              parseFloat(
+                ethers.utils.defaultAbiCoder.decode(["uint256"], log.data)[0]
+              ) / Math.pow(10, decimals)
+            ).toFixed(5);
+            decodedLogs.push({
+              event: "Transfer",
+              value: value,
+              symbol: symbol,
+              from: from,
+              to: to,
+              decimals: decimals,
+              contractAddress: contractAddress,
+            });
+          }
+        }
+      } catch (e) {
+        console.log(e);
+        alert("Couldn't add a log, adding failed log");
+        decodedLogs.push({ failed: true });
+        hasFailedLog = true;
+        continue;
       }
     }
     console.log("LOGS DECODED: ", decodedLogs);
-    return decodedLogs;
+    return { isNFTLog, hasFailedLog, decodedLogs };
   };
 
   const buildFilteredTransactions = async (
@@ -175,8 +311,13 @@ const Feed = ({
       );
       //if there are logs, decode them and set logs to that
       if (newFilteredTransactions[i].logs.length > 0) {
-        const decodedLogs = await decodeLogs(newFilteredTransactions[i].logs);
-        if (decodedLogs.length > 1) {
+        const { isNFTLog, hasFailedLog, decodedLogs } = await decodeLogs(
+          newFilteredTransactions[i].logs
+        );
+        console.log("AAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHH");
+        console.log(isNFTLog);
+        console.log(hasFailedLog);
+        if (!isNFTLog && !hasFailedLog && decodedLogs.length > 1) {
           const usdSell = checkLogsForUSD(decodedLogs, 0);
           const ethSell = !usdSell && checkLogsForETH(decodedLogs, 0);
           const btcSell =
@@ -197,7 +338,7 @@ const Feed = ({
           newFilteredTransactions[i].usdBuy = usdBuy;
           newFilteredTransactions[i].ethBuy = ethBuy;
           newFilteredTransactions[i].btcBuy = btcBuy;
-        } else {
+        } else if (!isNFTLog && !hasFailedLog && decodedLogs.length === 1) {
           const usdTransfer = checkLogsForUSD(decodedLogs, 0);
           const ethTransfer = checkLogsForETH(decodedLogs, 0);
           const btcTransfer = checkLogsForBTC(decodedLogs, 0);
