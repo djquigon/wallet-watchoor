@@ -3,6 +3,7 @@ import FeedCSS from "../style/Feed.module.css";
 import WindowHeader from "./WindowHeader";
 import { ethers } from "ethers";
 import axios from "axios";
+/* global BigInt */
 import unknownLogo from "../assets/unknownlogo.png";
 import FeedTable from "./FeedTable";
 // "UI_3-1 FHSandal sinus(Sytrus,arpegio,multiprocessing,rsmpl).wav" by newlocknew of Freesound.org
@@ -188,7 +189,9 @@ const Feed = ({
           //is ERC721
           if (log.topics[3]) {
             isNFTLog = true;
-            const tokenID = Number(log.topics[3]);
+            const bn = BigInt(log.topics[3]); // BigInt for large token IDs such as ens
+            const tokenID = bn.toString(10);
+            console.log(tokenID);
             //if ens transfer
             if (
               contractAddress == "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85"
@@ -196,18 +199,18 @@ const Feed = ({
               alert("ENS TRANSFER");
               const symbol = "ENS";
               const nameData = await axios.get(
-                `https://metadata.ens.domains/mainnet/0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85/79233663829379634837589865448569342784712482819484549289560981379859480642508`
+                `https://metadata.ens.domains/mainnet/${contractAddress}/${tokenID}`
               );
               console.log(nameData);
               decodedLogs.push({
                 event: "Transfer",
-                name: nameData.name,
+                name: nameData.data.name,
                 symbol: symbol,
                 from: from,
                 to: to,
                 tokenID: tokenID,
                 contractAddress: contractAddress,
-                image: nameData.image_url,
+                image: nameData.data.image_url,
               });
             } else {
               const contract = new ethers.Contract(
@@ -215,12 +218,9 @@ const Feed = ({
                 ERC721_ABI,
                 provider
               );
-              console.log(contract);
               const symbol = await contract.symbol();
               const name = await contract.name();
-              console.log(tokenID);
-              console.log(tokenID.toString());
-              const URI = await contract.tokenURI(tokenID.toString());
+              const URI = await contract.tokenURI(tokenID);
               const image = await getImageFromURI(URI);
               decodedLogs.push({
                 event: "Transfer",

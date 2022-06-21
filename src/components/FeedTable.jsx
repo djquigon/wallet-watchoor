@@ -210,7 +210,11 @@ const FeedTable = ({
                   <span>
                     <p>
                       {log.event}{" "}
-                      <strong>{`${log.name} (${log.symbol}) #${log.tokenID}`}</strong>
+                      <strong>{`${log.name} (${log.symbol}) #${
+                        log.tokenID.length > 5
+                          ? log.tokenID.substring(0, 5) + "..."
+                          : log.tokenID
+                      }`}</strong>
                     </p>
                     <p>
                       From:{" "}
@@ -248,7 +252,16 @@ const FeedTable = ({
                       rel="noreferrer"
                       href={`https://opensea.io/assets/ethereum/${log.contractAddress}/${log.tokenID}`}
                     >
-                      <img className={FeedCSS.nftImage} src={log.image}></img>
+                      <img
+                        className={FeedCSS.nftImage}
+                        src={log.image}
+                        alt="nft image"
+                        onError={(img) => {
+                          alert("No nft image found, setting default...");
+                          img.target.onError = null;
+                          img.target.src = unknownLogo;
+                        }}
+                      ></img>
                     </a>
                   </span>
                 </span>
