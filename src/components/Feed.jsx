@@ -38,15 +38,8 @@ if (window.ethereum)
 
 const ERC20_ABI = [
   // Read-Only Functions
-  "function balanceOf(address owner) view returns (uint256)",
   "function decimals() view returns (uint8)",
   "function symbol() view returns (string)",
-
-  // Authenticated Functions
-  "function transfer(address to, uint amount) returns (bool)",
-
-  // Events
-  "event Transfer(address indexed from, address indexed to, uint amount)",
 ];
 
 const ERC721_ABI = [
@@ -69,15 +62,6 @@ const ERC721_ABI = [
     constant: true,
   },
   {
-    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
-    name: "ownerOf",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    payable: false,
-    stateMutability: "view",
-    type: "function",
-    constant: true,
-  },
-  {
     inputs: [],
     name: "symbol",
     outputs: [{ internalType: "string", name: "", type: "string" }],
@@ -85,16 +69,14 @@ const ERC721_ABI = [
     type: "function",
     constant: true,
   },
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-    constant: true,
-  },
-  // Events
-  "event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);",
+  // {
+  //   inputs: [],
+  //   name: "totalSupply",
+  //   outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+  //   stateMutability: "view",
+  //   type: "function",
+  //   constant: true,
+  // },
 ];
 
 const transactionsInLS = window.localStorage
@@ -135,7 +117,7 @@ const Feed = ({
       logs[index] !== undefined &&
       (logs[index].symbol.toUpperCase().includes("USD") ||
         logs[index].symbol === "DAI") &&
-      logs[index].value > 100000
+      logs[index].value > 500000
     );
   };
 
@@ -153,20 +135,18 @@ const Feed = ({
       const gatewayURI = `https://ipfs.io/ipfs/${URI.substring(7)}`;
       const res = await axios.get(gatewayURI);
       const imageURL = `https://ipfs.io/ipfs/${res.data.image.substring(7)}`;
-      console.log(imageURL);
       return imageURL;
     } else {
       try {
-        console.log("NON IPFS");
         const res = await axios.get(URI);
         let imageURL = res.data.image;
         if (imageURL.substring(0, 4).includes("ipfs")) {
           imageURL = `https://ipfs.io/ipfs/${imageURL.substring(7)}`;
         }
-        console.log(imageURL);
         return imageURL;
       } catch (e) {
         console.log(e);
+        console.log(`No nft image found from imageURL}, setting default...`);
         return unknownLogo;
       }
     }
@@ -191,17 +171,14 @@ const Feed = ({
             isNFTLog = true;
             const bn = BigInt(log.topics[3]); // BigInt for large token IDs such as ens
             const tokenID = bn.toString(10);
-            console.log(tokenID);
             //if ens transfer
             if (
               contractAddress == "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85"
             ) {
-              alert("ENS TRANSFER");
               const symbol = "ENS";
               const nameData = await axios.get(
                 `https://metadata.ens.domains/mainnet/${contractAddress}/${tokenID}`
               );
-              console.log(nameData);
               decodedLogs.push({
                 event: "Transfer",
                 name: nameData.data.name,
@@ -260,13 +237,13 @@ const Feed = ({
         }
       } catch (e) {
         console.log(e);
-        alert("Couldn't add a log, adding failed log");
+        console.log("Couldn't add a log, adding failed log");
         decodedLogs.push({ failed: true });
         hasFailedLog = true;
         continue;
       }
     }
-    console.log("LOGS DECODED: ", decodedLogs);
+    console.log("LOGS DECODED: ", { isNFTLog, hasFailedLog, decodedLogs });
     return { isNFTLog, hasFailedLog, decodedLogs };
   };
 
@@ -274,17 +251,17 @@ const Feed = ({
     oldFilteredTransactions,
     timestamp
   ) => {
-    //in case of a txn filtering returning a null value due to bug i have yet to figure out
-    let newFilteredTransactions = oldFilteredTransactions.filter(
-      (txn) => txn !== null
-    );
+    console.log(oldFilteredTransactions);
+    let newFilteredTransactions = oldFilteredTransactions;
+    console.log(newFilteredTransactions);
 
     for (let i = 0; i < newFilteredTransactions.length; i++) {
       const value = newFilteredTransactions[i].value;
+
       newFilteredTransactions[i] = await provider.getTransactionReceipt(
         newFilteredTransactions[i].hash
       );
-      // console.log("DOOODOOOODOOOO", newFilteredTransactions[i]);
+      console.log(newFilteredTransactions[i]);
       const convertedTimestamp = new Date(timestamp * 1000).toISOString();
 
       newFilteredTransactions[i].timestamp = `${convertedTimestamp.substring(
@@ -314,9 +291,6 @@ const Feed = ({
         const { isNFTLog, hasFailedLog, decodedLogs } = await decodeLogs(
           newFilteredTransactions[i].logs
         );
-        console.log("AAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHH");
-        console.log(isNFTLog);
-        console.log(hasFailedLog);
         if (!isNFTLog && !hasFailedLog && decodedLogs.length > 1) {
           const usdSell = checkLogsForUSD(decodedLogs, 0);
           const ethSell = !usdSell && checkLogsForETH(decodedLogs, 0);
@@ -533,9 +507,9 @@ const Feed = ({
         )
       ) {
         pompeetAudio.play();
-      } else if (filteredTransactions.some((txn) => txn.value >= 1000)) {
+      } else if (filteredTransactions.some((txn) => txn.value >= 5000)) {
         holyshitAudio.play();
-      } else if (filteredTransactions.some((txn) => txn.value >= 500)) {
+      } else if (filteredTransactions.some((txn) => txn.value >= 1000)) {
         jesusAudio.play();
       } else if (
         filteredTransactions.some(
@@ -543,9 +517,9 @@ const Feed = ({
         )
       ) {
         transferAudio.play();
-      } else if (filteredTransactions.some((txn) => txn.value >= 100)) {
+      } else if (filteredTransactions.some((txn) => txn.value >= 500)) {
         massiveAudio.play();
-      } else if (filteredTransactions.some((txn) => txn.value >= 50)) {
+      } else if (filteredTransactions.some((txn) => txn.value >= 100)) {
         largeAudio.play();
       } else if (filteredTransactions.some((txn) => txn.value >= 10)) {
         mediumAudio.play();

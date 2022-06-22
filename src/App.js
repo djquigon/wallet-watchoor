@@ -50,7 +50,8 @@ function App() {
           "alias": "Vitalik",
           "dateAdded": "2022-06-17T00:53:55.574Z",
           "ens": "vitalik.eth",
-          "website": "https://vitalik.ca"
+          "website": "https://vitalik.ca",
+          "dateAdded": date
         },
         "0x4862733B5FdDFd35f35ea8CCf08F5045e57388B3": {
           "alerts": true,
@@ -62,6 +63,11 @@ function App() {
           "alias": "3AC 2",
           "dateAdded": date
         },     
+        "0x7f268357A8c2552623316e2562D90e642bB538E5": {
+          "alerts": true,
+          "alias": "OpenSea",
+          "dateAdded": date
+        },    
         "0xc5ed2333f8a2C351fCA35E5EBAdb2A82F5d254C3": {
           "alerts": true,
           "alias": "Alameda",
@@ -80,11 +86,6 @@ function App() {
         "0xE592427A0AEce92De3Edee1F18E0157C05861564": {
           "alerts": true,
           "alias": "Uniswap Router V3",
-          "dateAdded": date
-        },
-        "0xb5d85CBf7cB3EE0D56b3bB207D5Fc4B82f43F511": {
-          "alerts": true,
-          "alias": "Coinbase 5",
           "dateAdded": date
         },
         "0x3DdfA8eC3052539b6C9549F12cEA2C295cfF5296": {

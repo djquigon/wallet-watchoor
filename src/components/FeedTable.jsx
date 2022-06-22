@@ -257,7 +257,9 @@ const FeedTable = ({
                         src={log.image}
                         alt="nft image"
                         onError={(img) => {
-                          alert("No nft image found, setting default...");
+                          console.log(
+                            `No nft image found for ${log.image}, setting default...`
+                          );
                           img.target.onError = null;
                           img.target.src = unknownLogo;
                         }}
@@ -334,10 +336,10 @@ const FeedTable = ({
           className={`${value < 1 ? "normal" : ""}${
             value >= 1 && value < 10 ? "smallValue" : ""
           }${value >= 10 && value < 50 ? "mediumValue" : ""}${
-            value >= 50 && value < 100 ? "largeValue" : ""
-          }${value >= 100 && value < 500 ? "massiveValue" : ""}${
-            value >= 500 && value <= 1000 ? "jesusValue" : ""
-          }${value >= 1000 ? "holyshitValue" : ""}`}
+            value >= 100 && value < 500 ? "largeValue" : ""
+          }${value >= 500 && value < 1000 ? "massiveValue" : ""}${
+            value >= 1000 && value <= 5000 ? "jesusValue" : ""
+          }${value >= 5000 ? "holyshitValue" : ""}`}
         >
           <h2 style={{ textAlign: "center" }}>{value} Ξ</h2>
         </div>
