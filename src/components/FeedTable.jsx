@@ -212,7 +212,7 @@ const FeedTable = ({
                       {log.event}{" "}
                       <strong>{`${log.name} (${log.symbol}) #${
                         log.tokenID.length > 5
-                          ? log.tokenID.substring(0, 5) + "..."
+                          ? log.tokenID.substring(0, 6) + "..."
                           : log.tokenID
                       }`}</strong>
                     </p>
@@ -244,13 +244,18 @@ const FeedTable = ({
                   />
                   <span
                     data-for={`openseaLink${log.contractAddress}/${log.tokenID}/${index}`}
-                    data-tip={`View ${log.name} #${log.tokenID} on Opensea`}
+                    data-tip={`View ${log.name} #${
+                      log.tokenID.length > 5
+                        ? log.tokenID.substring(0, 6) + "..."
+                        : log.tokenID
+                    } on Opensea`}
                     style={{ display: "flex" }}
                   >
                     <a
                       target="_blank"
                       rel="noreferrer"
                       href={`https://opensea.io/assets/ethereum/${log.contractAddress}/${log.tokenID}`}
+                      style={{ marginLeft: "1em" }}
                     >
                       <img
                         className={FeedCSS.nftImage}

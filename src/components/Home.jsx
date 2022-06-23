@@ -33,11 +33,11 @@ const Home = ({ account, handleAccount }) => {
           <WalletConnector account={account} handleAccount={handleAccount} />
         </div>
         <div id={HomeCSS.headerContent}>
-          <h1>Welcome Watchoooors</h1>
+          <h1>Welcome Watchoors</h1>
           <h3>
-            Tired of getting dumped on unknowingly by your favorite influencers?
-            Need a way to get ahead of the curve? Well you've come to the right
-            place.
+            Tired of being dumped on unknowingly by your favorite influencers
+            and hedge funds? Missed out on a few projects you should have been
+            early on? Need a way to get ahead of the curve?
           </h3>
           <div id={HomeCSS.landingBtns}>
             <Link to="app">
@@ -71,7 +71,7 @@ const Home = ({ account, handleAccount }) => {
             <h1>WatchList</h1>
             <h3>Currate what you want to see.</h3>
             <p>
-              Add addresses you want to watch to see their activity on your
+              Add addresses you want to track to see their activity on your
               feed.
             </p>
           </div>
@@ -88,7 +88,7 @@ const Home = ({ account, handleAccount }) => {
             <h1>Feed</h1>
             <h3>Keep an eye out.</h3>
             <p>
-              Track transactions from addresses on your wacthlist and get
+              Track transactions from addresses on your watchlist and get
               instant notifications.
             </p>
           </div>
@@ -125,12 +125,15 @@ const Home = ({ account, handleAccount }) => {
           </div>
         </div>
         <h3 className={HomeCSS.landingText}>
-          Wallet Watchoor allows you to track those influencers on chain, and
-          receive audio alerts in your browser whenever they send transactions.
-          Start by connecting your wallet so you can access the app. Then
-          explore the many features it has to offer. If you don't have metamask
-          or a web3 wallet provider installed in your browser, you won't be able
-          to access the app. You can install metamask via the link below.
+          Wallet Watchoor allows you to track any address on chain, and receive
+          audio alerts in your browser whenever transactions are sent to or from
+          that address. Whether it be transfers from an influencer or hedge
+          fund's address, transfers of a certain ERC-20 token, or transfers of a
+          specific ERC-721 NFT collection, never be suprised again. Start by
+          connecting your wallet so you can access the app and explore the many
+          features it has to offer. If you don't have metamask or a web3 wallet
+          provider installed in your browser, you won't be able to access the
+          app. You can install metamask via the link below.
         </h3>
         <a
           target="_blank"

@@ -28,6 +28,10 @@ main iframe{
   font-size: larger;
 }
 
+#headerContent h3{
+  width: 600px;
+}
+
 #headerContent *{
   margin-top: 2em;
 }
@@ -36,7 +40,6 @@ main iframe{
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 30%;
   margin-left: auto;
   margin-right: auto;
 }

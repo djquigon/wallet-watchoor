@@ -103,7 +103,18 @@ function App() {
           "twitterName": "nicksdjohnson",
           "website": "https://ens.domains/"
         },
+        "0xBd3531dA5CF5857e7CfAA92426877b022e612cf8": {
+          "alerts": true,
+          "alias": "Pudgy Penguins NFT Contract",
+          "dateAdded": date
+        },
+        "0x514910771af9ca656af840dff83e8264ecf986ca": {
+          "alerts": true,
+          "alias": "Chainlink Token Contract",
+          "dateAdded": date
+        },
     }});
+    alert("🎉 Welcome new user! 🎉 To get you started, a few popular addresses have been added to your Watchlist. They are only there to help you familiarize yourself with how different transactions are displayed in your feed and can be removed if you wish. Thanks for checking out this passion project of mine and hopefully it's helpful to you.")
   }, [])
 
   useEffect(() => {

@@ -149,7 +149,7 @@
     align-items: center;
 }
 
-.logs span{
+.logs > span{
     margin-right: 1em;
     margin-left: 1em;
 }

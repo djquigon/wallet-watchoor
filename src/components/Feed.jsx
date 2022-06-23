@@ -140,13 +140,15 @@ const Feed = ({
       try {
         const res = await axios.get(URI);
         let imageURL = res.data.image;
-        if (imageURL.substring(0, 4).includes("ipfs")) {
+        if (!imageURL) {
+          imageURL = unknownLogo;
+        } else if (imageURL.substring(0, 4).includes("ipfs")) {
           imageURL = `https://ipfs.io/ipfs/${imageURL.substring(7)}`;
         }
         return imageURL;
       } catch (e) {
         console.log(e);
-        console.log(`No nft image found from imageURL}, setting default...`);
+        console.log(`No nft image found from imageURL, setting default...`);
         return unknownLogo;
       }
     }
@@ -256,6 +258,11 @@ const Feed = ({
     console.log(newFilteredTransactions);
 
     for (let i = 0; i < newFilteredTransactions.length; i++) {
+      //fixes issue where sometimes null transactions appeared, not sure why
+      if (newFilteredTransactions[i] === null) {
+        alert("here");
+        continue;
+      }
       const value = newFilteredTransactions[i].value;
 
       newFilteredTransactions[i] = await provider.getTransactionReceipt(
