@@ -46,7 +46,7 @@ const Home = ({ account, handleAccount }) => {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://discord.gg/Phh6A2nW"
+              href="https://discord.gg/bEHR7pcvU4"
             >
               <button>Join the Community</button>
             </a>

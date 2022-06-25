@@ -74,7 +74,7 @@ const WatchList = ({
     );
   };
 
-  const getAddressInfo = async (address, ens) => {
+  const getAddressInfo = async (ens) => {
     let resolver = null;
     if (ens) {
       resolver = await provider.getResolver(ens);

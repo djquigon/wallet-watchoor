@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer>
       <a href="https://twitter.com/WalletWatchoor">Twitter 🐦</a>
-      <a href="https://discord.gg/Phh6A2nW">Discord 💬</a>
+      <a href="https://discord.gg/bEHR7pcvU4">Discord 💬</a>
       <p>Copyright &copy; {today.getFullYear()}</p>
       <a href="https://github.com/djquigon/wallet-watchoor/issues">
         Bug Report 🐛

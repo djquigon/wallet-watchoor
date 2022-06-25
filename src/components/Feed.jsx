@@ -42,6 +42,13 @@ const ERC20_ABI = [
   "function symbol() view returns (string)",
 ];
 
+//some tokens don't completely adhere to the ERC20 standard and use a bytes32 object as a symbol, such as MKR
+const ERC20_ABI_2 = [
+  // Read-Only Functions
+  "function decimals() view returns (uint8)",
+  "function symbol() view returns (bytes32)",
+];
+
 const ERC721_ABI = [
   //methods
   {
@@ -214,18 +221,28 @@ const Feed = ({
             }
           } else {
             //is ERC20
-            const contract = new ethers.Contract(
+            let contract = new ethers.Contract(
               contractAddress,
               ERC20_ABI,
               provider
             );
-            const symbol = await contract.symbol();
             const decimals = await contract.decimals();
             const value = (
               parseFloat(
                 ethers.utils.defaultAbiCoder.decode(["uint256"], log.data)[0]
               ) / Math.pow(10, decimals)
             ).toFixed(5);
+            try {
+              var symbol = await contract.symbol();
+            } catch (e) {
+              contract = new ethers.Contract(
+                contractAddress,
+                ERC20_ABI_2,
+                provider
+              );
+              symbol = await contract.symbol();
+              symbol = ethers.utils.parseBytes32String(symbol);
+            }
             decodedLogs.push({
               event: "Transfer",
               value: value,
@@ -249,29 +266,23 @@ const Feed = ({
     return { isNFTLog, hasFailedLog, decodedLogs };
   };
 
-  const buildFilteredTransactions = async (
-    oldFilteredTransactions,
-    timestamp
-  ) => {
-    console.log(oldFilteredTransactions);
-    let newFilteredTransactions = oldFilteredTransactions;
-    console.log(newFilteredTransactions);
+  const buildFilteredTransactions = async (newFilteredTxns, timestamp) => {
+    let filteredTxns = [];
+    for (let i = 0; i < newFilteredTxns.length; i++) {
+      const value = newFilteredTxns[i].value;
+      let filteredTxn = await provider.getTransactionReceipt(
+        newFilteredTxns[i].hash
+      );
 
-    for (let i = 0; i < newFilteredTransactions.length; i++) {
-      //fixes issue where sometimes null transactions appeared, not sure why
-      if (newFilteredTransactions[i] === null) {
-        alert("here");
+      console.log(newFilteredTxns[i]);
+      //fixes issue where rarely null transactions returned from receipt, not sure why
+      if (filteredTxn === null) {
+        console.log("Skipped null transaction...");
         continue;
       }
-      const value = newFilteredTransactions[i].value;
-
-      newFilteredTransactions[i] = await provider.getTransactionReceipt(
-        newFilteredTransactions[i].hash
-      );
-      console.log(newFilteredTransactions[i]);
       const convertedTimestamp = new Date(timestamp * 1000).toISOString();
 
-      newFilteredTransactions[i].timestamp = `${convertedTimestamp.substring(
+      filteredTxn.timestamp = `${convertedTimestamp.substring(
         0,
         convertedTimestamp.indexOf("T")
       )} ${convertedTimestamp.substring(
@@ -279,24 +290,22 @@ const Feed = ({
         convertedTimestamp.indexOf(".")
       )} UTC`;
 
-      newFilteredTransactions[i].value = parseFloat(
-        ethers.utils.formatEther(value)
-      ).toFixed(2);
-      newFilteredTransactions[i].toAddressInfo = addresses.find((address) =>
-        newFilteredTransactions[i].to
-          ? address.address.toLowerCase() ===
-            newFilteredTransactions[i].to.toLowerCase()
+      filteredTxn.value = parseFloat(ethers.utils.formatEther(value)).toFixed(
+        2
+      );
+      filteredTxn.toAddressInfo = addresses.find((address) =>
+        filteredTxn.to
+          ? address.address.toLowerCase() === filteredTxn.to.toLowerCase()
           : null
       );
-      newFilteredTransactions[i].fromAddressInfo = addresses.find(
+      filteredTxn.fromAddressInfo = addresses.find(
         (address) =>
-          address.address.toLowerCase() ===
-          newFilteredTransactions[i].from.toLowerCase()
+          address.address.toLowerCase() === filteredTxn.from.toLowerCase()
       );
       //if there are logs, decode them and set logs to that
-      if (newFilteredTransactions[i].logs.length > 0) {
+      if (filteredTxn.logs.length > 0) {
         const { isNFTLog, hasFailedLog, decodedLogs } = await decodeLogs(
-          newFilteredTransactions[i].logs
+          filteredTxn.logs
         );
         if (!isNFTLog && !hasFailedLog && decodedLogs.length > 1) {
           const usdSell = checkLogsForUSD(decodedLogs, 0);
@@ -313,24 +322,26 @@ const Feed = ({
             !usdBuy &&
             !ethBuy &&
             checkLogsForBTC(decodedLogs, decodedLogs.length - 1);
-          newFilteredTransactions[i].usdSell = usdSell;
-          newFilteredTransactions[i].ethSell = ethSell;
-          newFilteredTransactions[i].btcSell = btcSell;
-          newFilteredTransactions[i].usdBuy = usdBuy;
-          newFilteredTransactions[i].ethBuy = ethBuy;
-          newFilteredTransactions[i].btcBuy = btcBuy;
+          filteredTxn.usdSell = usdSell;
+          filteredTxn.ethSell = ethSell;
+          filteredTxn.btcSell = btcSell;
+          filteredTxn.usdBuy = usdBuy;
+          filteredTxn.ethBuy = ethBuy;
+          filteredTxn.btcBuy = btcBuy;
         } else if (!isNFTLog && !hasFailedLog && decodedLogs.length === 1) {
           const usdTransfer = checkLogsForUSD(decodedLogs, 0);
           const ethTransfer = checkLogsForETH(decodedLogs, 0);
           const btcTransfer = checkLogsForBTC(decodedLogs, 0);
-          newFilteredTransactions[i].usdTransfer = usdTransfer;
-          newFilteredTransactions[i].ethTransfer = ethTransfer;
-          newFilteredTransactions[i].btcTransfer = btcTransfer;
+          filteredTxn.usdTransfer = usdTransfer;
+          filteredTxn.ethTransfer = ethTransfer;
+          filteredTxn.btcTransfer = btcTransfer;
         }
-        newFilteredTransactions[i].logs = decodedLogs;
+        filteredTxn.logs = decodedLogs;
       }
+      filteredTxns.push(filteredTxn);
     }
-    return newFilteredTransactions;
+
+    return filteredTxns;
   };
 
   useEffect(() => {
@@ -379,23 +390,23 @@ const Feed = ({
       }
 
       console.log("Last block " + lastBlockNum);
-      let newFilteredTransactions = [];
+      let newFilteredTxns = [];
       try {
         //if there is no last block or missed blocks simply filter the current block
         if (!lastBlockNum || lastBlockNum + 1 === block.number) {
           console.log("No blocks skipped, filtering current block...");
           console.log("Filtering Block " + block.number);
-          newFilteredTransactions = block.transactions.filter(filter);
-          if (newFilteredTransactions.length > 0) {
-            console.log("Transactions found: ", newFilteredTransactions);
+          newFilteredTxns = block.transactions.filter(filter);
+          if (newFilteredTxns.length > 0) {
+            console.log("Transactions found: ", newFilteredTxns);
             //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
-            newFilteredTransactions = await buildFilteredTransactions(
-              newFilteredTransactions,
+            newFilteredTxns = await buildFilteredTransactions(
+              newFilteredTxns,
               block.timestamp
             );
             console.log(
               "Setting Filtered Transactions to ... ",
-              newFilteredTransactions
+              newFilteredTxns
             );
           } else {
             console.log("No matching transactions in block " + block.number);
@@ -412,47 +423,41 @@ const Feed = ({
           ) {
             let blockToAdd = null;
             let timestamp = null;
-            let blockToAddFilteredTransactions = null;
+            let blockToAddFilteredTxns = null;
             if (blockNumToAdd === block.mumber) {
               blockToAdd = block;
               timestamp = block.timestamp;
-              blockToAddFilteredTransactions =
-                block.transactions.filter(filter);
+              blockToAddFilteredTxns = block.transactions.filter(filter);
             } else {
               blockToAdd = await provider.getBlockWithTransactions(
                 blockNumToAdd
               );
               timestamp = blockToAdd.timestamp;
-              blockToAddFilteredTransactions =
-                blockToAdd.transactions.filter(filter);
+              blockToAddFilteredTxns = blockToAdd.transactions.filter(filter);
             }
             console.log("Filtering Block " + blockNumToAdd);
             //add timestamp, update value, add associatedWatchListAddresses, and convert to receipt to get logs
-            if (blockToAddFilteredTransactions.length > 0) {
-              console.log(
-                "Transactions found1: ",
-                blockToAddFilteredTransactions
-              );
-              newFilteredTransactions = newFilteredTransactions.concat(
+            if (blockToAddFilteredTxns.length > 0) {
+              console.log("Transactions found1: ", blockToAddFilteredTxns);
+              newFilteredTxns = newFilteredTxns.concat(
                 await buildFilteredTransactions(
-                  blockToAddFilteredTransactions,
+                  blockToAddFilteredTxns,
                   timestamp
                 )
               );
               console.log(
                 "Setting Filtered Transactions to: ",
-                newFilteredTransactions
+                newFilteredTxns
               );
             } else {
               console.log("No matching transactions in block " + blockNumToAdd);
             }
           }
         }
-        //newFilteredTransactions = block.transactions.filter(filter)
 
-        if (newFilteredTransactions.length > 0) {
+        if (newFilteredTxns.length > 0) {
           console.log("Filtering done, setting filtered transactions.");
-          setFilteredTransactions(newFilteredTransactions);
+          setFilteredTransactions(newFilteredTxns);
         }
         //copy of last block to track last black for use in feedtable detecting if txn is new
         if (lastBlockNum) {
@@ -461,7 +466,7 @@ const Feed = ({
         //set last block for forward for next iteration
         setLastBlockNum(block.number);
       } catch (e) {
-        alert(e);
+        console.log("Error in filterTransactions...");
         console.log(e);
       }
     };
@@ -485,17 +490,15 @@ const Feed = ({
     console.log(
       "Filtered transactions changed. Concatenating filtered transactions..."
     );
-    let newFeedTransactions = null;
+    let newFeedTxns = null;
     //for initial load
     if (feedTransactions.length === 0) {
-      newFeedTransactions = filteredTransactions.reverse();
+      newFeedTxns = filteredTransactions.reverse();
     } else {
-      newFeedTransactions = filteredTransactions
-        .reverse()
-        .concat(feedTransactions);
+      newFeedTxns = filteredTransactions.reverse().concat(feedTransactions);
     }
-    console.log("Setting Feed transactions to: ", newFeedTransactions);
-    setFeedTransactions(newFeedTransactions);
+    console.log("Setting Feed transactions to: ", newFeedTxns);
+    setFeedTransactions(newFeedTxns);
 
     //if user doesn't have feed muted
     if (!isMuted) {

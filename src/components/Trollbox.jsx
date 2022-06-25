@@ -40,7 +40,7 @@ const Trollbox = ({
     e.preventDefault();
     //if empty string or only spaces, or too long
     if (/^ *$/.test(trollboxFormMessage) || trollboxFormMessage.length > 400) {
-      alert(trollboxFormMessage.length);
+      alert("Your message is too long...");
       return;
     }
     const date = new Date().toISOString();
