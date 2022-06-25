@@ -82,73 +82,72 @@ const Trollbox = ({
               <strong>Users:</strong> 0
             </p>
           </div>
-          <div id={TrollboxCSS.chatContainer}>
-            {messages.length < gunLength ? (
-              <AiOutlineLoading
-                style={{ marginTop: "40%" }}
-                className="loadingSvg"
-              />
-            ) : (
-              <ol id={TrollboxCSS.messages}>
-                {messages.map((message) => (
-                  <li
-                    key={`${message.dateAdded}${message.message}${message.user}`}
-                  >
-                    <div className={TrollboxCSS.message}>
-                      <p>
-                        {`[${message.dateAdded.substring(
-                          message.dateAdded.indexOf("T") + 1,
-                          message.dateAdded.indexOf(".")
-                        )}]\u00A0`}
+          {messages.length < gunLength ? (
+            <AiOutlineLoading
+              style={{ marginTop: "40%" }}
+              className="loadingSvg"
+            />
+          ) : (
+            <ol id={TrollboxCSS.messages}>
+              {messages.map((message) => (
+                <li
+                  key={`${message.dateAdded}${message.message}${message.user}`}
+                >
+                  <div className={TrollboxCSS.message}>
+                    <p>
+                      {`[${message.dateAdded.substring(
+                        message.dateAdded.indexOf("T") + 1,
+                        message.dateAdded.indexOf(".")
+                      )}]\u00A0`}
 
-                        <img
-                          width="14px"
-                          src={makeBlockie(message.user)}
-                          alt="avatar"
-                        ></img>
-                        {` ${message.user.substring(
-                          0,
-                          6
-                        )}...${message.user.substring(
-                          message.user.length - 4
-                        )}:\u00A0`}
-                        <br />
+                      <img
+                        width="14px"
+                        src={makeBlockie(message.user)}
+                        alt="avatar"
+                      ></img>
+                      {` ${message.user.substring(
+                        0,
+                        6
+                      )}...${message.user.substring(
+                        message.user.length - 4
+                      )}:\u00A0`}
+                      <br />
 
-                        {message.message.includes("TRANSACTION = ") ? (
-                          <>
-                            Hash:
-                            <a
-                              target="_blank"
-                              rel="noreferrer"
-                              href={`https://etherscan.io/tx/${formatTransaction(
-                                message.message,
-                                "*",
-                                2,
-                                68
-                              )}`}
-                            >
-                              {`${formatTransaction(
-                                message.message,
-                                "*",
-                                2,
-                                8
-                              )}...
+                      {message.message.includes("TRANSACTION = ") ? (
+                        <>
+                          Hash:
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            href={`https://etherscan.io/tx/${formatTransaction(
+                              message.message,
+                              "*",
+                              2,
+                              68
+                            )}`}
+                          >
+                            {`${formatTransaction(
+                              message.message,
+                              "*",
+                              2,
+                              8
+                            )}...
                               ${formatTransaction(message.message, "*", 64, 68)}
                               `}
-                            </a>
-                            <br />
-                            From:{" "}
-                            <a
-                              target="_blank"
-                              rel="noreferrer"
-                              href={`https://etherscan.io/address/${formatTransaction(
-                                message.message,
-                                "@",
-                                2,
-                                44
-                              )}`}
-                            >
-                              {`
+                          </a>
+                          <br />
+                          From:{" "}
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            href={`https://etherscan.io/address/${formatTransaction(
+                              message.message,
+                              "@",
+                              2,
+                              44
+                            )}`}
+                          >
+                            {`
                               
                               ${formatTransaction(
                                 message.message,
@@ -158,20 +157,20 @@ const Trollbox = ({
                               )}...
                               ${formatTransaction(message.message, "@", 40, 44)}
                               `}
-                            </a>
-                            <br />
-                            To:{" "}
-                            <a
-                              target="_blank"
-                              rel="noreferrer"
-                              href={`https://etherscan.io/address/${formatTransaction(
-                                message.message,
-                                "%",
-                                2,
-                                44
-                              )}`}
-                            >
-                              {`
+                          </a>
+                          <br />
+                          To:{" "}
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            href={`https://etherscan.io/address/${formatTransaction(
+                              message.message,
+                              "%",
+                              2,
+                              44
+                            )}`}
+                          >
+                            {`
                               
                               ${formatTransaction(
                                 message.message,
@@ -181,61 +180,60 @@ const Trollbox = ({
                               )}...
                               ${formatTransaction(message.message, "%", 40, 44)}
                               `}
-                            </a>
-                            <br />
-                            Logs:{" "}
-                            <>
-                              {message.message.substring(
-                                message.message.indexOf("#") + 1,
-                                message.message.indexOf("^")
-                              )}
-                            </>
-                            <br />
-                            Value:{" "}
-                            <>
-                              {message.message.substring(
-                                message.message.indexOf("$") + 1,
-                                message.message.indexOf("Ξ") + 1
-                              )}
-                            </>
-                            <br />
-                            Timestamp:{" "}
-                            <>
-                              {message.message.substring(
-                                message.message.indexOf("!") + 1
-                              )}
-                            </>
+                          </a>
+                          <br />
+                          Logs:{" "}
+                          <>
+                            {message.message.substring(
+                              message.message.indexOf("#") + 1,
+                              message.message.indexOf("^")
+                            )}
                           </>
-                        ) : (
-                          <>{message.message}</>
-                        )}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            )}
-            <form id={TrollboxCSS.chatForm} onSubmit={(e) => saveMessage(e)}>
-              <InputEmoji
-                onChange={setTrollboxFormMessage}
-                placeholder=""
-                name="message"
-                maxLength={132}
-                fontSize="14px"
-                fontFamily="monospace"
-                borderRadius="24px"
-                borderColor="transparent"
-                onEnter={() => submitButton.current.click()}
-                required
-                value={trollboxFormMessage}
-              />{" "}
-              <button ref={submitButton} type="submit">
-                <MdSend />
-              </button>
-            </form>
-          </div>
+                          <br />
+                          Value:{" "}
+                          <>
+                            {message.message.substring(
+                              message.message.indexOf("$") + 1,
+                              message.message.indexOf("Ξ") + 1
+                            )}
+                          </>
+                          <br />
+                          Timestamp:{" "}
+                          <>
+                            {message.message.substring(
+                              message.message.indexOf("!") + 1
+                            )}
+                          </>
+                        </>
+                      ) : (
+                        <>{message.message}</>
+                      )}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          )}
         </>
       )}
+      <form id={TrollboxCSS.chatForm} onSubmit={(e) => saveMessage(e)}>
+        <InputEmoji
+          onChange={setTrollboxFormMessage}
+          placeholder=""
+          name="message"
+          maxLength={132}
+          fontSize="14px"
+          fontFamily="monospace"
+          borderRadius="24px"
+          borderColor="transparent"
+          onEnter={() => submitButton.current.click()}
+          required
+          value={trollboxFormMessage}
+        />{" "}
+        <button ref={submitButton} type="submit">
+          <MdSend />
+        </button>
+      </form>
     </div>
   );
 };
