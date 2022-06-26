@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import DosboxCSS from "../style/Dosbox.module.css";
 import { DosFactory } from "js-dos";
 import {FaEject} from "react-icons/fa";
@@ -15,7 +15,7 @@ const canvasCSS = `
     }
 `
 
-const DosPlayer = ({game, startGame, exitGame}) => {    
+const DosPlayer = ({game, exitGame}) => {    
     const ref = useRef<HTMLCanvasElement>(null);
 
 

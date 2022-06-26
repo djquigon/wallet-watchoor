@@ -1,18 +1,36 @@
-import { useState, useEffect } from "react";
+import { useCallback, useContext, useState, useEffect } from "react";
 import WalletConnectorCSS from "../style/WalletConnector.module.css";
 import { AiOutlineClose } from "react-icons/ai";
 import etherscanLogo from "../assets/etherscanlogo.png";
 import makeBlockie from "ethereum-blockies-base64";
 import { ethers } from "ethers";
-import { useCallback } from "react";
+import { onValue, ref } from "firebase/database";
+import { AppContext } from "../App";
 
-const WalletConnector = ({ account, handleAccount }) => {
+const WalletConnector = () => {
+  const { database, account, setAccount } = useContext(AppContext);
   const [accountBalance, setAccountBalance] = useState(null);
   const [accountTransactionCount, setAccountTransactionCount] = useState(null);
+  const [dateJoined, setDateJoined] = useState(null);
+  const [numAddressesWatched, setNumAddressesWatched] = useState(null);
+  const [numTransactionsWatched, setNumTransactionsWatched] = useState(null);
+  const [avatar, setAvatar] = useState(null);
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
+  };
+
+  const getAccountDBInfo = (address) => {
+    onValue(ref(database, `users/${address}`), (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setDateJoined(data.dateJoined);
+        setNumAddressesWatched(Object.keys(data.watchedAddresses).length);
+        setNumTransactionsWatched(data.numTransactionsWatched);
+        setAvatar(data.avatar);
+      }
+    });
   };
 
   const getAccountTransactionCount = (address) => {
@@ -45,18 +63,23 @@ const WalletConnector = ({ account, handleAccount }) => {
         newAccount = null;
         setAccountBalance(null);
         setAccountTransactionCount(null);
+        setDateJoined(null);
+        setNumAddressesWatched(null);
+        setNumTransactionsWatched(null);
+        setAvatar(null);
       }
       //for when multiple addresses are connected
       else if (Array.isArray(newAccount)) {
         newAccount = newAccount[0];
       }
-      handleAccount(newAccount);
+      setAccount(newAccount);
       if (newAccount) {
         getAccountBalance(newAccount.toString());
         getAccountTransactionCount(newAccount.toString());
+        getAccountDBInfo(newAccount.toString());
       }
     },
-    [handleAccount]
+    [setAccount]
   );
 
   const connectWallet = () => {
@@ -124,7 +147,7 @@ const WalletConnector = ({ account, handleAccount }) => {
             <h2>Account</h2>
             <div id={WalletConnectorCSS.modalAccountInfo}>
               <img
-                src={account ? makeBlockie(account) : null}
+                src={avatar ? avatar : makeBlockie(account)}
                 alt="avatar"
               ></img>
               <p>{accountBalance + " Ξ"}</p>
@@ -144,9 +167,18 @@ const WalletConnector = ({ account, handleAccount }) => {
               </a>
             </div>
             <div id={WalletConnectorCSS.modalWatchoorInfo}>
-              <p>Watching since 2021-12-30 04:45</p>
-              <p>{"0 txn(s) watched"}</p>
-              <p>0 wallets watched</p>
+              <p>
+                Watching since{" "}
+                {`${dateJoined.substring(
+                  0,
+                  dateJoined.indexOf("T")
+                )} ${dateJoined.substring(
+                  dateJoined.indexOf("T") + 1,
+                  dateJoined.indexOf(".")
+                )} UTC`}
+              </p>
+              <p>{numTransactionsWatched} txn(s) watched</p>
+              <p>{numAddressesWatched} wallets watched</p>
             </div>
             <button
               id={WalletConnectorCSS.closeModalBtn}

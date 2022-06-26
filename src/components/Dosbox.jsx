@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import DosPlayer from "./DosPlayer.tsx";
 import DosboxCSS from "../style/Dosbox.module.css";

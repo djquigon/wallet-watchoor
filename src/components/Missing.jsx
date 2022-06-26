@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Missing = () => {
@@ -7,7 +6,7 @@ const Missing = () => {
       <h2>Page Not Found</h2>
       <p>Sorry, Watchoor.</p>
       <p>
-        <Link to="/">Visit the Homepage</Link>
+        <Link to="/home">Visit the Homepage</Link>
       </p>
     </main>
   );

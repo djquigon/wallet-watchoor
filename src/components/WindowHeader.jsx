@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import WindowHeaderCSS from "../style/WindowHeader.module.css";
 import { FaLockOpen, FaLock } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";

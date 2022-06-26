@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import TrollboxCSS from "../style/Trollbox.module.css";
 import WindowHeader from "./WindowHeader";
 import makeBlockie from "ethereum-blockies-base64";
@@ -6,10 +6,9 @@ import { MdSend } from "react-icons/md";
 import InputEmoji from "react-input-emoji";
 import { AiOutlineLoading } from "react-icons/ai";
 import { onValue, ref, push } from "firebase/database";
+import { AppContext } from "../App";
 
 const Trollbox = ({
-  database,
-  account,
   removeItem,
   addItem,
   isItemStatic,
@@ -17,10 +16,9 @@ const Trollbox = ({
   trollboxFormMessage,
   setTrollboxFormMessage,
 }) => {
+  const { database, account } = useContext(AppContext);
   const [messages, setMessages] = useState([]);
-
   const submitButton = useRef(null);
-
   const [gunLength, setGunLength] = useState(null);
 
   //read

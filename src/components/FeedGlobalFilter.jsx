@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { useAsyncDebounce } from "react-table";
 import FeedCSS from "../style/Feed.module.css";

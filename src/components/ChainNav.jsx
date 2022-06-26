@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useContext } from "react";
 import ChainNavCSS from "../style/ChainNav.module.css";
 import WalletConnector from "./WalletConnector";
 import { AiOutlineLoading } from "react-icons/ai";
 import etherscanLogo from "../assets/etherscanlogo.png";
 import { ethers } from "ethers";
 import ReactTooltip from "react-tooltip";
-import { useCallback } from "react";
+import { AppContext } from "../App";
 
-let provider = null;
-if (window.ethereum)
-  provider = new ethers.providers.Web3Provider(window.ethereum);
-
-const ChainNav = ({ block, setBlock, account, handleAccount }) => {
-  // const [chain, setChain] = useState("ethereum")
+const ChainNav = ({ block, setBlock }) => {
+  const { provider, account, setAccount } = useContext(AppContext);
   const [refreshTime, setRefreshTime] = useState(null);
 
   const setTime = () => {
@@ -203,7 +199,7 @@ const ChainNav = ({ block, setBlock, account, handleAccount }) => {
           </div>
         </div>
       )}
-      <WalletConnector account={account} handleAccount={handleAccount} />
+      <WalletConnector account={account} setAccount={setAccount} />
     </nav>
   );
 };

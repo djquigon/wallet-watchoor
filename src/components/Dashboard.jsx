@@ -1,11 +1,11 @@
-import React from "react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ChainNav from "./ChainNav";
 import Feed from "./Feed";
 import WatchList from "./WatchList";
 import Trollbox from "./Trollbox";
 import Dosbox from "./Dosbox";
 import RGL, { WidthProvider } from "react-grid-layout";
+import { AppContext } from "../App";
 import "../../node_modules/react-grid-layout/css/styles.css";
 import "../../node_modules/react-resizable/css/styles.css";
 
@@ -73,7 +73,8 @@ function saveToLS(key, value) {
   }
 }
 
-const Dashboard = ({ database, account, handleAccount }) => {
+const Dashboard = () => {
+  const { database, account, setAccount } = useContext(AppContext);
   const [addresses, setAddresses] = useState([]);
   const [block, setBlock] = useState(null);
   const [layout, setLayout] = useState(
@@ -164,7 +165,7 @@ const Dashboard = ({ database, account, handleAccount }) => {
         block={block}
         setBlock={setBlock}
         account={account}
-        handleAccount={handleAccount}
+        setAccount={setAccount}
       />
       <ReactGridLayout
         className="layout"

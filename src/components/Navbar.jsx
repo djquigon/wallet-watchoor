@@ -9,14 +9,13 @@ import { ImEnter } from "react-icons/im";
 import { GiFox } from "react-icons/gi";
 import { ethers } from "ethers";
 import { ThemeContext } from "./Layout";
+import { AppContext } from "../App";
+
 import axios from "axios";
 import ReactTooltip from "react-tooltip";
 
-let provider = null;
-if (window.ethereum)
-  provider = new ethers.providers.Web3Provider(window.ethereum);
-
 const Navbar = () => {
+  const { provider } = useContext(AppContext);
   const [gasPrice, setGasPrice] = useState(null);
   const { theme, setTheme } = useContext(ThemeContext);
   const [etherPriceInfo, setEtherPriceInfo] = useState(null);
@@ -90,13 +89,13 @@ const Navbar = () => {
           </Link>
         </li>
         <li className={NavbarCSS.menuItem}>
-          <Link to="app">
+          <Link to="/app">
             <ImEnter className={NavbarCSS.menuIcon} />
             <p>Enter App</p>
           </Link>
         </li>
         <li className={NavbarCSS.menuItem}>
-          <Link to="info">
+          <Link to="/info">
             <MdInfo className={NavbarCSS.menuIcon} />
             <p>Learn More</p>
           </Link>

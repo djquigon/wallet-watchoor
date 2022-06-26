@@ -1,4 +1,3 @@
-import React from "react";
 import { FaUserPlus } from "react-icons/fa";
 import WatchListCSS from "../style/WatchList.module.css";
 

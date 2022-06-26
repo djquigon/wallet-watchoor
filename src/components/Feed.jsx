@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import FeedCSS from "../style/Feed.module.css";
 import WindowHeader from "./WindowHeader";
 import { ethers } from "ethers";
+import { AppContext } from "../App";
 import axios from "axios";
 /* global BigInt */
 import unknownLogo from "../assets/unknownlogo.png";
@@ -20,6 +21,7 @@ import creationSFX from "../assets/sfx/creationSFX.wav";
 import dompeetSFX from "../assets/sfx/dompeetSFX.wav";
 import pompeetSFX from "../assets/sfx/pompeetSFX.wav";
 import transferSFX from "../assets/sfx/transferSFX.wav";
+import { set, get, ref } from "firebase/database";
 
 const smallAudio = new Audio(smallSFX);
 const mediumAudio = new Audio(mediumSFX);
@@ -31,10 +33,6 @@ const creationAudio = new Audio(creationSFX);
 const dompeetAudio = new Audio(dompeetSFX);
 const pompeetAudio = new Audio(pompeetSFX);
 const transferAudio = new Audio(transferSFX);
-
-let provider = null;
-if (window.ethereum)
-  provider = new ethers.providers.Web3Provider(window.ethereum);
 
 const ERC20_ABI = [
   // Read-Only Functions
@@ -92,7 +90,6 @@ const transactionsInLS = window.localStorage
 
 const Feed = ({
   block,
-  account,
   addresses,
   setAddresses,
   removeItem,
@@ -101,6 +98,7 @@ const Feed = ({
   setItemStatic,
   setTrollboxFormMessage,
 }) => {
+  const { database, provider, account } = useContext(AppContext);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   //add filterredTransactions to feedTransactions in useEffect?
   const [feedTransactions, setFeedTransactions] = useState(
@@ -487,12 +485,25 @@ const Feed = ({
 
   //called when filtered transactions is set, ensures feed is updated after
   useEffect(() => {
+    if (filteredTransactions.length === 0) {
+      console.log("Filtered transactions set to empty...");
+      return;
+    }
     console.log(
-      "Filtered transactions changed. Concatenating filtered transactions..."
+      "Filtered transactions changed. Setting numTransactionsWatched and concatenating filtered transactions..."
+    );
+    get(ref(database, `users/${account}/numTransactionsWatched`)).then(
+      (snapshot) => {
+        const prevNumTransactionsWatched = snapshot.val();
+        set(
+          ref(database, `users/${account}/numTransactionsWatched`),
+          prevNumTransactionsWatched + filteredTransactions.length
+        );
+      }
     );
     let newFeedTxns = null;
     //for initial load
-    if (feedTransactions.length === 0) {
+    if (feedTransactions && feedTransactions.length === 0) {
       newFeedTxns = filteredTransactions.reverse();
     } else {
       newFeedTxns = filteredTransactions.reverse().concat(feedTransactions);

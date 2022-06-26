@@ -1,4 +1,3 @@
-import React from "react";
 import WatchListCSS from "../style/WatchList.module.css";
 
 const WatchListSearch = ({ search, setSearch }) => {

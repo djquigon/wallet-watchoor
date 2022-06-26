@@ -9,10 +9,12 @@ import { IoMdChatboxes } from "react-icons/io";
 import WalletConnector from "./WalletConnector";
 import Footer from "./Footer";
 import { ThemeContext } from "./Layout";
+import { AppContext } from "../App";
 // import lightHeader from "../assets/light_header.png";
 // import darkHeader from "../assets/dark_header.png";
 
-const Home = ({ account, handleAccount }) => {
+const Home = () => {
+  const { account, setAccount } = useContext(AppContext);
   const theme = useContext(ThemeContext);
   // const headerBackground = `url(${
   //   theme.theme === "light" ? lightHeader : darkHeader
@@ -30,7 +32,7 @@ const Home = ({ account, handleAccount }) => {
         }}
       >
         <div id={HomeCSS.headerConnectBtn}>
-          <WalletConnector account={account} handleAccount={handleAccount} />
+          <WalletConnector account={account} setAccount={setAccount} />
         </div>
         <div id={HomeCSS.headerContent}>
           <h1>Welcome Watchoors</h1>
@@ -40,7 +42,7 @@ const Home = ({ account, handleAccount }) => {
             early on? Need a way to get ahead of the curve?
           </h3>
           <div id={HomeCSS.landingBtns}>
-            <Link to="app">
+            <Link to="/app">
               <button>Enter App</button>
             </Link>
             <a
@@ -60,7 +62,7 @@ const Home = ({ account, handleAccount }) => {
         <div id={HomeCSS.featuresRow}>
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
-              <Link to="app">
+              <Link to="/app">
                 <RiContactsBookFill
                   style={{
                     color: featureColor,
@@ -77,7 +79,7 @@ const Home = ({ account, handleAccount }) => {
           </div>
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
-              <Link to="app">
+              <Link to="/app">
                 <ImFeed
                   style={{
                     color: featureColor,
@@ -94,7 +96,7 @@ const Home = ({ account, handleAccount }) => {
           </div>
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
-              <Link to="app">
+              <Link to="/app">
                 <IoMdChatboxes
                   style={{
                     color: featureColor,
@@ -111,7 +113,7 @@ const Home = ({ account, handleAccount }) => {
           </div>
           <div className={HomeCSS.feature}>
             <div className={HomeCSS.featureImg}>
-              <Link to="app">
+              <Link to="/app">
                 <GrDos
                   style={{
                     color: featureColor,

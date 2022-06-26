@@ -1,9 +1,6 @@
 import { createContext, useState } from "react";
 import Navbar from "./Navbar";
-
 import { Outlet } from "react-router-dom";
-
-/*Context makes state avaliable to all components it encomapsses? look this up*/
 export const ThemeContext = createContext(null);
 
 const Layout = () => {

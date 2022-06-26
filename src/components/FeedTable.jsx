@@ -1,5 +1,4 @@
-import { useMemo, useState } from "react";
-import React from "react";
+import React, { useMemo, useState } from "react";
 import {
   useTable,
   useSortBy,
@@ -40,7 +39,6 @@ const getLogoFromCoinGecko = async (img, contractAddress) => {
 };
 
 const FeedTable = ({
-  account,
   isPaused,
   setIsPaused,
   isMuted,

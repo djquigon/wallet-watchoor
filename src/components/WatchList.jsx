@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import WindowHeader from "./WindowHeader";
 import WatchListCSS from "../style/WatchList.module.css";
 import WatchListAddress from "./WatchListAddress";
@@ -8,14 +7,9 @@ import WatchListSearch from "./WatchListSearch";
 import { ethers } from "ethers";
 import { AiOutlineLoading } from "react-icons/ai";
 import { onValue, set, ref, update, remove } from "firebase/database";
-
-let provider = null;
-if (window.ethereum)
-  provider = new ethers.providers.Web3Provider(window.ethereum);
+import { AppContext } from "../App";
 
 const WatchList = ({
-  database,
-  account,
   addresses,
   setAddresses,
   removeItem,
@@ -23,6 +17,7 @@ const WatchList = ({
   isItemStatic,
   setItemStatic,
 }) => {
+  const { database, provider, account } = useContext(AppContext);
   const [newAddress, setNewAddress] = useState("");
   const [newAlias, setNewAlias] = useState("");
   const [search, setSearch] = useState("");
@@ -74,12 +69,12 @@ const WatchList = ({
     );
   };
 
-  const getAddressInfo = async (ens) => {
+  const getAddressInfo = async (address, ens) => {
     let resolver = null;
     if (ens) {
       resolver = await provider.getResolver(ens);
     }
-    const addressInfo = {
+    let addressInfo = {
       alerts: true,
       alias: newAlias,
       ens: ens,
