@@ -74,7 +74,7 @@ function saveToLS(key, value) {
 }
 
 const Dashboard = () => {
-  const { database, account, setAccount } = useContext(AppContext);
+  const { database, chainID, account, setAccount } = useContext(AppContext);
   const [addresses, setAddresses] = useState([]);
   const [block, setBlock] = useState(null);
   const [layout, setLayout] = useState(
@@ -167,68 +167,75 @@ const Dashboard = () => {
         account={account}
         setAccount={setAccount}
       />
-      <ReactGridLayout
-        className="layout"
-        layout={layout}
-        cols={40}
-        rowHeight={10}
-        allowOverlap={false}
-        margin={[5, 5]}
-        onLayoutChange={onLayoutChange}
-      >
-        {layout.map((item) =>
-          item.i === "Feed" ? (
-            <div key={item.i} data-grid={{ item }}>
-              <Feed
-                block={block}
-                account={account}
-                addresses={addresses}
-                setAddresses={setAddresses}
-                removeItem={removeItem}
-                addItem={addItem}
-                isItemStatic={isItemStatic}
-                setItemStatic={setItemStatic}
-                setTrollboxFormMessage={setTrollboxFormMessage}
-              />
-            </div>
-          ) : item.i === "Watchlist" ? (
-            <div key={item.i} data-grid={{ item }}>
-              <WatchList
-                database={database}
-                account={account}
-                addresses={addresses}
-                setAddresses={setAddresses}
-                removeItem={removeItem}
-                addItem={addItem}
-                isItemStatic={isItemStatic}
-                setItemStatic={setItemStatic}
-              />
-            </div>
-          ) : item.i === "Trollbox" ? (
-            <div key={item.i} data-grid={{ item }}>
-              <Trollbox
-                database={database}
-                account={account}
-                removeItem={removeItem}
-                addItem={addItem}
-                isItemStatic={isItemStatic}
-                setItemStatic={setItemStatic}
-                trollboxFormMessage={trollboxFormMessage}
-                setTrollboxFormMessage={setTrollboxFormMessage}
-              />
-            </div>
-          ) : item.i === "Dosbox" ? (
-            <div key={item.i} data-grid={{ item }}>
-              <Dosbox
-                removeItem={removeItem}
-                addItem={addItem}
-                isItemStatic={isItemStatic}
-                setItemStatic={setItemStatic}
-              />
-            </div>
-          ) : null
-        )}
-      </ReactGridLayout>
+      {chainID === 1 ? (
+        <ReactGridLayout
+          className="layout"
+          layout={layout}
+          cols={40}
+          rowHeight={10}
+          allowOverlap={false}
+          margin={[5, 5]}
+          onLayoutChange={onLayoutChange}
+        >
+          {layout.map((item) =>
+            item.i === "Feed" ? (
+              <div key={item.i} data-grid={{ item }}>
+                <Feed
+                  block={block}
+                  account={account}
+                  addresses={addresses}
+                  setAddresses={setAddresses}
+                  removeItem={removeItem}
+                  addItem={addItem}
+                  isItemStatic={isItemStatic}
+                  setItemStatic={setItemStatic}
+                  setTrollboxFormMessage={setTrollboxFormMessage}
+                />
+              </div>
+            ) : item.i === "Watchlist" ? (
+              <div key={item.i} data-grid={{ item }}>
+                <WatchList
+                  database={database}
+                  account={account}
+                  addresses={addresses}
+                  setAddresses={setAddresses}
+                  removeItem={removeItem}
+                  addItem={addItem}
+                  isItemStatic={isItemStatic}
+                  setItemStatic={setItemStatic}
+                />
+              </div>
+            ) : item.i === "Trollbox" ? (
+              <div key={item.i} data-grid={{ item }}>
+                <Trollbox
+                  database={database}
+                  account={account}
+                  removeItem={removeItem}
+                  addItem={addItem}
+                  isItemStatic={isItemStatic}
+                  setItemStatic={setItemStatic}
+                  trollboxFormMessage={trollboxFormMessage}
+                  setTrollboxFormMessage={setTrollboxFormMessage}
+                />
+              </div>
+            ) : item.i === "Dosbox" ? (
+              <div key={item.i} data-grid={{ item }}>
+                <Dosbox
+                  removeItem={removeItem}
+                  addItem={addItem}
+                  isItemStatic={isItemStatic}
+                  setItemStatic={setItemStatic}
+                />
+              </div>
+            ) : null
+          )}
+        </ReactGridLayout>
+      ) : (
+        <h2 style={{ textAlign: "center", margin: "5em 17.5em" }}>
+          Wallet Watchoor is currently not available on this chain. Switch
+          chains to the Ethereum Mainnet to continue to the app.
+        </h2>
+      )}
     </main>
   );
 };

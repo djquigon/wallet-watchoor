@@ -15,7 +15,7 @@ import axios from "axios";
 import ReactTooltip from "react-tooltip";
 
 const Navbar = () => {
-  const { provider } = useContext(AppContext);
+  const { provider, chainID } = useContext(AppContext);
   const [gasPrice, setGasPrice] = useState(null);
   const { theme, setTheme } = useContext(ThemeContext);
   const [etherPriceInfo, setEtherPriceInfo] = useState(null);
@@ -131,22 +131,7 @@ const Navbar = () => {
           )}
         </li>
         <li className={NavbarCSS.menuItem} id={NavbarCSS.gweiTracker}>
-          {window.ethereum ? (
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://etherscan.io/gastracker"
-            >
-              <FaGasPump className={NavbarCSS.menuIcon} />
-              <p>
-                {gasPrice ? (
-                  gasPrice + " Gwei"
-                ) : (
-                  <AiOutlineLoading className="loadingSvg" />
-                )}
-              </p>
-            </a>
-          ) : (
+          {!window.ethereum && (
             <a
               target="_blank"
               rel="noreferrer"
@@ -160,6 +145,22 @@ const Navbar = () => {
               }}
             >
               Download <br /> Metamask <br /> <GiFox />
+            </a>
+          )}
+          {chainID === 1 && (
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://etherscan.io/gastracker"
+            >
+              <FaGasPump className={NavbarCSS.menuIcon} />
+              <p>
+                {gasPrice ? (
+                  gasPrice + " Gwei"
+                ) : (
+                  <AiOutlineLoading className="loadingSvg" />
+                )}
+              </p>
             </a>
           )}
         </li>

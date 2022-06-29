@@ -6,9 +6,10 @@ import makeBlockie from "ethereum-blockies-base64";
 import { ethers } from "ethers";
 import { onValue, ref } from "firebase/database";
 import { AppContext } from "../App";
+import { FaEthereum } from "react-icons/fa";
 
 const WalletConnector = () => {
-  const { database, account, setAccount } = useContext(AppContext);
+  const { database, chainID, account, setAccount } = useContext(AppContext);
   const [accountBalance, setAccountBalance] = useState(null);
   const [accountTransactionCount, setAccountTransactionCount] = useState(null);
   const [dateJoined, setDateJoined] = useState(null);
@@ -82,7 +83,7 @@ const WalletConnector = () => {
     [setAccount]
   );
 
-  const connectWallet = () => {
+  const connectWallet = async () => {
     if (typeof window.ethereum !== "undefined") {
       if (account) {
         toggleModal();
@@ -97,6 +98,34 @@ const WalletConnector = () => {
       window.alert(
         "MetaMask is not installed or could not be found. Please download this or any other compatible web3 wallet from your browsers app store to gain full access to this app."
       );
+    }
+  };
+
+  const promptUserToChangeChain = async () => {
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0x1" }],
+      });
+    } catch (switchError) {
+      // This error code indicates that the chain has not been added to MetaMask, should not happen in this case b/c eth mainnet cannot be removed from metamask but keeping here anyway
+      if (switchError.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: "0x1",
+                chainName: "Ethereum Mainnet",
+                rpcUrls: ["https://main-rpc.linkpool.io"],
+              },
+            ],
+          });
+        } catch (addError) {
+          // handle "add" error
+        }
+      }
+      // handle other "switch" errors
     }
   };
 
@@ -130,13 +159,22 @@ const WalletConnector = () => {
 
   return (
     <>
-      <button id={WalletConnectorCSS.connectBtn} onClick={connectWallet}>
-        {account
-          ? account.toString().substring(0, 6) +
-            "..." +
-            account.toString().substring(account.length - 4)
-          : "Connect Wallet"}
-      </button>
+      {chainID === 1 ? (
+        <button id={WalletConnectorCSS.connectBtn} onClick={connectWallet}>
+          {account
+            ? account.toString().substring(0, 6) +
+              "..." +
+              account.toString().substring(account.length - 4)
+            : "Connect Wallet"}
+        </button>
+      ) : (
+        <button
+          id={WalletConnectorCSS.switchChainBtn}
+          onClick={promptUserToChangeChain}
+        >
+          Switch to Ethereum Mainnet <FaEthereum />
+        </button>
+      )}
       {modal && (
         <div className={WalletConnectorCSS.modal}>
           <div

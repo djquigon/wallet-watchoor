@@ -8,7 +8,7 @@ import ReactTooltip from "react-tooltip";
 import { AppContext } from "../App";
 
 const ChainNav = ({ block, setBlock }) => {
-  const { provider, account, setAccount } = useContext(AppContext);
+  const { chainID, provider, account, setAccount } = useContext(AppContext);
   const [refreshTime, setRefreshTime] = useState(null);
 
   const setTime = () => {
@@ -62,7 +62,7 @@ const ChainNav = ({ block, setBlock }) => {
 
   return (
     <nav id={ChainNavCSS.chainNav}>
-      {window.ethereum && (
+      {window.ethereum && chainID === 1 && (
         <div id={ChainNavCSS.chainContainer}>
           <button
             id={ChainNavCSS.toggledChain}

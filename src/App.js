@@ -31,11 +31,11 @@ const app = initializeApp(firebaseConfig);
 //const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
-if (window.ethereum)
-  var provider = new ethers.providers.Web3Provider(window.ethereum);
-
 function App() {
-
+  if (window.ethereum)
+  var provider = new ethers.providers.Web3Provider(window.ethereum);
+  
+  const [chainID, setChainID] = useState(null)
   const [account, setAccount] = useState(null)
 
   const getAddressInfo = async (ens) => {
@@ -61,6 +61,14 @@ function App() {
 
     return addressInfo;
   };
+
+  const getChainID = async () =>{
+    if(provider){
+      const network = await provider.getNetwork()
+      const currChainID = network.chainId
+      setChainID(currChainID)
+    }
+  }
 
   const addUser = useCallback( async (accountToAdd) => {
     console.log("Adding user: ", accountToAdd)
@@ -160,10 +168,14 @@ function App() {
       }) 
     } 
   }, [account, addUser])
+
+  useEffect(() => {
+    getChainID()
+  }, [])
   
 
   return (
-    <AppContext.Provider value={{database, provider, account, setAccount}}>
+    <AppContext.Provider value={{database, provider, chainID, setChainID, account, setAccount}}>
       <Router>
         <Routes>
           <Route element={<Layout/>}>

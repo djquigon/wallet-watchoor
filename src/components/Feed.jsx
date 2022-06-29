@@ -139,7 +139,9 @@ const Feed = ({
     if (URI.substring(0, 4).includes("ipfs")) {
       const gatewayURI = `https://ipfs.io/ipfs/${URI.substring(7)}`;
       const res = await axios.get(gatewayURI);
-      const imageURL = `https://ipfs.io/ipfs/${res.data.image.substring(7)}`;
+      const imageURL = res.data.image
+        ? `https://ipfs.io/ipfs/${res.data.image.substring(7)}`
+        : unknownLogo;
       return imageURL;
     } else {
       try {
@@ -474,12 +476,18 @@ const Feed = ({
 
   useEffect(() => {
     if (window.localStorage) {
-      window.localStorage.setItem(
-        "feedTransactions",
-        JSON.stringify({
-          feedTransactions,
-        })
-      );
+      try {
+        window.localStorage.setItem(
+          "feedTransactions",
+          JSON.stringify({
+            feedTransactions,
+          })
+        );
+      } catch (e) {
+        alert(
+          "Your feed is at max capacity. Delete some transactions or clear your feed to continue having persistence between sessions."
+        );
+      }
     }
   }, [feedTransactions]);
 
