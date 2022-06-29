@@ -14,7 +14,6 @@ const Info = () => {
   const [displayWatchlist, setDisplayWatchlist] = useState(false);
   const [displayTrollbox, setDisplayTrollbox] = useState(false);
   const [displayDosbox, setDisplayDosbox] = useState(false);
-  const [displayAccountViewer, setDisplayAccountViewer] = useState(false);
 
   const [contentMP4, setContentMP4] = useState(INFO_CONSTANTS.WELCOME_MP4); //welcome
   const [contentText, setContentText] = useState(INFO_CONSTANTS.WELCOME_TEXT); //welcome
@@ -196,27 +195,6 @@ const Info = () => {
                       contentLabel="Share Transactions and Addresses"
                       contentMP4={INFO_CONSTANTS.SHARE_MP4}
                       contentText={INFO_CONSTANTS.SHARE_TEXT}
-                      setContentMP4={setContentMP4}
-                      setContentText={setContentText}
-                      setContentLabel={setContentLabel}
-                    />
-                  </ul>
-                ) : null}
-              </li>
-              <li className={InfoCSS.featureList}>
-                <div
-                  onClick={() => {
-                    setDisplayAccountViewer(!displayAccountViewer);
-                  }}
-                >
-                  Account Viewer
-                </div>
-                {displayAccountViewer ? (
-                  <ul className={InfoCSS.sublist}>
-                    <InfoSublistItem
-                      contentLabel="Take a Break"
-                      contentMP4={INFO_CONSTANTS.BREAK_MP4}
-                      contentText={INFO_CONSTANTS.BREAK_TEXT}
                       setContentMP4={setContentMP4}
                       setContentText={setContentText}
                       setContentLabel={setContentLabel}

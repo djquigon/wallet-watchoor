@@ -74,17 +74,6 @@ const WindowHeader = ({
             >
               <IoMdChatboxes color="white" />
             </button>
-            <ReactTooltip id="accountViewer" class="tooltip" />
-            <button
-              data-place="left"
-              data-for="accountViewer"
-              data-tip="Open Account Viewer?"
-              onClick={() => {
-                alert("Coming soon...");
-              }}
-            >
-              <RiUserSearchFill color="white" />
-            </button>
             <ReactTooltip id="dosbox" class="tooltip" />
             <button
               data-place="left"
