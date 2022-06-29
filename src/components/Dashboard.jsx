@@ -231,9 +231,10 @@ const Dashboard = () => {
           )}
         </ReactGridLayout>
       ) : (
-        <h2 style={{ textAlign: "center", margin: "5em 17.5em" }}>
-          Wallet Watchoor is currently not available on this chain. Switch
-          chains to the Ethereum Mainnet to continue to the app.
+        <h2 style={{ textAlign: "center", margin: "10% 30%" }}>
+          Wallet Watchoor is currently not available on this chain.
+          <br />
+          Switch chains to the Ethereum Mainnet to continue to the app.
         </h2>
       )}
     </main>
