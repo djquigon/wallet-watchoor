@@ -1,3 +1,12 @@
+/**
+ * The InfoSublistItem component contains the information for each section of the handbook in the Info component.
+ * @param { contentLabel,
+  contentMP4,
+  contentText,
+  setContentMP4,
+  setContentText,
+  setContentLabel, } props
+ */
 const InfoSublistItem = ({
   contentLabel,
   contentMP4,

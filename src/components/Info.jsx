@@ -8,6 +8,9 @@ import { ThemeContext } from "./Layout";
 import light_info from "../assets/light_info.gif";
 import dark_info from "../assets/dark_info.gif";
 
+/**
+ * The Info component displays a handbook of information regarding wallet watchoor and its functionality.
+ */
 const Info = () => {
   const [displayIntroduction, setDisplayIntroduction] = useState(true);
   const [displayFeed, setDisplayFeed] = useState(false);

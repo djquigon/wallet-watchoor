@@ -14,18 +14,27 @@ import { AppContext } from "../App";
 import axios from "axios";
 import ReactTooltip from "react-tooltip";
 
+/**
+ * The Navbar component contains links to the different wallet watchoor pages, the theme toggle button, and ETH price info.
+ */
 const Navbar = () => {
   const { provider, chainID } = useContext(AppContext);
   const [gasPrice, setGasPrice] = useState(null);
   const { theme, setTheme } = useContext(ThemeContext);
   const [etherPriceInfo, setEtherPriceInfo] = useState(null);
 
+  /**
+   * Changes the current theme saved for the user and sets it in local storage.
+   */
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark" : "light"));
     //for persistence
     localStorage.setItem("theme", theme === "light" ? "dark" : "light");
   };
 
+  /**
+   * Gets ETH price info from the coingecko API.
+   */
   const getEtherPriceInfo = async () => {
     console.log("Getting Price info...");
     const res = await axios.get(
@@ -43,6 +52,9 @@ const Navbar = () => {
     });
   };
 
+  /**
+   * Gets the ETH gas price.
+   */
   const fetchGasPrice = async () => {
     console.log("Getting gas info...");
     if (typeof window.ethereum !== "undefined") {

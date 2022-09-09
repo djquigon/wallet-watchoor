@@ -88,6 +88,18 @@ const transactionsInLS = window.localStorage
   ? JSON.parse(localStorage.getItem("feedTransactions"))
   : null;
 
+/**
+ * The Feed component displays transactions and their associated info 
+ * for addresses in the watchlist for the connected wallet.
+ * @param { block,
+  addresses,
+  setAddresses,
+  removeItem,
+  addItem,
+  isItemStatic,
+  setItemStatic,
+  setTrollboxFormMessage, } props
+ */
 const Feed = ({
   block,
   addresses,
@@ -109,6 +121,11 @@ const Feed = ({
   const [isPaused, setIsPaused] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
 
+  /**
+   * Checks if the logs for a given txn contain the ETH symbol.
+   * @param { * } logs
+   * @param { * } index
+   */
   const checkLogsForETH = (logs, index) => {
     return (
       logs[index] !== undefined &&
@@ -117,6 +134,11 @@ const Feed = ({
     );
   };
 
+  /**
+   * Checks if the logs for a given txn contain the USD symbol.
+   * @param { * } logs
+   * @param { * } index
+   */
   const checkLogsForUSD = (logs, index) => {
     return (
       logs[index] !== undefined &&
@@ -126,6 +148,11 @@ const Feed = ({
     );
   };
 
+  /**
+   * Checks if the logs for a given txn contain the BTC symbol.
+   * @param { * } logs
+   * @param { * } index
+   */
   const checkLogsForBTC = (logs, index) => {
     return (
       logs[index] !== undefined &&
@@ -134,6 +161,10 @@ const Feed = ({
     );
   };
 
+  /**
+   * Get the image for an ERC721 token from its URI.
+   * @param { * } URI
+   */
   const getImageFromURI = async (URI) => {
     console.log("getImageForTokenID...");
     if (URI.substring(0, 4).includes("ipfs")) {
@@ -161,6 +192,10 @@ const Feed = ({
     }
   };
 
+  /**
+   * Get desire info from logs associated with a txn and add them to decodedLogs object.
+   * @param { * } logs
+   */
   const decodeLogs = async (logs) => {
     let decodedLogs = [];
     let isNFTLog = false;
@@ -266,6 +301,11 @@ const Feed = ({
     return { isNFTLog, hasFailedLog, decodedLogs };
   };
 
+  /**
+   * Build the filteredTransactions object by getting necessary info from newFilteredTxns.
+   * @param { * } newFilteredTxns
+   * @param { * } timestamp
+   */
   const buildFilteredTransactions = async (newFilteredTxns, timestamp) => {
     let filteredTxns = [];
     for (let i = 0; i < newFilteredTxns.length; i++) {

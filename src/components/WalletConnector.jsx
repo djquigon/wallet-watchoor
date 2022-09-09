@@ -8,6 +8,10 @@ import { onValue, ref } from "firebase/database";
 import { AppContext } from "../App";
 import { FaEthereum } from "react-icons/fa";
 
+/**
+ * The WalletConnector component contains the connect wallet button and a wallet info modal
+ *  as well as all the functionality for connecting a user's wallet.
+ */
 const WalletConnector = () => {
   const { database, chainID, account, setAccount } = useContext(AppContext);
   const [accountBalance, setAccountBalance] = useState(null);
@@ -18,10 +22,17 @@ const WalletConnector = () => {
   const [avatar, setAvatar] = useState(null);
   const [modal, setModal] = useState(false);
 
+  /**
+   * Toggles the wallet info modal.
+   */
   const toggleModal = () => {
     setModal(!modal);
   };
 
+  /**
+   * Gets the account info associated with an address from the DB.
+   * @param { * } address
+   */
   const getAccountDBInfo = (address) => {
     onValue(ref(database, `users/${address}`), (snapshot) => {
       const data = snapshot.val();
@@ -34,6 +45,10 @@ const WalletConnector = () => {
     });
   };
 
+  /**
+   * Gets the txn count for an address from the DB.
+   * @param { * } address
+   */
   const getAccountTransactionCount = (address) => {
     window.ethereum
       .request({
@@ -45,6 +60,10 @@ const WalletConnector = () => {
       });
   };
 
+  /**
+   * Gets the account balance in ETH for an address from the DB.
+   * @param { * } address
+   */
   const getAccountBalance = (address) => {
     window.ethereum
       .request({ method: "eth_getBalance", params: [address, "latest"] })
@@ -53,11 +72,17 @@ const WalletConnector = () => {
       });
   };
 
+  /**
+   * Reloads the page whenever a user change's the chain they are using.
+   */
   const chainChangedHandler = () => {
     window.location.reload();
   };
 
-  //adding callbacks to functions below fixes issue with depdencies in useEffect
+  /**
+   * Handles whenever a user changes their account address.
+   * Adding callbacks to function below fixes issue with depdencies in useEffect
+   */
   const accountChangedHandler = useCallback(
     (newAccount) => {
       if (newAccount.length === 0) {
@@ -83,6 +108,9 @@ const WalletConnector = () => {
     [setAccount]
   );
 
+  /**
+   * Connects the user's wallet to wallet watchoor.
+   */
   const connectWallet = async () => {
     if (typeof window.ethereum !== "undefined") {
       if (account) {
@@ -101,6 +129,9 @@ const WalletConnector = () => {
     }
   };
 
+  /**
+   * Prompts the user to change their chain because the one they're using is not supported.
+   */
   const promptUserToChangeChain = async () => {
     try {
       await window.ethereum.request({
@@ -129,6 +160,9 @@ const WalletConnector = () => {
     }
   };
 
+  /**
+   * Attempts to reconnect a previously connected wallet when the page loads.
+   */
   const connectWalletOnPageLoad = useCallback(async () => {
     if (typeof window.ethereum !== "undefined") {
       const accounts = await window.ethereum.request({

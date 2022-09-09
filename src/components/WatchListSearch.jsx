@@ -1,5 +1,9 @@
 import WatchListCSS from "../style/WatchList.module.css";
 
+/**
+ * The WatchListSearch component contains the search input field for finding addresses in a watchlist.
+ * @param { search, setSearch } props
+ */
 const WatchListSearch = ({ search, setSearch }) => {
   return (
     <form

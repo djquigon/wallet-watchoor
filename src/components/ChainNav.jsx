@@ -7,14 +7,26 @@ import { ethers } from "ethers";
 import ReactTooltip from "react-tooltip";
 import { AppContext } from "../App";
 
+/**
+ * The ChainNav component displays info about the selected chain.
+ * @param { block, setBlock } props - block state and setState
+ * @returns {object} ChainNav component as jsx
+ */
 const ChainNav = ({ block, setBlock }) => {
   const { chainID, provider, account, setAccount } = useContext(AppContext);
   const [refreshTime, setRefreshTime] = useState(null);
 
+  /**
+   * Decrements the refresh time by 1.
+   */
   const setTime = () => {
     setRefreshTime((refreshTime) => (refreshTime > 0 ? refreshTime - 1 : null));
   };
 
+  /**
+   * Converts the block creation timestamp from its original format to a more readable format.
+   * @param { * } timestamp
+   */
   const convertBlockAge = (timestamp) => {
     const convertedTimestamp = new Date(timestamp * 1000).toISOString();
 
@@ -28,6 +40,9 @@ const ChainNav = ({ block, setBlock }) => {
     return time;
   };
 
+  /**
+   * Calculates the amount of ETH burnt in fees for a block.
+   */
   const getBurntFees = () => {
     const baseFeePerGas = ethers.utils.formatEther(
       parseInt(block.baseFeePerGas._hex, 16)
@@ -36,6 +51,9 @@ const ChainNav = ({ block, setBlock }) => {
     return baseFeePerGas * gasUsed;
   };
 
+  /**
+   * Sets the current block state and resets the refresh time.
+   */
   const getBlock = useCallback(async () => {
     console.log("Getting Block...");
     const blockInfo = await provider.getBlockWithTransactions();
@@ -52,7 +70,7 @@ const ChainNav = ({ block, setBlock }) => {
       //set loading somewhere and have conditionals for elements
       const blockUpdater = setInterval(getBlock, 15000);
       const timeUpdater = setInterval(setTime, 1000);
-      /**cleanup */
+      //cleanup
       return () => {
         clearInterval(blockUpdater);
         clearInterval(timeUpdater);

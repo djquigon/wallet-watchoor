@@ -8,6 +8,15 @@ import { AiOutlineLoading } from "react-icons/ai";
 import { onValue, ref, push } from "firebase/database";
 import { AppContext } from "../App";
 
+/**
+ * The Trollbox component contains the chatbox for users to hold discussions with eachother.
+ * @param { removeItem,
+  addItem,
+  isItemStatic,
+  setItemStatic,
+  trollboxFormMessage,
+  setTrollboxFormMessage, } props
+ */
 const Trollbox = ({
   removeItem,
   addItem,
@@ -21,7 +30,9 @@ const Trollbox = ({
   const submitButton = useRef(null);
   const [gunLength, setGunLength] = useState(null);
 
-  //read
+  /**
+   * Read Message from DB
+   */
   useEffect(() => {
     onValue(ref(database, `messages/`), (snapshot) => {
       let data = snapshot.val();
@@ -33,7 +44,10 @@ const Trollbox = ({
     });
   }, [database]);
 
-  //write
+  /**
+   * Write message to DB.
+   * @param { * } e
+   */
   const saveMessage = (e) => {
     e.preventDefault();
     //if empty string or only spaces, or too long
@@ -50,6 +64,13 @@ const Trollbox = ({
     setTrollboxFormMessage("");
   };
 
+  /**
+   * Formats the txn info for displaying in the trollbox.
+   * @param { * } message
+   * @param { * } flag
+   * @param { * } fromIndexOffset
+   * @param { * } toIndexOffset
+   */
   const formatTransaction = (message, flag, fromIndexOffset, toIndexOffset) => {
     return message.substring(
       message.indexOf(flag) + fromIndexOffset,

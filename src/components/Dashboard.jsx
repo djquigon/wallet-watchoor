@@ -49,6 +49,10 @@ const defaultLayout = [
 ];
 const originalLayout = getFromLS("layout") || defaultLayout;
 
+/**
+ * Gets the last used layout saved in local storage.
+ * @param { * } key
+ */
 function getFromLS(key) {
   let ls = {};
   if (window.localStorage) {
@@ -62,6 +66,11 @@ function getFromLS(key) {
   return ls[key];
 }
 
+/**
+ * Saves the last used layout in local storage.
+ * @param { * } key
+ * @param { * } value
+ */
 function saveToLS(key, value) {
   if (window.localStorage) {
     window.localStorage.setItem(
@@ -73,6 +82,9 @@ function saveToLS(key, value) {
   }
 }
 
+/**
+ * The Dashboard component displays the Feed, Watchlist, Trollbox, and Dosbox components.
+ */
 const Dashboard = () => {
   const { database, chainID, account, setAccount } = useContext(AppContext);
   const [addresses, setAddresses] = useState([]);
@@ -82,17 +94,29 @@ const Dashboard = () => {
   );
   const [trollboxFormMessage, setTrollboxFormMessage] = useState("");
 
+  /**
+   * Detects when a layout change occurs and saves the layout to LS and sets state.
+   * @param { * } layout
+   */
   const onLayoutChange = (layout) => {
     /*eslint no-console: 0*/
     saveToLS("layout", layout);
     setLayout(layout);
   };
 
+  /**
+   * Removes a component from the dashboard layout.
+   * @param { * } window
+   */
   const removeItem = (window) => {
     console.log("Removing " + window);
     setLayout(layout.filter((item) => item.i !== window));
   };
 
+  /**
+   * Adds a component to the dashboard layout.
+   * @param { * } newItem
+   */
   const addItem = (newItem) => {
     const itemExists = layout.filter((item) => item.i === newItem).length > 0;
     if (itemExists) {
@@ -146,6 +170,10 @@ const Dashboard = () => {
     }
   };
 
+  /**
+   * Sets the selected component to static and immovable.
+   * @param { * } window
+   */
   const setItemStatic = (window) => {
     console.log("Setting static:  " + window);
     console.log(layout);
@@ -155,6 +183,10 @@ const Dashboard = () => {
     setLayout(newLayout);
   };
 
+  /**
+   * Detects if a component is static or unstatic.
+   * @param { * } window
+   */
   const isItemStatic = (window) => {
     return layout.some((item) => item.i === window && item.static === true);
   };

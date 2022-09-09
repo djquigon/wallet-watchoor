@@ -9,6 +9,16 @@ import { AiOutlineLoading } from "react-icons/ai";
 import { onValue, set, ref, update, remove } from "firebase/database";
 import { AppContext } from "../App";
 
+/**
+ * The WatchList component contains all the relevant info for addresses a user has added to 
+ * their watchlist along with functionality for searching current addresses and adding new addresses.
+ * @param { addresses,
+  setAddresses,
+  removeItem,
+  addItem,
+  isItemStatic,
+  setItemStatic, } props
+ */
 const WatchList = ({
   addresses,
   setAddresses,
@@ -24,6 +34,11 @@ const WatchList = ({
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  /**
+   * Adds a new address to a user's watchlist.
+   * @param { * } address
+   * @param { * } addressInfo
+   */
   const addWatchListAddress = async (address, addressInfo) => {
     //update state
     const listAddresses = [...addresses, { ...addressInfo, address: address }];
@@ -36,6 +51,10 @@ const WatchList = ({
     );
   };
 
+  /**
+   * Handler for when the user changes the alert status for a watched address.
+   * @param { * } addressToChange
+   */
   const handleChangeAlert = async (addressToChange) => {
     //update state
     const prevAlerts = addresses.find(
@@ -56,6 +75,10 @@ const WatchList = ({
     );
   };
 
+  /**
+   * Handler for when a user deletes an address from their watchlist.
+   * @param { * } addressToDelete
+   */
   const handleDelete = async (addressToDelete) => {
     //set state
     const listAddresses = addresses.filter(
@@ -69,6 +92,11 @@ const WatchList = ({
     );
   };
 
+  /**
+   * Gets the address info for a newly added address.
+   * @param { * } address
+   * @param { * } ens
+   */
   const getAddressInfo = async (address, ens) => {
     let resolver = null;
     if (ens) {
@@ -97,7 +125,10 @@ const WatchList = ({
     return addressInfo;
   };
 
-  //helper func to check if address is already in list
+  /**
+   * Helper function to check if address is already in list.
+   * @param { * } newAddress
+   */
   const addressExistsinList = (newAddress) => {
     if (
       addresses.findIndex(
@@ -110,6 +141,10 @@ const WatchList = ({
     }
   };
 
+  /**
+   * Handles checks for adding an address to a user's watchlist.
+   * @param { * } e
+   */
   const handleWatchListAdd = async (e) => {
     e.preventDefault();
     if (!newAddress) {
@@ -162,7 +197,9 @@ const WatchList = ({
       return a < b ? 1 : a > b ? -1 : 0;
     });
 
-  /**An empty array makes useEffect run at every reload, not every render */
+  /**
+   * An empty array makes useEffect run at every reload, not every render
+   */
   useEffect(() => {
     const fetchAddresses = async () => {
       try {

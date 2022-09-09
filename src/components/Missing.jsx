@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 
+/**
+ * The Missing component is displayed if the user visits a page that doesn't exist.
+ */
 const Missing = () => {
   return (
     <main>

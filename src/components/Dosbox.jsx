@@ -8,13 +8,24 @@ const SABA_URL = "https://loganscheid.dev/assets/games/SABA.zip";
 const MSPAC_URL = "https://loganscheid.dev/assets/games/MSPAC.zip";
 const CHESS_URL = "https://loganscheid.dev/assets/games/CHESS.zip";
 
+/**
+ * The Dosbox component works as a wrapper for the DosPlayer component.
+ * @param { removeItem, addItem, isItemStatic, setItemStatic } props
+ */
 const Dosbox = ({ removeItem, addItem, isItemStatic, setItemStatic }) => {
   const [game, setGame] = useState(null);
 
+  /**
+   * Closes the currently opened game by setting game state to null.
+   */
   const exitGame = () => {
     setGame(null);
   };
 
+  /**
+   * Starts the selected game by setting game state to gameName.
+   * @param { * } gameName
+   */
   const startGame = (gameName) => {
     setGame(gameName);
   };

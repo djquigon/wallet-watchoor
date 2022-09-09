@@ -2,6 +2,14 @@ import { useState } from "react";
 import { useAsyncDebounce } from "react-table";
 import FeedCSS from "../style/Feed.module.css";
 
+/**
+ * The FeedGlobaFilter component contains the search input field and 
+ * keeps track of the current filter itself.
+ * @param { filter,
+  setFilter,
+  currPageIndex,
+  setCurrPageIndex, } props
+ */
 const FeedGlobalFilter = ({
   filter,
   setFilter,

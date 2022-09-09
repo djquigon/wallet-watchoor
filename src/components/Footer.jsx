@@ -1,5 +1,8 @@
 import "../style/Footer.module.css";
 
+/**
+ * The Footer component contains links for different related websites.
+ */
 const Footer = () => {
   const today = new Date();
   return (

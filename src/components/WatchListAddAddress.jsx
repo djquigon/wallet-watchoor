@@ -1,6 +1,14 @@
 import { FaUserPlus } from "react-icons/fa";
 import WatchListCSS from "../style/WatchList.module.css";
 
+/**
+ * The WatchListAddAddresses component contains the form and input field for adding the address.
+ * @param { newAddress,
+  setNewAddress,
+  newAlias,
+  setNewAlias,
+  handleWatchListAdd, } props
+ */
 const WatchListAddAddress = ({
   newAddress,
   setNewAddress,

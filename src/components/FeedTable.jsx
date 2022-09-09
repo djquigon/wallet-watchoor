@@ -23,6 +23,11 @@ import ClipboardJS from "clipboard";
 import ReactTooltip from "react-tooltip";
 import axios from "axios";
 
+/**
+ * Retrieves the logo for a token from the coingecko api.
+ * @param { * } img
+ * @param { * } contractAddress
+ */
 const getLogoFromCoinGecko = async (img, contractAddress) => {
   console.log("getLogoFromCoinGecko...");
   try {
@@ -38,6 +43,18 @@ const getLogoFromCoinGecko = async (img, contractAddress) => {
   }
 };
 
+/**
+ * The FeedTable component
+ * @param { isPaused,
+  setIsPaused,
+  isMuted,
+  setIsMuted,
+  feedTransactions,
+  setFeedTransactions,
+  currBlockNum,
+  prevBlockNum,
+  setTrollboxFormMessage, } props
+ */
 const FeedTable = ({
   isPaused,
   setIsPaused,
@@ -49,6 +66,9 @@ const FeedTable = ({
   prevBlockNum,
   setTrollboxFormMessage,
 }) => {
+  /**
+   * The columns used when creating the react-table.
+   */
   const COLUMNS = [
     {
       Header: "From",
@@ -451,9 +471,14 @@ const FeedTable = ({
   //placing data inside here fixed handleDelete issue, fixing the warning here creates a chain of other issues to fix, ignoring it...
   const columns = useMemo(() => COLUMNS, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  /**Ensures pageIndex isnt reset every time feed is updated */
+  /**
+   * Ensures pageIndex isnt reset every time feed is updated
+   */
   const [currPageIndex, setCurrPageIndex] = useState(0);
 
+  /**
+   * Creat the react-table object using data and columns.
+   */
   const {
     getTableProps,
     getTableBodyProps,

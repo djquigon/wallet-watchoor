@@ -13,6 +13,10 @@ import WatchListCSS from "../style/WatchList.module.css";
 import makeBlockie from "ethereum-blockies-base64";
 import ReactTooltip from "react-tooltip";
 
+/**
+ * The WatchListAddress component contains the individual list item where an address and its info are displayed.
+ * @param { address, handleChangeAlert, handleDelete } props
+ */
 const WatchListAddress = ({ address, handleChangeAlert, handleDelete }) => {
   return (
     /**Keys are required for react list addresses */

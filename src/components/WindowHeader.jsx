@@ -7,6 +7,14 @@ import { IoMdChatboxes } from "react-icons/io";
 import { RiUserSearchFill, RiContactsBookFill } from "react-icons/ri";
 import ReactTooltip from "react-tooltip";
 
+/**
+ * The WindowHeader component contains the title of the window (Feed, Trollbox, etc.) as well as the buttons for closing and making a window static.
+ * @param { window,
+  removeItem,
+  addItem,
+  isItemStatic,
+  setItemStatic, } props
+ */
 const WindowHeader = ({
   window,
   removeItem,

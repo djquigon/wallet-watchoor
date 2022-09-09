@@ -3,6 +3,9 @@ import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
 export const ThemeContext = createContext(null);
 
+/**
+ * The layout component contains the App component and checks if the user is on a mobile device.
+ */
 const Layout = () => {
   window.mobileCheck = function () {
     let check = false;

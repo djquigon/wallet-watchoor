@@ -13,6 +13,9 @@ import { AppContext } from "../App";
 // import lightHeader from "../assets/light_header.png";
 // import darkHeader from "../assets/dark_header.png";
 
+/**
+ * The Home component contains the landing page describing wallet watchoor and relavant links.
+ */
 const Home = () => {
   const { account, setAccount } = useContext(AppContext);
   const theme = useContext(ThemeContext);
