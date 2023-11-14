@@ -5,4 +5,4 @@ Wallet Watchoor allows you to track any address on chain, and receive audio aler
 
 ## Where can I find out more? 
 
-Head to [walletwatchoor.net](https://walletwatchoor.net) and see the learn more tab for an in depth handobook covering how to use the app and its various features.
+Head to [walletwatchoor.net](https://walletwatchoor.net) and see the learn more tab for an in depth handbook covering how to use the app and its various features.
